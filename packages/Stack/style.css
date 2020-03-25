@@ -1,0 +1,4 @@
+.gp-stack {
+    display: grid;
+    grid-row-gap: var(--space-1x);
+}

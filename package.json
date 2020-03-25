@@ -1,0 +1,28 @@
+{
+  "name": "@graph-paper/alpha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook"
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@storybook/addon-knobs": "^5.3.17",
+    "@storybook/addon-storysource": "^5.3.17",
+    "@storybook/svelte": "^5.3.17",
+    "babel-loader": "^8.1.0",
+    "lerna": "^3.20.2",
+    "svelte-loader": "^2.13.6"
+  },
+  "dependencies": {
+    "@graph-paper/core": "0.0.0",
+    "@graph-paper/Button": "0.0.0",
+    "@graph-paper/DataGraphic": "0.0.0",
+    "@graph-paper/elements": "0.0.0",
+    "@graph-paper/guides": "0.0.0"
+  }
+}

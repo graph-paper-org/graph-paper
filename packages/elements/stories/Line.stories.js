@@ -1,0 +1,25 @@
+import BasicLine from './Line/Basic.svelte';
+import Line01Story from './Line/Line01.svelte';
+import Line03Story from './Line/Line03.svelte';
+import { withKnobs, select, number } from '@storybook/addon-knobs';
+
+export default {
+    title: 'Line',
+    decorators: [withKnobs],
+};
+
+export const Basic = () => ({
+    Component: BasicLine,
+    props: {
+        points: number('points', 100),
+        curve: select('curve', ['curveMonotoneX', 'curveStep', 'curveLinear', 'curveNatural'])
+    }
+})
+
+export const Line01 = () => ({
+    Component: Line01Story
+});
+
+export const Line03 = () => ({
+    Component: Line03Story
+})
