@@ -17,12 +17,5 @@
     "babel-loader": "^8.1.0",
     "lerna": "^3.20.2",
     "svelte-loader": "^2.13.6"
-  },
-  "dependencies": {
-    "@graph-paper/core": "0.0.0",
-    "@graph-paper/Button": "0.0.0",
-    "@graph-paper/DataGraphic": "0.0.0",
-    "@graph-paper/elements": "0.0.0",
-    "@graph-paper/guides": "0.0.0"
   }
 }
