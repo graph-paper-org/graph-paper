@@ -1,6 +1,6 @@
 {
-  "name": "@graph-paper/alpha",
-  "version": "1.0.0",
+  "name": "@graph-paper/project",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
