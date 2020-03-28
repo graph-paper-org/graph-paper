@@ -1,6 +1,6 @@
 {
   "name": "@graph-paper/button",
-  "version": "0.0.0-alpha.2",
+  "version": "0.0.0-alpha.3",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "hamilton <hamilton.ulmer@gmail.com>",
   "homepage": "",
@@ -16,7 +16,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@graph-paper/core": "^0.0.0-alpha.2"
+    "@graph-paper/core": "^0.0.0-alpha.3"
   },
   "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48"
 }
