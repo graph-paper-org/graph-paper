@@ -24,7 +24,8 @@
     "d3-time-format": "^2.2.3",
     "@graph-paper/core": "^0.0.0-alpha.3",
     "@graph-paper/datagraphic": "^0.0.0-alpha.3",
-    "@graph-paper/guides": "^0.0.0-alpha.3"
+    "@graph-paper/guides": "^0.0.0-alpha.3",
+    "@graph-paper/button": "^0.0.0-alpha.3"
   },
   "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48"
 }

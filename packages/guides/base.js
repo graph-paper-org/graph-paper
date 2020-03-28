@@ -9,8 +9,15 @@ import TopAxis from './TopAxis.svelte';
 import MarginText from './MarginText.svelte';
 import Marker from './Marker.svelte';
 
-export default {
-    Axis, AxisLabel, AxisLine, AxisTick,
-    BottomAxis, LeftAxis, RightAxis, TopAxis,
-    MarginText, Marker
+export {
+  Axis,
+  AxisLabel,
+  AxisLine,
+  AxisTick,
+  BottomAxis,
+  LeftAxis,
+  RightAxis,
+  TopAxis,
+  MarginText,
+  Marker,
 };

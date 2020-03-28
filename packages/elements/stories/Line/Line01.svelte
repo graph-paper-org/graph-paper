@@ -7,13 +7,12 @@ import { fly } from 'svelte/transition';
 
 import DataGraphic from '@graph-paper/datagraphic';
 
-import { MarginText, LeftAxis, BottomAxis } from '@graph-paper/guides/';
+import { MarginText, LeftAxis, BottomAxis } from '@graph-paper/guides';
 
-
+import Button from '@graph-paper/button';
 import Point from '../../Point.svelte';
 import Line from '../../Line.svelte';
 
-import Button from '../../../Button';
 
 const fmt = (v) => (v ? format(',.2f')(v) : '');
 const perc = format('.2p');
