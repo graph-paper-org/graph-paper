@@ -1,5 +1,5 @@
 {
-  "name": "@graph-paper/Stack",
+  "name": "@graph-paper/stack",
   "version": "0.0.0-alpha.2",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "hamilton <hamilton.ulmer@gmail.com>",
@@ -14,5 +14,6 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
-  }
+  },
+  "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48"
 }

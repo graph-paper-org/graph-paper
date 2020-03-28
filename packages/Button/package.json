@@ -1,5 +1,5 @@
 {
-  "name": "@graph-paper/Button",
+  "name": "@graph-paper/button",
   "version": "0.0.0-alpha.2",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "hamilton <hamilton.ulmer@gmail.com>",
@@ -17,5 +17,6 @@
   },
   "dependencies": {
     "@graph-paper/core": "^0.0.0-alpha.2"
-  }
+  },
+  "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48"
 }
