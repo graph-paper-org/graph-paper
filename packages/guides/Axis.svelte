@@ -8,10 +8,10 @@
 //   the numeric values, placement, etc. for each. This would let the implementer
 //   do whatever they want without having to make the same tedious calculations.
 
-import { tweened } from 'svelte/motion';
+import { tweened } from 'svelte/motion'; // eslint-disable-line import/no-extraneous-dependencies
 
-import { getContext, setContext } from 'svelte';
-import { fade } from 'svelte/transition';
+import { getContext, setContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { fade } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
 
 import AxisLabel from './AxisLabel.svelte';
 import AxisLine from './AxisLine.svelte';
@@ -44,7 +44,7 @@ if (side === 'left' || side === 'right') {
   maxDim = 'top';
 }
 
-if (side == 'top' || side === 'bottom') {
+if (side === 'top' || side === 'bottom') {
   minDim = 'left';
   maxDim = 'right';
 }
@@ -52,7 +52,7 @@ if (side == 'top' || side === 'bottom') {
 
 export let obverseDimension = getContext(`${obverse}Plot`);
 
-//minimumDimension and maximumDimension represents the
+// minimumDimension and maximumDimension represents the
 // max and min dimensions (eg the ends of the AxisLine)
 export let minimumDimension = getContext(`${minDim}Plot`);
 export let maximumDimension = getContext(`${maxDim}Plot`);
@@ -83,7 +83,7 @@ export let tickCount = 5;
 function orderMagnitude(n) {
   let order = Math.floor(Math.log(n) / Math.LN10
                        + 0.000000001); // because float math sucks like that
-  return Math.pow(10, order);
+  return 10 ** order;
 }
 
 function symLogTicks(topVal) {

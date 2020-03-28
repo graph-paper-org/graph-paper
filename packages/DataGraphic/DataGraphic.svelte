@@ -5,7 +5,6 @@ import {
   scalePoint, scaleLinear, scaleSymlog, scaleTime, scaleBand,
 } from 'd3-scale';
 
-export let data = getContext('data');
 export let svg;
 // key is used to uniquely identify a DataGraphic.
 // users can supply their own, but one must exist.

@@ -5,17 +5,33 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "MPL-2.0",
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "@storybook/addon-knobs": "^5.3.17",
     "@storybook/addon-storysource": "^5.3.17",
     "@storybook/svelte": "^5.3.17",
+    "babel-jest": "^25.2.3",
     "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "jest": "^25.2.3",
+    "jest-cli": "^25.2.3",
+    "jest-transform-svelte": "^2.1.1",
     "lerna": "^3.20.2",
+    "prettier": "^2.0.2",
+    "svelte": "^3.20.1",
     "svelte-loader": "^2.13.6"
   }
 }

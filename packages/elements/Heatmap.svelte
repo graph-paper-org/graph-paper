@@ -1,8 +1,8 @@
 <script>
-import { writable } from 'svelte/store';
-import { getContext, onMount } from 'svelte';
-import { fade } from 'svelte/transition';
-import { cubicOut as easing } from 'svelte/easing';
+import { writable } from 'svelte/store'; // eslint-disable-line import/no-extraneous-dependencies
+import { getContext, onMount } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { fade } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
+import { cubicOut as easing } from 'svelte/easing'; // eslint-disable-line import/no-extraneous-dependencies
 import { interpolateRdPu } from 'd3-scale-chromatic';
 import { scaleLog, scaleLinear } from 'd3-scale';
 

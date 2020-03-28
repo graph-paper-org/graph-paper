@@ -1,5 +1,5 @@
 <script>
-import { getContext } from 'svelte';
+import { getContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
 
 export let dashArray;
 export let mainScale = getContext('mainScale');

@@ -257,7 +257,7 @@ html, body {
 
 body {
     font-size: var(--root-font-size);
-    background-color: var(--bg-gray-01);
+    /* background-color: var(--bg-gray-01); */
 	color: #333;
 	margin: 0;
     box-sizing: border-box;

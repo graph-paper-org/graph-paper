@@ -1,5 +1,5 @@
 <script>
-import { getContext } from 'svelte';
+import { getContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
 
 export let mainScale = getContext('mainScale');
 export let side = getContext('side');
@@ -25,8 +25,8 @@ let sideOffset = (side === 'left' || side === 'top') ? -offset : offset;
 
 <line 
 {...{
-  [`${secondaryDim}1`]: $minimumDimension, //$mainScale(start),
-  [`${secondaryDim}2`]: $maximumDimension, //$mainScale(end) + step,
+  [`${secondaryDim}1`]: $minimumDimension, // $mainScale(start),
+  [`${secondaryDim}2`]: $maximumDimension, // $mainScale(end) + step,
   [`${mainDim}1`]: $bodyDimension + sideOffset,
   [`${mainDim}2`]: $bodyDimension + sideOffset,
 }}

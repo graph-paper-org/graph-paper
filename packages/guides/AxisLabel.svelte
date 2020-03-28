@@ -1,6 +1,6 @@
 <script>
 
-import { getContext, onMount } from 'svelte';
+import { getContext, onMount } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
 
 export let side = getContext('side');
 export let mainDim = getContext('mainDim');

@@ -1,7 +1,7 @@
 <script>
-import { getContext } from 'svelte';
-import { writable } from 'svelte/store';
-import { fade } from 'svelte/transition';
+import { getContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { writable } from 'svelte/store'; // eslint-disable-line import/no-extraneous-dependencies
+import { fade } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
 import * as SHAPE from 'd3-shape';
 
 export let xScale = getContext('xScale') || writable((v) => v);
@@ -23,7 +23,6 @@ $: areaGenerator = SHAPE.area()
   .x((d) => (useXScale ? $xScale(d[xAccessor]) : d[xAccessor]))
   .y((d) => (useYScale ? $yScale(d[yMinAccessor]) : d[yMinAccessor]))
   .y1((d) => (useYScale ? $yScale(d[yMaxAccessor]) : d[yMaxAccessor]))
-  // .defined(d => d[xAccessor] >= $xScale.domain()[0] && d[xAccessor] <= $xScale.domain()[1])
   .curve(curveFunction);
 
 </script>

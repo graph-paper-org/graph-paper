@@ -3,11 +3,11 @@ let orders = {};
 </script>
 
 <script>
-import {
-  getContext, onMount, onDestroy,
-} from 'svelte';
-import { cubicOut as easing } from 'svelte/easing';
-import { tweened } from 'svelte/motion';
+import { // eslint-disable-line import/no-extraneous-dependencies
+  getContext, onMount, onDestroy, // eslint-disable-line import/no-extraneous-dependencies
+} from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { cubicOut as easing } from 'svelte/easing'; // eslint-disable-line import/no-extraneous-dependencies
+import { tweened } from 'svelte/motion'; // eslint-disable-line import/no-extraneous-dependencies
 import { tooltip } from '../core/actions/tooltip';
 
 

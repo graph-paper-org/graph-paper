@@ -1,5 +1,6 @@
 <script>
 import { setContext } from 'svelte';
+
 export let justify = 'flex-start';
 export let level;
 export let compact;
@@ -22,6 +23,7 @@ div :global(button:not(:first-child):not(:last-child)) {
   border-radius: 0px;
 }
 
+/* FIXME: this should only apply to .gp-button */
 div :global(button:first-child) {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;

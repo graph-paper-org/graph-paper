@@ -1,7 +1,7 @@
 <script>
-import { getContext } from 'svelte';
-import { writable } from 'svelte/store';
-import { fly } from 'svelte/transition';
+import { getContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { writable } from 'svelte/store'; // eslint-disable-line import/no-extraneous-dependencies
+import { fly } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
 
 const defaults = getContext('defaults');
 

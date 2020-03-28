@@ -5,13 +5,13 @@ import { derived } from 'svelte/store';
 import { format } from 'd3-format';
 import { fly } from 'svelte/transition';
 
-import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
-import Line from '../../Line.svelte';
-import Point from '../../Point.svelte';
+import DataGraphic from '@graph-paper/datagraphic';
 
-import MarginText from '../../../guides/MarginText.svelte';
-import LeftAxis from '../../../guides/LeftAxis.svelte';
-import BottomAxis from '../../../guides/BottomAxis.svelte';
+import { MarginText, LeftAxis, BottomAxis } from '@graph-paper/guides/';
+
+
+import Point from '../../Point.svelte';
+import Line from '../../Line.svelte';
 
 import Button from '../../../Button';
 
