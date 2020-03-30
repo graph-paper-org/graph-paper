@@ -3,9 +3,13 @@
 import { setContext, getContext, onMount } from 'svelte';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, derived } from 'svelte/store';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { tweened } from 'svelte/motion';
 import {
   scalePoint, scaleLinear, scaleSymlog, scaleTime, scaleBand,
 } from 'd3-scale';
+
+import { getDomainFromExtents } from './extents';
 
 export let svg;
 // key is used to uniquely identify a DataGraphic.
@@ -19,21 +23,14 @@ export let key = Math
 
 export let xDomainMin;
 export let xDomainMax;
-export let xDomain;
-// what I want ot do is
-// if <DG xdomain={[0, 10]} /> don't use auto values.
-// if <DG xMin={20} /> use only xMin value. nd so on and so forth.
-// if <DG /> then use whatever the extents are here.
+export let xDomain = [xDomainMin, xDomainMax];
+export let xDomainTween = { duration: 0 };
 
-// let internal__xDomain;
-// const xExtents = writable({});
-// setContext('gp:datagraphic:xExtents', xExtents);
-// $: plotExtentts = getDomainFromExtents($xExtents);
-// $:
+export let yDomainMin;
+export let yDomainMax;
+export let yDomain = [yDomainMin, yDomainMax];
+export let yDomainTween = { duration: 0 };
 
-// let internalXDomain = writable(xDomain);
-
-export let yDomain;
 export let xType = 'scalePoint';
 export let yType = 'scalePoint';
 
@@ -183,15 +180,58 @@ function createYPointScale(values) {
 
 // /////////////////////////////////////////////////////////////////////////
 
-export let xScaleStore = writable(createXPointScale(xDomain));
-export let yScaleStore = writable(createYPointScale(yDomain));
+// what I want ot do is
+// if <DG xdomain={[0, 10]} /> don't use auto values.
+// if <DG xMin={20} /> use only xMin value. nd so on and so forth.
+// if <DG /> then use whatever the extents are here.
+
+function defined(...vars) {
+  let i = 0;
+  while (i < vars.length) {
+    const v = vars[i];
+    if (v !== undefined) return v;
+    i += 1;
+  }
+  return undefined;
+}
+
+function initializeDomain(scaleType) {
+  if (scaleType === 'time') return [new Date(), new Date()];
+  return [0, 0];
+}
+
+let internalXDomain = tweened(initializeDomain(xType), xDomainTween);
+let internalYDomain = tweened(initializeDomain(yType), yDomainTween);
+
+const xExtents = writable({});
+const yExtents = writable({});
+
+// const xPlotExtents = tweened([0, 0], xDomainTween);
+// const yPlotExtents = tweened([0, 0], xDomainTween);
+$: xPlotExtents = getDomainFromExtents($xExtents);
+$: yPlotExtents = getDomainFromExtents($yExtents);
+
+$: $internalXDomain = [
+  defined(xDomainMin, xDomain[0], xPlotExtents[0]),
+  defined(xDomainMax, xDomain[1], xPlotExtents[1]),
+];
+$: $internalYDomain = [
+  defined(yDomainMin, yDomain[0], yPlotExtents[0]),
+  defined(yDomainMax, yDomain[1], yPlotExtents[1]),
+];
+
+setContext('gp:datagraphic:xExtents', xExtents);
+setContext('gp:datagraphic:yExtents', yExtents);
+
+export let xScaleStore = writable(createXPointScale($internalXDomain));
+export let yScaleStore = writable(createYPointScale($internalYDomain));
 
 // update the scale stores if the domain changes.
 // FIXME: refactor these functions to take range arguments as well,
 // and xPadding. etc. etc. – this should be completely reactive
 // w/ all relevant scale arguments.
-$: $xScaleStore = createXPointScale(xDomain);
-$: $yScaleStore = createYPointScale(yDomain);
+$: $xScaleStore = createXPointScale($internalXDomain);
+$: $yScaleStore = createYPointScale($internalYDomain);
 
 export let xScale = $xScaleStore;
 export let yScale = $yScaleStore;

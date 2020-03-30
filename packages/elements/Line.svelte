@@ -4,6 +4,7 @@ import { writable } from 'svelte/store'; // eslint-disable-line import/no-extran
 import { draw, fade } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
 import * as SHAPE from 'd3-shape';
 
+import { updateExtents } from '@graph-paper/datagraphic/extents';
 
 export let xScale = getContext('xScale') || writable((v) => v);
 export let yScale = getContext('yScale') || writable((v) => v);
@@ -18,9 +19,21 @@ export let strokeWidth = 1;
 export let lineDrawAnimation = { duration: 0 };
 export let curve = 'curveMonotoneX';
 export let area = false;
+
+const xExtents = getContext('gp:datagraphic:xExtents');
+const yExtents = getContext('gp:datagraphic:yExtents');
+
+export const key = Math.random()
+  .toString(36).substring(2, 15)
+  + Math.random().toString(36).substring(2, 15);
+
 const curveFunction = SHAPE[curve];
 let lineGenerator;
 let areaGenerator;
+
+$: updateExtents(xExtents, key, data, xAccessor);
+$: updateExtents(yExtents, key, data, yAccessor);
+
 $: lineGenerator = SHAPE.line()
   .x((d) => (useXScale ? $xScale(d[xAccessor]) : d[xAccessor]))
   .y((d) => (useYScale ? $yScale(d[yAccessor]) : d[yAccessor]))

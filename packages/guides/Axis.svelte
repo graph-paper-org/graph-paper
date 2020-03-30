@@ -173,19 +173,17 @@ setInterval(() => {
 }, 1000);
 </script>
 
-<!-- <g in:fade={fadeValues} class="{side}-axis"> -->
   <g in:fade={fadeValues} class="{side}-axis">
   
   <slot name="ticks" ticks={TICKS}>
-    {#each TICKS as tick, i (tick)}
-      {#if showTicks}
-        <AxisTick dashArray={tickDashArray} placement={tick} />
-        {#if lineStyle === 'long'}
-          <!-- add long ticks as well -->
-          <AxisTick dashArray={tickDashArray} placement={tick} tickDirection={-1} length={$bodyDimension - $obverseDimension} />
-        {/if}
-      {/if}
-    {/each}
+    {#if showTicks}
+      {#each TICKS as tick, i (tick)}
+          <AxisTick dashArray={tickDashArray} placement={tick} />
+          {#if lineStyle === 'long'}
+            <AxisTick dashArray={tickDashArray} placement={tick} tickDirection={-1} length={$bodyDimension - $obverseDimension} />
+          {/if}
+      {/each}
+    {/if}
   </slot>
 
   <slot name='border'>
@@ -195,7 +193,7 @@ setInterval(() => {
   </slot>
 
   <slot name="labels" tickFormatter={tickFormatter} ticks={TICKS}>
-      {#each TICKS as tick, i (tick)}
+      {#each TICKS as tick, i}
         {#if showLabels}
           <AxisLabel rotate={rotate} placement={tick} align={align}>
             {tickFormatter ? tickFormatter(tick) : tick}

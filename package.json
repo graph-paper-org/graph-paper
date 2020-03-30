@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest test --no-cache",
-    "storybook": "start-storybook",
+    "storybook": "start-storybook -s ./public -p 6006",
     "format": "prettier --write ."
   },
   "author": "",

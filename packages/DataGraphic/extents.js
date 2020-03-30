@@ -1,3 +1,4 @@
+import { extent } from 'd3-array';
 /*
 extents
 -------
@@ -17,13 +18,11 @@ export function updateExtents(store, key, data, accessor = undefined) {
   if (!('set' in store && 'subscribe' in store && 'update' in store)) throw Error('must pass in a svelte store w/ a subscribe, update, and set method');
   store.update((storeValue) => {
     if (!(typeof storeValue === 'object' && storeValue !== null)) throw Error('store value must be an object');
+    const [min, max] = extent(dArray);
     return {
       ...storeValue,
       [key]:
-        {
-          max: Math.max(...dArray),
-          min: Math.min(...dArray),
-        },
+        { max, min },
     };
   });
 }
