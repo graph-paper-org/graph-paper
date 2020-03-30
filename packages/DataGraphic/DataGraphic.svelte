@@ -1,5 +1,7 @@
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { setContext, getContext, onMount } from 'svelte';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, derived } from 'svelte/store';
 import {
   scalePoint, scaleLinear, scaleSymlog, scaleTime, scaleBand,
@@ -17,7 +19,17 @@ export let key = Math
 
 export let xDomainMin;
 export let xDomainMax;
-export let xDomain = [xDomainMin, xDomainMax];
+export let xDomain;
+// what I want ot do is
+// if <DG xdomain={[0, 10]} /> don't use auto values.
+// if <DG xMin={20} /> use only xMin value. nd so on and so forth.
+// if <DG /> then use whatever the extents are here.
+
+// let internal__xDomain;
+// const xExtents = writable({});
+// setContext('gp:datagraphic:xExtents', xExtents);
+// $: plotExtentts = getDomainFromExtents($xExtents);
+// $:
 
 // let internalXDomain = writable(xDomain);
 
@@ -96,8 +108,6 @@ setContext('margins', margins);
 
 setContext('key', key);
 
-export let dataGraphic = writable({});
-
 export let width = getContext('width') || 800;
 export let height = getContext('height') || 300;
 
@@ -129,9 +139,6 @@ setContext('rightPlot', rightPlot);
 setContext('topPlot', topPlot);
 setContext('bottomPlot', bottomPlot);
 
-// const xScaleType = xType === 'scalePoint' ? scalePoint : scaleLinear;
-// const yScaleType = yType === 'scalePoint' ? scalePoint : scaleLinear;
-
 function getScaleFunction(type) {
   if (type === 'time') return scaleTime;
   if (type === 'scalePoint') return scalePoint;
@@ -141,8 +148,7 @@ function getScaleFunction(type) {
   return scalePoint;
 }
 
-// function positionScale({domain, range, scaleType, padding = .5})
-
+// FIXME: refactor.
 function createXPointScale(values) {
   const scaleFunction = getScaleFunction(xType);
   let scale = scaleFunction()
@@ -159,6 +165,7 @@ function createXPointScale(values) {
   return scale;
 }
 
+// FIXME: refactor.
 function createYPointScale(values) {
   // const scaleFunction = yType === 'scalePoint' ? scalePoint : scaleLinear;
   const scaleFunction = getScaleFunction(yType);
@@ -264,18 +271,7 @@ function createMouseStore(svgElem) {
   };
 }
 
-// function initiateRollovers(parentSVG) {
-//   // if (parentSVG === undefined) return;
-//   rollover = createMouseStore(parentSVG);
-// }
-
-// use bind:rollover to get the current x / y (in domain-land) and px / py (range-land)
 export let rollover = createMouseStore(svg);
-// let onMousemove = (e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); };
-// let onMouseleave = (e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); };
-// $: onMousemove = (e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); };
-// $: onMouseleave = (e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); };
-
 
 export let dataGraphicMounted = false;
 
@@ -313,7 +309,7 @@ $: if (dataGraphicMounted) {
   <svg
     style="width: {$graphicWidth}px; height: {$graphicHeight}px;"
     bind:this={svg}
-    shape-rendering="geometricPrecision"
+    shape-rendering="auto"
     viewbox='0 0 {$graphicWidth} {$graphicHeight}'
     on:mousemove={(e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); }}
     on:mouseleave={(e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); }}
