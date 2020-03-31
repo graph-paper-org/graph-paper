@@ -1,4 +1,4 @@
-import { extent } from 'd3-array';
+import { extent, min, max } from 'd3-array';
 /*
 extents
 -------
@@ -37,7 +37,7 @@ export function removeExtent(store, k) {
 }
 
 export function getDomainFromExtents(storeValue) {
-  const min = Math.min(...Object.values(storeValue).map((b) => b.min)) || Infinity;
-  const max = Math.max(...Object.values(storeValue).map((b) => b.max)) || -Infinity;
-  return [min, max];
+  const vMin = min([...Object.values(storeValue).map((b) => b.min), Infinity]);
+  const vMax = max([...Object.values(storeValue).map((b) => b.max), -Infinity]);
+  return [vMin, vMax];
 }

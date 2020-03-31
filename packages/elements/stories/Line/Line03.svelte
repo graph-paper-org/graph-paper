@@ -2,14 +2,14 @@
 import { format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
 
-import { tweened } from 'svelte/motion';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing } from 'svelte/easing';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { fly, fade } from 'svelte/transition';
 
 import DataGraphic from '../../../DataGraphic';
 import {
-  Line, CanvasLine, LineBand, Point,
+  Line, LineBand, Point,
 } from '../..';
 
 
@@ -109,15 +109,6 @@ const get = (d, value, dom) => {
   return 0;
 };
 
-const getWindowVals = (d, value) => {
-  const w = window1D({
-    value, data: d, key: 'date', domain: xDomain,
-  });
-  if (w.current) return w;
-  return { next: {}, current: {}, previous: {} };
-};
-
-
 const graphs = [
   {
     name: 'DAU', key: 'dau', type: 'count', yMax: auMax, axisFormat: format('~s'), hoverFormat: format('~s'),
@@ -177,19 +168,9 @@ const legendData = Array.from({ length: 20 }).map((_, i) => {
   };
 });
 
-function onlyMondays(d) {
-  return d.filter((di) => di.date.getDay() === 0);
-}
 
 let compareStart = {};
 let compareEnd = {};
-
-$: if (isComparing) {
-  compareEnd = hoverPt;
-} else {
-  compareEnd = {};
-}
-
 let isComparing = false;
 
 function keyDown(evt) {
@@ -199,6 +180,12 @@ function keyDown(evt) {
 
 function keyUp() {
   if (isComparing) isComparing = false;
+}
+
+$: if (isComparing) {
+  compareEnd = hoverPt;
+} else {
+  compareEnd = {};
 }
 
 $: hoverPt = get(metricData, (hoverValue.x && hoverValue.body) ? hoverValue.x
