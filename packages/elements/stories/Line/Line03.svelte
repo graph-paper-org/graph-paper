@@ -273,7 +273,7 @@ h2 {
           left={36}
           right={24}
           xDomain={xDomain}
-          xDomainTween={{ duration: 200 }}
+          xDomainTween={{ duration: 150 }}
           yDomain={[0, yMax]}
           xType=time
           yType=linear

@@ -175,16 +175,16 @@ setInterval(() => {
 
   <g in:fade={fadeValues} class="{side}-axis">
   
-  <slot name="ticks" ticks={TICKS}>
     {#if showTicks}
-      {#each TICKS as tick, i (tick)}
-          <AxisTick dashArray={tickDashArray} placement={tick} />
-          {#if lineStyle === 'long'}
-            <AxisTick dashArray={tickDashArray} placement={tick} tickDirection={-1} length={$bodyDimension - $obverseDimension} />
-          {/if}
-      {/each}
+      <slot name="ticks" ticks={TICKS}>
+          {#each TICKS as tick, i (tick)}
+              <AxisTick dashArray={tickDashArray} placement={tick} />
+              {#if lineStyle === 'long'}
+                <AxisTick dashArray={tickDashArray} placement={tick} tickDirection={-1} length={$bodyDimension - $obverseDimension} />
+              {/if}
+          {/each}
+      </slot>
     {/if}
-  </slot>
 
   <slot name='border'>
     {#if showBorder}
@@ -192,14 +192,14 @@ setInterval(() => {
       {/if}
   </slot>
 
-  <slot name="labels" tickFormatter={tickFormatter} ticks={TICKS}>
-      {#each TICKS as tick, i}
-        {#if showLabels}
-          <AxisLabel rotate={rotate} placement={tick} align={align}>
-            {tickFormatter ? tickFormatter(tick) : tick}
-          </AxisLabel>
-        {/if}
-    {/each}
-  </slot>
+  {#if showLabels}
+    <slot name="labels" tickFormatter={tickFormatter} ticks={TICKS}>
+        {#each TICKS as tick, i}
+            <AxisLabel rotate={rotate} placement={tick} align={align}>
+              {tickFormatter ? tickFormatter(tick) : tick}
+            </AxisLabel>
+        {/each}
+    </slot>
+  {/if}
 
   </g>
