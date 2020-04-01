@@ -1,6 +1,6 @@
 {
   "name": "@graph-paper/elements",
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.5",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "hamilton <hamilton.ulmer@gmail.com>",
   "homepage": "",
@@ -19,10 +19,10 @@
     "d3-shape": "^1.3.7"
   },
   "devDependencies": {
-    "@graph-paper/button": "^0.0.0-alpha.4",
-    "@graph-paper/core": "^0.0.0-alpha.4",
-    "@graph-paper/datagraphic": "^0.0.0-alpha.4",
-    "@graph-paper/guides": "^0.0.0-alpha.4",
+    "@graph-paper/button": "^0.0.0-alpha.5",
+    "@graph-paper/core": "^0.0.0-alpha.5",
+    "@graph-paper/datagraphic": "^0.0.0-alpha.5",
+    "@graph-paper/guides": "^0.0.0-alpha.5",
     "d3-array": "^2.4.0",
     "d3-format": "^1.4.3",
     "d3-random": "^2.1.0",
