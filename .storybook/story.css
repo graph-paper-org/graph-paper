@@ -1,31 +1,35 @@
 body.sb-show-main {
-    background: none;
-    background-color: var(--cool-gray-100);
-    display: grid;
-    grid-template-rows: max-content;
-    min-height: 100vh;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
+  background: none;
+  background-color: var(--cool-gray-100);
+  display: grid;
+  grid-template-rows: max-content;
+  min-height: 100vh;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
 }
 
 #root {
-    background-color: white;
-    width: max-content;
-    margin: auto;
-    padding: var(--space-2x);
-    border-radius: var(--space-base);
-    box-shadow: var(--depth-small);
+  background-color: white;
+  width: max-content;
+  margin: auto;
+  padding: var(--space-2x);
+  border-radius: var(--space-base);
+  box-shadow: var(--depth-small);
 }
 
 ._ {
-    width: var(--space-72x);
-    height: var(--space-12x);
-    background: linear-gradient(to left, var(--cool-gray-100), var(--cool-gray-200));
-    border: var(--space-1h) solid var(--cool-gray-600);
-    border-radius: var(--space-1h);
+  width: var(--space-72x);
+  height: var(--space-12x);
+  background: linear-gradient(
+    to left,
+    var(--cool-gray-100),
+    var(--cool-gray-200)
+  );
+  border: var(--space-1h) solid var(--cool-gray-600);
+  border-radius: var(--space-1h);
 }
 
 ._small {
-    width: var(--space-16x);
+  width: var(--space-16x);
 }

@@ -1,3 +1,3 @@
-import './style.css';
+import "./style.css";
 
-export * from './base.js';
+export * from "./base.js";

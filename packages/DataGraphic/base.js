@@ -1,3 +1,3 @@
-import DataGraphic from './DataGraphic.svelte';
+import DataGraphic from "./DataGraphic.svelte";
 
 export default DataGraphic;

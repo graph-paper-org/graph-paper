@@ -3,10 +3,14 @@ function compare(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 export function firstIndexAbove({
-  value, data, key = 'label', lo = 0, hi = data.length,
+  value,
+  data,
+  key = "label",
+  lo = 0,
+  hi = data.length,
 }) {
   while (lo < hi) {
-    const mid = lo + hi >>> 1; // eslint-disable-line
+    const mid = (lo + hi) >>> 1; // eslint-disable-line
     if (compare(+data[mid][key], value) < 0) lo = mid + 1;
     else hi = mid;
   }
@@ -14,7 +18,11 @@ export function firstIndexAbove({
 }
 
 export function windowIndices({
-  value, data, key = 'label', lowestValue = -Infinity, highestValue = Infinity,
+  value,
+  data,
+  key = "label",
+  lowestValue = -Infinity,
+  highestValue = Infinity,
 }) {
   const lo = firstIndexAbove({ data, value: lowestValue, key });
   const hi = firstIndexAbove({ data, value: highestValue, key });
@@ -48,10 +56,18 @@ export function windowIndices({
 }
 
 export function window1D({
-  value, data, key = 'label', lowestValue = -Infinity, highestValue = Infinity,
+  value,
+  data,
+  key = "label",
+  lowestValue = -Infinity,
+  highestValue = Infinity,
 }) {
   const { previous, current, next } = windowIndices({
-    value, data, key, lowestValue, highestValue,
+    value,
+    data,
+    key,
+    lowestValue,
+    highestValue,
   });
 
   return {
@@ -67,15 +83,24 @@ export function window1D({
 }
 
 function isDate(dt) {
-  return Object.prototype.toString.call(dt) === '[object Date]';
+  return Object.prototype.toString.call(dt) === "[object Date]";
 }
 
 export function window1DPlacement({
-  value, data, key = 'label', lowestValue = -Infinity, highestValue = Infinity,
-  pad = 0.5, scale = (x) => x,
+  value,
+  data,
+  key = "label",
+  lowestValue = -Infinity,
+  highestValue = Infinity,
+  pad = 0.5,
+  scale = (x) => x,
 }) {
   const { previous, current, next } = window1D({
-    value, data, key, lowestValue, highestValue,
+    value,
+    data,
+    key,
+    lowestValue,
+    highestValue,
   });
   const p = previous[key];
   const c = current[key];

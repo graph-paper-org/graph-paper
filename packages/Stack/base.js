@@ -1,3 +1,3 @@
-import Stack from './Stack.svelte';
+import Stack from "./Stack.svelte";
 
 export default Stack;

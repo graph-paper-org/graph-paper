@@ -1,3 +1,3 @@
-import Tiles from './Tiles.svelte';
+import Tiles from "./Tiles.svelte";
 
 export default Tiles;

@@ -14,4 +14,3 @@ npm install --save-dev @graph-paper/elements
 ```
 
 TODO: add a single big package.
-

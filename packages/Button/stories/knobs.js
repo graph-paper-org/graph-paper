@@ -1,8 +1,12 @@
-import { select, boolean } from '@storybook/addon-knobs';
+import { select, boolean } from "@storybook/addon-knobs";
 
-const levelOptions = ['low', 'medium', 'high'];
+const levelOptions = ["low", "medium", "high"];
 
 export default (defaults = {}) => ({
-    level: select('level', defaults.levelOptions || levelOptions, defaults.level || 'high'),
-    compact: boolean('compact', false)
-})
+  level: select(
+    "level",
+    defaults.levelOptions || levelOptions,
+    defaults.level || "high"
+  ),
+  compact: boolean("compact", false),
+});
