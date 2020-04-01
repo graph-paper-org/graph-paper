@@ -1,3 +1,3 @@
-import Box from './Box.svelte';
+import Box from "./Box.svelte";
 
 export default Box;

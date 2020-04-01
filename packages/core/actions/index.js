@@ -1,5 +1,3 @@
-import { tooltip } from './tooltip'
+import { tooltip } from "./tooltip";
 
-export {
-    tooltip
-}
+export { tooltip };

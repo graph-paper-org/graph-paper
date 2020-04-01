@@ -1,10 +1,8 @@
 module.exports = {
-  moduleFileExtensions: ['js'],
+  moduleFileExtensions: ["js"],
   transform: {
-    '^.+\\.(js)?$': 'babel-jest',
-    '^.+\\.svelte$': 'jest-transform-svelte',
+    "^.+\\.(js)?$": "babel-jest",
+    "^.+\\.svelte$": "jest-transform-svelte",
   },
-  moduleDirectories: [
-    'node_modules',
-  ],
+  moduleDirectories: ["node_modules"],
 };

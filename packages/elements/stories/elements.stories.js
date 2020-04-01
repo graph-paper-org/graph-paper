@@ -1,5 +1,5 @@
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs } from "@storybook/addon-knobs";
 export default {
-    title: 'elements',
-    decorators: [withKnobs],
-  };
+  title: "elements",
+  decorators: [withKnobs],
+};
