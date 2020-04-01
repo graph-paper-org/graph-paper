@@ -1,9 +1,23 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, get } from 'svelte/store';
 import { updateExtents, removeExtent, getDomainFromExtents } from '../extents';
-import { data01 } from './data';
+import { data01, data02 } from './data';
 
 
 describe('updateExtents', () => {
+  const extentsStore = writable({});
+  const output01 = {
+    test01: { max: 15, min: -12 },
+  };
+  const output02 = {
+    ...output01,
+    test02: { max: 30, min: 0 },
+  };
+  const output03 = {
+    ...output02,
+    test03: { max: 30, min: 0 },
+  };
+
   it('rejects when parameters are missing', () => {
     const validExtents = writable({});
     const invalidExtents = writable(0);
@@ -13,44 +27,65 @@ describe('updateExtents', () => {
     expect(() => updateExtents(validExtents, 'test', data01)).toThrow();
     expect(() => updateExtents(invalidExtents, 'test', data01, 'x')).toThrow();
   });
-  it('updates the extents when an array of objects is passed in as data', () => {
-    const extents = writable({});
-    updateExtents(extents, 'test01', data01, 'x');
-    expect(get(extents)).toEqual({
-      test01: { max: 15, min: -12 },
-    });
+
+  it('identifies the extents with one data point', () => {
+    updateExtents(extentsStore, 'test01', data01, 'x');
+    expect(get(extentsStore)).toEqual(output01);
   });
-  it('updates the extents when an array of numbers is passed in', () => {
-    const extents = writable({});
-    updateExtents(extents, 'test01', data01.map((di) => di.x));
-    expect(get(extents)).toEqual({
-      test01: { max: 15, min: -12 },
-    });
+
+  it('updates the extents with an additional data point', () => {
+    updateExtents(extentsStore, 'test02', data02, 'x');
+    expect(get(extentsStore)).toEqual(output02);
+  });
+
+  it('updates the extents with data that contains null and undefined', () => {
+    updateExtents(extentsStore, 'test03', data02, 'y');
+    expect(get(extentsStore)).toEqual(output03);
   });
 });
 
 describe('removeExtent', () => {
-  it('throws when bad', () => {
-    const extents = writable({});
-    updateExtents(extents, 'test1', data01, 'x');
-    expect(() => removeExtent(extents, 'broken')).toThrow();
+  it('throws on incorrect arguments', () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'test1', data01, 'x');
+    expect(() => removeExtent(extentsStore, 'broken')).toThrow();
+    expect(() => removeExtent(undefined)).toThrow();
+    expect(() => removeExtent([1, 2, 3, 4, 5], 'test1')).toThrow();
   });
-  it('removes extent', () => {
-    const extents = writable({});
-    updateExtents(extents, 'test1', data01, 'x');
-    updateExtents(extents, 'test2', data01, 'y');
-    removeExtent(extents, 'test1');
-    expect(get(extents)).toEqual({
+
+  it('removes extents', () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'test1', data01, 'x');
+    updateExtents(extentsStore, 'test2', data01, 'y');
+    removeExtent(extentsStore, 'test1');
+    expect(get(extentsStore)).toEqual({
       test2: { max: 200, min: -10 },
     });
+  });
+
+  it('removes the last extent and leaves an empty object', () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'test1', data01, 'x');
+    updateExtents(extentsStore, 'test2', data01, 'y');
+    removeExtent(extentsStore, 'test1');
+    removeExtent(extentsStore, 'test2');
+    expect(get(extentsStore)).toEqual({});
   });
 });
 
 describe('getDomainFromExtents', () => {
   it('gets domain from extents', () => {
-    const extents = writable({});
-    updateExtents(extents, 'test1', data01, 'x');
-    updateExtents(extents, 'test2', data01, 'y');
-    expect(getDomainFromExtents(get(extents))).toEqual([-12, 200]);
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'test1', data01, 'x');
+    updateExtents(extentsStore, 'test2', data01, 'y');
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([-12, 200]);
+  });
+  it('updates the domain if an extent is removed, ()', () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'test1', data01, 'x');
+    updateExtents(extentsStore, 'test2', data01, 'y');
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([-12, 200]);
+    removeExtent(extentsStore, 'test1');
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([-10, 200]);
   });
 });
