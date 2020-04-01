@@ -13,6 +13,7 @@ import Button from '@graph-paper/button';
 import Point from '../../Point.svelte';
 import Line from '../../Line.svelte';
 
+let alignY = true;
 
 const fmt = (v) => (v ? format(',.2f')(v) : '');
 const perc = format('.2p');
@@ -29,7 +30,7 @@ function makeLine(m = 3, n = 1) {
 
 const K = 16;
 let lines = Array.from({ length: K })
-  .map((_, i) => spring(makeLine(M), { stiffness: 0.3, damping: 0.3 }));
+  .map((_, i) => spring(makeLine(M), { stiffness: 0.3, damping: 0.6 }));
 
 const lineSet = derived(lines, ($lines) => $lines);
 
@@ -48,6 +49,8 @@ onMount(() => {
 });
 
 const labels = Array.from({ length: K }).map((_, i) => `Group-${i}`);
+
+$: yDomain = alignY ? [0, 100] : [undefined, undefined];
 
 </script>
 
@@ -95,6 +98,8 @@ h3 {
 
 </style>
 
+<input type=checkbox bind:checked={alignY} />
+
 <div class=story>
 
   <h1 class="story__title offset-for-graphs">Lines</h1>
@@ -115,17 +120,16 @@ h3 {
       <div class='small-multiple__metric'>{fmt(getY(line, Math.floor(hoverValue.x ? hoverValue.x : line[line.length - 1].x)))}</div>
     </div>
     <DataGraphic
-      xDomain={[1900, 2000]}
-      yDomain={[0, 100]}
+      yDomain={yDomain}
+      yDomainTween={{ duration: 100 }}
       yType="linear"
       xType="linear"
       width={200}
       height={100}
-      data={line}
       top={20}
       bind:hoverValue={hoverValue}
     >
-      <LeftAxis ticks={[0, 50, 100]} showLabels={i === 0} />
+      <LeftAxis ticks={[0, 50, 100]} showLabels={i === 0 || (!alignY)} />
       <BottomAxis ticks={[1900, 1950, 2000]} />
       <Line
       lineDrawAnimation={{ duration: 1000, delay: i * 45 }}
@@ -144,8 +148,8 @@ h3 {
             r={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)} 
             opacity={0.2}
             />
-          <MarginText fontSize=11.5 justify=left temporaryLabel={Math.floor(value.x) || ''} />
-          <MarginText fontSize=11.5 justify=right temporaryLabel={value.y ? perc(getY(line, Math.floor(hoverValue.x)) / line[0].y - 1) : ''} />
+          <MarginText fontSize=11.5 justify=left yOffset={4} temporaryLabel={Math.floor(value.x) || ''} />
+          <MarginText fontSize=11.5 justify=right yOffset={4} temporaryLabel={value.y ? perc(getY(line, Math.floor(hoverValue.x)) / line[0].y - 1) : ''} />
         {/if}
       </g>
 

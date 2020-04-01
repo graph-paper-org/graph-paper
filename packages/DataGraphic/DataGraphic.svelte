@@ -1,9 +1,15 @@
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { setContext, getContext, onMount } from 'svelte';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, derived } from 'svelte/store';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { tweened } from 'svelte/motion';
 import {
   scalePoint, scaleLinear, scaleSymlog, scaleTime, scaleBand,
 } from 'd3-scale';
+
+import { getDomainFromExtents } from './extents';
 
 export let svg;
 // key is used to uniquely identify a DataGraphic.
@@ -18,10 +24,13 @@ export let key = Math
 export let xDomainMin;
 export let xDomainMax;
 export let xDomain = [xDomainMin, xDomainMax];
+export let xDomainTween = { duration: 0 };
 
-// let internalXDomain = writable(xDomain);
+export let yDomainMin;
+export let yDomainMax;
+export let yDomain = [yDomainMin, yDomainMax];
+export let yDomainTween = { duration: 0 };
 
-export let yDomain;
 export let xType = 'scalePoint';
 export let yType = 'scalePoint';
 
@@ -70,11 +79,6 @@ export let yPadding = 0;
 export let yInnerPadding = yPadding;
 export let yOuterPadding = yPadding;
 
-// if x is a function, use that to get xMin / xMax.
-// if xMin / xMax is a function, use that to calculate xMin / xMax.
-// if xMin / xMax is a string, use that to pull out values for xMin / xMax.
-// xType / yType determine what you might need, so start there?
-
 export let margins = {
   left,
   right,
@@ -95,8 +99,6 @@ setContext('defaults', DEFAULTS);
 setContext('margins', margins);
 
 setContext('key', key);
-
-export let dataGraphic = writable({});
 
 export let width = getContext('width') || 800;
 export let height = getContext('height') || 300;
@@ -129,9 +131,6 @@ setContext('rightPlot', rightPlot);
 setContext('topPlot', topPlot);
 setContext('bottomPlot', bottomPlot);
 
-// const xScaleType = xType === 'scalePoint' ? scalePoint : scaleLinear;
-// const yScaleType = yType === 'scalePoint' ? scalePoint : scaleLinear;
-
 function getScaleFunction(type) {
   if (type === 'time') return scaleTime;
   if (type === 'scalePoint') return scalePoint;
@@ -141,8 +140,7 @@ function getScaleFunction(type) {
   return scalePoint;
 }
 
-// function positionScale({domain, range, scaleType, padding = .5})
-
+// FIXME: refactor.
 function createXPointScale(values) {
   const scaleFunction = getScaleFunction(xType);
   let scale = scaleFunction()
@@ -159,6 +157,7 @@ function createXPointScale(values) {
   return scale;
 }
 
+// FIXME: refactor.
 function createYPointScale(values) {
   // const scaleFunction = yType === 'scalePoint' ? scalePoint : scaleLinear;
   const scaleFunction = getScaleFunction(yType);
@@ -176,15 +175,51 @@ function createYPointScale(values) {
 
 // /////////////////////////////////////////////////////////////////////////
 
-export let xScaleStore = writable(createXPointScale(xDomain));
-export let yScaleStore = writable(createYPointScale(yDomain));
+function firstDefinedValue(...vars) {
+  let i = 0;
+  while (i < vars.length) {
+    const v = vars[i];
+    if (v !== undefined) return v;
+    i += 1;
+  }
+  return undefined;
+}
+
+function initializeDomain(scaleType) {
+  if (scaleType === 'time') return [new Date(), new Date()];
+  return [0, 0];
+}
+
+let internalXDomain = tweened(initializeDomain(xType), xDomainTween);
+let internalYDomain = tweened(initializeDomain(yType), yDomainTween);
+
+const xExtents = writable({});
+const yExtents = writable({});
+
+$: xPlotExtents = getDomainFromExtents($xExtents);
+$: yPlotExtents = getDomainFromExtents($yExtents);
+
+$: $internalXDomain = [
+  firstDefinedValue(xDomainMin, xDomain[0], xPlotExtents[0]),
+  firstDefinedValue(xDomainMax, xDomain[1], xPlotExtents[1]),
+];
+$: $internalYDomain = [
+  firstDefinedValue(yDomainMin, yDomain[0], yPlotExtents[0]),
+  firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1]),
+];
+
+setContext('gp:datagraphic:xExtents', xExtents);
+setContext('gp:datagraphic:yExtents', yExtents);
+
+export let xScaleStore = writable(createXPointScale($internalXDomain));
+export let yScaleStore = writable(createYPointScale($internalYDomain));
 
 // update the scale stores if the domain changes.
 // FIXME: refactor these functions to take range arguments as well,
 // and xPadding. etc. etc. – this should be completely reactive
 // w/ all relevant scale arguments.
-$: $xScaleStore = createXPointScale(xDomain);
-$: $yScaleStore = createYPointScale(yDomain);
+$: $xScaleStore = createXPointScale($internalXDomain);
+$: $yScaleStore = createYPointScale($internalYDomain);
 
 export let xScale = $xScaleStore;
 export let yScale = $yScaleStore;
@@ -251,8 +286,6 @@ function createMouseStore(svgElem) {
         const yCandidates = ys.domain().filter((d) => ys(d) < actualY);
         [y] = yCandidates;
       } else {
-        // here, we need to inform a y for scaleLinear.
-        // but this shoudl be easy. just reverse the value and return it as y.
         y = ys.invert(actualY);
       }
       const nextState = {
@@ -264,18 +297,7 @@ function createMouseStore(svgElem) {
   };
 }
 
-// function initiateRollovers(parentSVG) {
-//   // if (parentSVG === undefined) return;
-//   rollover = createMouseStore(parentSVG);
-// }
-
-// use bind:rollover to get the current x / y (in domain-land) and px / py (range-land)
 export let rollover = createMouseStore(svg);
-// let onMousemove = (e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); };
-// let onMouseleave = (e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); };
-// $: onMousemove = (e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); };
-// $: onMouseleave = (e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); };
-
 
 export let dataGraphicMounted = false;
 
@@ -313,7 +335,7 @@ $: if (dataGraphicMounted) {
   <svg
     style="width: {$graphicWidth}px; height: {$graphicHeight}px;"
     bind:this={svg}
-    shape-rendering="geometricPrecision"
+    shape-rendering="auto"
     viewbox='0 0 {$graphicWidth} {$graphicHeight}'
     on:mousemove={(e) => { rollover.onMousemove(e, $xScaleStore, $yScaleStore); }}
     on:mouseleave={(e) => { rollover.onMouseleave(e, $xScaleStore, $yScaleStore); }}

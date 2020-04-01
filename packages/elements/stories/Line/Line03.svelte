@@ -2,15 +2,17 @@
 import { format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
 
-import { tweened } from 'svelte/motion';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing } from 'svelte/easing';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { fly, fade } from 'svelte/transition';
 
 import DataGraphic from '../../../DataGraphic';
-import { Line, CanvasLine } from '../../../elements';
-import { LineBand } from '../../../elements';
-import { Point } from '../../../elements';
+import {
+  Line, LineBand, Point,
+} from '../..';
+
+
 import VerticalErrorBar from '../../VerticalErrorBar.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
@@ -46,20 +48,20 @@ const metricData = dates().map((date, i) => {
   dau += (Math.random() - 0.45) * 100000 * M;
   wau += (Math.random() - 0.45) * 50000 * M;
   mau += (Math.random() - 0.45) * 50000 * M;
-  r01 += (Math.random() - .5) * (.01 * ( (dow === 6 || dow === 7) ? .1 : 1));
-  r02 += (Math.random() - .5) * (.01 * ( (dow === 6 || dow === 7) ? .1 : 1));
+  r01 += (Math.random() - 0.5) * (0.01 * ((dow === 6 || dow === 7) ? 0.1 : 1));
+  r02 += (Math.random() - 0.5) * (0.01 * ((dow === 6 || dow === 7) ? 0.1 : 1));
   const r = Math.random();
   if (r < 0.005) {
     r01 += (Math.random() - 0.6) * 0.1;
   }
-  usage += (Math.random() - .5) * (.01 * ( (dow === 6 || dow === 7) ? .1 : 1));
+  usage += (Math.random() - 0.5) * (0.01 * ((dow === 6 || dow === 7) ? 0.1 : 1));
 
   return {
     date,
     dts: dtfmt(date),
-    dau: dau * (weekend ? .5 : 1),
-    dauLow: dau * (weekend ? .4 : 1) * 0.9 * (1 - Math.random() / 8),
-    dauHigh: dau * (weekend ? .7 : 1)  * 1.1,
+    dau: dau * (weekend ? 0.5 : 1),
+    dauLow: dau * (weekend ? 0.4 : 1) * 0.9 * (1 - Math.random() / 8),
+    dauHigh: dau * (weekend ? 0.7 : 1) * 1.1,
     wau,
     wauLow: wau * 0.95,
     wauHigh: wau * 1.05,
@@ -67,13 +69,13 @@ const metricData = dates().map((date, i) => {
     mauLow: mau * 0.9,
     mauHigh: mau * 1.1,
     usage,
-    usageLow: usage  * .8 + (Math.random() / 5),
+    usageLow: usage * 0.8 + (Math.random() / 5),
     usageHigh: usage * 1.2 + (Math.random() / 5),
     retention01: r01,
     retention02: r02,
-    retention01Low: r01 * .95,
+    retention01Low: r01 * 0.95,
     retention01High: r01 * 1.05,
-    retention02Low: r02 * .95,
+    retention02Low: r02 * 0.95,
     retention02High: r02 * 1.05,
   };
 });
@@ -82,7 +84,9 @@ const generateDomain = () => [
   new Date(Math.min(...metricData.map((d) => d.date))),
   new Date(Math.max(...metricData.map((d) => d.date)))];
 
-let xDomain = tweened(generateDomain(), { duration: 200, easing });
+// let xDomain = tweened(generateDomain(), { duration: 200, easing });
+let xDomain = generateDomain();
+
 
 let auMax = Math.max(
   ...metricData.map((d) => d.dauHigh),
@@ -92,27 +96,18 @@ let auMax = Math.max(
 
 
 const resetDomain = () => {
-  $xDomain = generateDomain();
+  xDomain = generateDomain();
 };
 
-resetDomain();
+// resetDomain();
 
 const get = (d, value, dom) => {
   const w = window1D({
-    value, data: d, key: 'date', lowestValue: dom[0], highestValue: dom[1]
+    value, data: d, key: 'date', lowestValue: dom[0], highestValue: dom[1],
   });
   if (w.current) return w.current;
   return 0;
 };
-
-const getWindowVals = (d, value) => {
-  const w = window1D({
-    value, data: d, key: 'date', domain: $xDomain,
-  });
-  if (w.current) return w;
-  return { next: {}, current: {}, previous: {} };
-};
-
 
 const graphs = [
   {
@@ -157,7 +152,7 @@ let isScrubbed = false;
 const endMouseEvent = () => {
   startValue = new Date(Math.min(mouseDownValue.x, mouseMoveValue.x));
   endValue = new Date(Math.max(mouseDownValue.x, mouseMoveValue.x));
-  $xDomain = [startValue, endValue];
+  xDomain = [startValue, endValue];
   isScrubbed = true;
   resetMouseClicks();
 };
@@ -173,12 +168,19 @@ const legendData = Array.from({ length: 20 }).map((_, i) => {
   };
 });
 
-function onlyMondays(d) {
-  return d.filter(di => di.date.getDay() === 0);
-}
 
 let compareStart = {};
 let compareEnd = {};
+let isComparing = false;
+
+function keyDown(evt) {
+  if (evt.shiftKey) isComparing = true;
+  compareStart = hoverPt;
+}
+
+function keyUp() {
+  if (isComparing) isComparing = false;
+}
 
 $: if (isComparing) {
   compareEnd = hoverPt;
@@ -186,20 +188,8 @@ $: if (isComparing) {
   compareEnd = {};
 }
 
-let isComparing = false;
-
-function keyDown(evt) {
-  console.log(evt.shiftKey);
-  if (evt.shiftKey) isComparing = true;
-  compareStart = hoverPt;
-}
-
-function keyUp(evt) {
-  if (isComparing) isComparing = false;
-}
-
 $: hoverPt = get(metricData, (hoverValue.x && hoverValue.body) ? hoverValue.x
-  : metricData.find((m) => m.dts === dtfmt($xDomain[1])).date, $xDomain);
+  : metricData.find((m) => m.dts === dtfmt(xDomain[1])).date, xDomain);
 
 </script>
 
@@ -269,7 +259,8 @@ h2 {
           top={32}
           left={36}
           right={24}
-          xDomain={$xDomain} 
+          xDomain={xDomain}
+          xDomainTween={{ duration: 150 }}
           yDomain={[0, yMax]}
           xType=time
           yType=linear
@@ -333,7 +324,7 @@ h2 {
               <LineBand data={metricData} xAccessor=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
             {/if}
             <!-- <Line lineDrawAnimation={{ duration: 1200 }} data={metricData} xAccessor=date yAccessor={key} /> -->
-            <g in:fly={{duration: 200, y: 10}}>
+            <g in:fly={{ duration: 200, y: 10 }}>
               <Line  data={metricData} xAccessor=date yAccessor={key} />
             </g>
           </g>

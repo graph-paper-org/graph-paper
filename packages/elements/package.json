@@ -23,6 +23,7 @@
     "@graph-paper/core": "^0.0.0-alpha.4",
     "@graph-paper/datagraphic": "^0.0.0-alpha.4",
     "@graph-paper/guides": "^0.0.0-alpha.4",
+    "d3-array": "^2.4.0",
     "d3-format": "^1.4.3",
     "d3-random": "^2.1.0",
     "d3-time-format": "^2.2.3"

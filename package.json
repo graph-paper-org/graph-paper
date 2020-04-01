@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook",
+    "test": "jest test --no-cache",
+    "storybook": "start-storybook -s ./public -p 6006",
     "format": "prettier --write ."
   },
   "author": "",
@@ -19,6 +19,7 @@
     "@storybook/svelte": "^5.3.17",
     "babel-jest": "^25.2.3",
     "babel-loader": "^8.1.0",
+    "d3-random": "^2.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-import": "^0.13.0",
