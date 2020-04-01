@@ -79,11 +79,6 @@ export let yPadding = 0;
 export let yInnerPadding = yPadding;
 export let yOuterPadding = yPadding;
 
-// if x is a function, use that to get xMin / xMax.
-// if xMin / xMax is a function, use that to calculate xMin / xMax.
-// if xMin / xMax is a string, use that to pull out values for xMin / xMax.
-// xType / yType determine what you might need, so start there?
-
 export let margins = {
   left,
   right,
@@ -180,12 +175,7 @@ function createYPointScale(values) {
 
 // /////////////////////////////////////////////////////////////////////////
 
-// what I want ot do is
-// if <DG xdomain={[0, 10]} /> don't use auto values.
-// if <DG xMin={20} /> use only xMin value. nd so on and so forth.
-// if <DG /> then use whatever the extents are here.
-
-function defined(...vars) {
+function firstDefinedValue(...vars) {
   let i = 0;
   while (i < vars.length) {
     const v = vars[i];
@@ -206,18 +196,16 @@ let internalYDomain = tweened(initializeDomain(yType), yDomainTween);
 const xExtents = writable({});
 const yExtents = writable({});
 
-// const xPlotExtents = tweened([0, 0], xDomainTween);
-// const yPlotExtents = tweened([0, 0], xDomainTween);
 $: xPlotExtents = getDomainFromExtents($xExtents);
 $: yPlotExtents = getDomainFromExtents($yExtents);
 
 $: $internalXDomain = [
-  defined(xDomainMin, xDomain[0], xPlotExtents[0]),
-  defined(xDomainMax, xDomain[1], xPlotExtents[1]),
+  firstDefinedValue(xDomainMin, xDomain[0], xPlotExtents[0]),
+  firstDefinedValue(xDomainMax, xDomain[1], xPlotExtents[1]),
 ];
 $: $internalYDomain = [
-  defined(yDomainMin, yDomain[0], yPlotExtents[0]),
-  defined(yDomainMax, yDomain[1], yPlotExtents[1]),
+  firstDefinedValue(yDomainMin, yDomain[0], yPlotExtents[0]),
+  firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1]),
 ];
 
 setContext('gp:datagraphic:xExtents', xExtents);
@@ -298,8 +286,6 @@ function createMouseStore(svgElem) {
         const yCandidates = ys.domain().filter((d) => ys(d) < actualY);
         [y] = yCandidates;
       } else {
-        // here, we need to inform a y for scaleLinear.
-        // but this shoudl be easy. just reverse the value and return it as y.
         y = ys.invert(actualY);
       }
       const nextState = {
