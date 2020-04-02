@@ -19,7 +19,8 @@ TODO: add a single big package.
 
 ### setup
 
-Run `npm install` to install all dependencies.
+1. Run `npm install`
+2. Run `npx lerna bootstrap`
 
 ### storybook
 
