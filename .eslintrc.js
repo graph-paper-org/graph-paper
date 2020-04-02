@@ -19,6 +19,14 @@ module.exports = {
   },
   overrides: [
     {
+      files: ["**/*.js"],
+      extends: ["prettier"],
+      plugins: ["prettier"],
+      rules: {
+        "prettier/prettier": "error",
+      },
+    },
+    {
       files: ["**/*.svelte"],
       processor: "svelte3/svelte3",
       rules: {
