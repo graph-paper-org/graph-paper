@@ -1,15 +1,13 @@
 {
   "name": "@graph-paper/project",
   "version": "0.0.0",
-  "description": "",
+  "description": "Reusable Svelte components for building data visualizations & data products",
   "main": "index.js",
   "scripts": {
     "test": "jest test --no-cache",
     "storybook": "start-storybook -s ./public -p 6006",
     "format": "prettier --write ."
   },
-  "author": "",
-  "license": "MPL-2.0",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
