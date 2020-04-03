@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# adapted from https://github.com/hperrin/svelte-material-ui/blob/master/package-sh.sh
+
+for node in packages/*; do
+  if [[ -d "$node" ]] && [[ "$node" != "packages/core" ]]; then
+    cd "$node" || exit 1
+    "$@"
+    cd ../..
+  fi
+done
