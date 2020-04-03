@@ -2,9 +2,9 @@
 
 # adapted from https://github.com/hperrin/svelte-material-ui/blob/master/package-sh.sh
 
-for dir in packages/*; do
-  if [ "$dir" != "packages/core" ]; then
-    cd "$dir" || exit 1
+for node in packages/*; do
+  if [[ -d "$node" ]] && [[ "$node" != "packages/core" ]]; then
+    cd "$node" || exit 1
     "$@"
     cd ../..
   fi
