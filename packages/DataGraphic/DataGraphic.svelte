@@ -344,7 +344,7 @@ $: if (dataGraphicMounted) {
     on:mouseup
     on:mousemove
   >
-  <rect 
+  <rect
     x={$leftPlot} y={$topPlot} width={$bodyWidth} height={$bodyHeight}
     fill={backgroundColor}
   />
@@ -360,8 +360,8 @@ $: if (dataGraphicMounted) {
 
     {#if dataGraphicMounted}
       <g id='graphic-body-background-{key}' style="clip-path: url(#graphic-body-{key})">
-        <slot name='body-background' 
-          xScale={xScale} 
+        <slot name='body-background'
+          xScale={xScale}
           yScale={yScale}
           left={$leftPlot}
           right={$rightPlot}
@@ -377,7 +377,7 @@ $: if (dataGraphicMounted) {
     <g>
       <slot name='background'
         hoverValue={hoverValue}
-        xScale={xScale} 
+        xScale={xScale}
         yScale={yScale}
         left={$leftPlot}
         right={$rightPlot}
@@ -391,8 +391,8 @@ $: if (dataGraphicMounted) {
 
   {#if dataGraphicMounted}
     <g id='graphic-body-{key}' style="clip-path: url(#graphic-body-{key})">
-      <slot name='body' 
-        xScale={xScale} 
+      <slot name='body'
+        xScale={xScale}
         yScale={yScale}
         left={$leftPlot}
         right={$rightPlot}
@@ -414,9 +414,9 @@ $: if (dataGraphicMounted) {
 
     <!-- pass the rollover value into the scale -->
     {#if dataGraphicMounted}
-      <slot name='mouseover' 
-        value={$internalRolloverStore} 
-        xScale={xScale} 
+      <slot name='mouseover'
+        value={$internalRolloverStore}
+        xScale={xScale}
         yScale={yScale}
         left={$leftPlot}
         right={$rightPlot}
@@ -437,8 +437,8 @@ $: if (dataGraphicMounted) {
 
     <!-- Annotation layers – for additional points, comments, etc. that must sit above everything else -->
     {#if dataGraphicMounted}
-      <slot name='annotation' 
-        xScale={xScale} 
+      <slot name='annotation'
+        xScale={xScale}
         yScale={yScale}
         left={$leftPlot}
         right={$rightPlot}
