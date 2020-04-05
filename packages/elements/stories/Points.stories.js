@@ -3,6 +3,7 @@ import {
 } from '@storybook/addon-knobs';
 import BasicPoint from './Points/Basic.svelte';
 import PointsExtentsStory from './Points/PointsExtents.svelte';
+import PointCloud01Story from './Points/PointCloud01.svelte';
 
 export default {
   title: 'Point',
@@ -33,4 +34,8 @@ export const PointsExtent = () => ({
     strokeAlpha: number('strokeAlpha', 0),
     strokeWidth: number('strokeWidth', 1),
   },
+});
+
+export const PointCloud01 = () => ({
+  Component: PointCloud01Story,
 });

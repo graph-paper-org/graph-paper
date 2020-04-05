@@ -31,8 +31,8 @@ export let yDomainMax;
 export let yDomain = [yDomainMin, yDomainMax];
 export let yDomainTween = { duration: 0 };
 
-export let xType = 'scalePoint';
-export let yType = 'scalePoint';
+export let xType = 'linear';
+export let yType = 'linear';
 
 export let left = 50;
 export let right = 16;

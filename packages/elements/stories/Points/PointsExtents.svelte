@@ -1,64 +1,100 @@
 <script>
   import { randomNormal } from 'd3-random';
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { tweened } from 'svelte/motion';
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  import { fade } from 'svelte/transition';
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { cubicOut as easing } from 'svelte/easing';
   import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';
-  import Button from '../../../Button/Button.svelte';
 
-  const rnorm = () => Math.random();// randomNormal(50, 20);
+  const rnorm01 = randomNormal(0, 10);
+  const rnorm02 = randomNormal(100, 30);
   export let size = 3;
-  export let alpha = 1;
-  export let color = 'red';
   export let colorAlpha = 1;
   export let stroke = 'transparent';
   export let strokeAlpha = 1;
   export let strokeWidth = 1;
 
   // let clickedPoints = spring([], { damping: 0.6, stiffness: 0.1 });
-  let addedPoints = [{ x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }];
+  let index = 0;
+  const pt = () => {
+    index += 1;
+    const which = Math.random() > 0.5;
+    const r = which ? rnorm01 : rnorm02;
+    const color = which ? 'var(--pantone-red-500)' : 'var(--digital-blue-500)';
+    return {
+      x: r(),
+      y: r(),
+      size: size + Math.random() * 2,
+      index,
+      color,
+    };
+  };
+  function times(fcn, length) {
+    return Array.from({ length }).map(fcn);
+  }
+  let addedPoints = [];
+
+  const INIT = 5;
+
   function addPoint() {
-    addedPoints.push({ x: rnorm(), y: rnorm() });
+    addedPoints.push(pt());
     addedPoints = addedPoints;
   }
 
+  times(addPoint, INIT);
+
+  const N = 1000;
+  const duration = 400;
+
   setInterval(() => {
-    addPoint();
-    if (addedPoints.length > 100) {
-      addedPoints.shift();
+    const t = 50;
+    times(addPoint, t);
+    if (addedPoints.length > N) {
+      addedPoints = addedPoints.slice(Math.abs(addedPoints.length - N));
     }
-  }, 500);
+  }, duration);
+
+  let points = tweened(addedPoints.length, { duration });
+  $: $points = addedPoints.length;
 
 </script>
 
   <h2>{'<Point />'} – Points stretch extents reactively</h2>
   <div>
-    Click to add points to the graph. {addedPoints.length}
+    all points on the graph: {Math.floor($points)}
   </div>
 
+  <button on:click={() => {
+    addedPoints = [];
+  }}>remove all</button>
+
   <DataGraphic
+      xType=linear
+      yType=linear
       width={500}
       height={400}
-      let:xScale
+      xDomainTween={{ duration, easing }}
+      yDomainTween={{ duration, easing }}
   >
-    <g slot="annotation" let:xScale let:yScale>
-      <text x=10 y=20 font-size=14 fill=black>{xScale.domain()}</text>
-      <text x=10 y=40 font-size=14 fill=black>{xScale.domain()}</text>
-    </g>
-      <LeftAxis />
-      <BottomAxis />
-      {#each addedPoints as pt}
-        <Point
-          x={pt.x}
-          y={pt.y}
-          size={10}
-          {alpha}
-          {color}
-          {colorAlpha}
-          {stroke}
-          {strokeWidth}
-          {strokeAlpha} />
-      {/each}
+    <LeftAxis />
+    <BottomAxis />
+    {#each addedPoints as pt, i (pt.index)}
+    <g transition:fade>
+      <Point
+        x={pt.x}
+        y={pt.y}
+        size={pt.size}
+        alpha={0.2}
+        color={pt.color}
+        {colorAlpha}
+        {stroke}
+        {strokeWidth}
+        {strokeAlpha} />
+      </g>
+    {/each}
   </DataGraphic>
