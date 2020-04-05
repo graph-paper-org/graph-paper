@@ -6,7 +6,6 @@
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';
-  import Button from '../../../Button/Button.svelte';
 
   const rnorm = randomNormal(50, 20);
   export let size = 3;
@@ -37,14 +36,13 @@
   }
 </script>
 
-  <h2>{'<Point />'} – A Single Point</h2>
+  <h2>{'<Point />'} – Click to add</h2>
   <div>
     Click to add points to the graph.
   </div>
   <div>
     Points added: {clickedPoints.length}
   </div>
-
   <DataGraphic
       xType=linear
       yType=linear

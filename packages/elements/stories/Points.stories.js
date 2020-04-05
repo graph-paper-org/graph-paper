@@ -5,17 +5,17 @@ import {
   boolean,
   text,
 } from "@storybook/addon-knobs";
-import BasicPoint from "./Points/Basic.svelte";
-import PointsExtentsStory from "./Points/PointsExtents.svelte";
-import PointCloud01Story from "./Points/PointCloud01.svelte";
+import ClickToAddPointStory from "./Points/ClickToAddPoint.svelte";
+import AddPointStory from "./Points/AddPoint.svelte";
+import AddPointCloudStory from "./Points/AddPointCloud.svelte";
 
 export default {
   title: "Point",
   decorators: [withKnobs],
 };
 
-export const SinglePoint = () => ({
-  Component: BasicPoint,
+export const ClickToAddAPoint = () => ({
+  Component: ClickToAddPointStory,
   props: {
     size: number("size", 3),
     alpha: number("alpha", 1),
@@ -27,8 +27,8 @@ export const SinglePoint = () => ({
   },
 });
 
-export const PointsExtent = () => ({
-  Component: PointsExtentsStory,
+export const AddIndividualPointsOverTime = () => ({
+  Component: AddPointStory,
   props: {
     size: number("size", 3),
     alpha: number("alpha", 1),
@@ -40,6 +40,6 @@ export const PointsExtent = () => ({
   },
 });
 
-export const PointCloud01 = () => ({
-  Component: PointCloud01Story,
+export const AddPointCloudsOverTime = () => ({
+  Component: AddPointCloudStory,
 });

@@ -10,6 +10,7 @@
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';
+  import { Button } from '../../../Button';
 
   const rnorm01 = randomNormal(0, 10);
   const rnorm02 = randomNormal(100, 30);
@@ -19,7 +20,6 @@
   export let strokeAlpha = 1;
   export let strokeWidth = 1;
 
-  // let clickedPoints = spring([], { damping: 0.6, stiffness: 0.1 });
   let index = 0;
   const pt = () => {
     index += 1;
@@ -64,14 +64,15 @@
 
 </script>
 
-  <h2>{'<Point />'} – Points stretch extents reactively</h2>
+  <h2>{'<Point />'} – adding individual points iteratively</h2>
   <div>
     all points on the graph: {Math.floor($points)}
   </div>
 
-  <button on:click={() => {
+
+  <Button compact level=medium on:click={() => {
     addedPoints = [];
-  }}>remove all</button>
+  }}>remove all points</Button>
 
   <DataGraphic
       xType=linear
@@ -83,6 +84,7 @@
   >
     <LeftAxis />
     <BottomAxis />
+    <g slot=body>
     {#each addedPoints as pt, i (pt.index)}
     <g transition:fade>
       <Point
@@ -97,4 +99,5 @@
         {strokeAlpha} />
       </g>
     {/each}
+    </g>
   </DataGraphic>
