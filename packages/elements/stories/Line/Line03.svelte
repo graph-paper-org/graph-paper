@@ -236,7 +236,7 @@ h2 {
         <Button level=medium compact on:click={() => {
           isScrubbed = false;
           resetDomain();
-        }}>clear zoom 
+        }}>clear zoom
           <!-- <Cancel size={16} /> -->
         </Button>
       </div>
@@ -252,7 +252,7 @@ h2 {
               {hoverFormat(hoverPt[key])}
           </div>
         </div>
-        
+
         <DataGraphic
           width={300}
           height={200}
@@ -290,7 +290,7 @@ h2 {
                 height={bottom - top}
                 fill=var(--pantone-red-100)
               />
-              <line 
+              <line
                 x1={xScale(mouseDownValue.x)}
                 x2={xScale(mouseDownValue.x)}
                 y1={top}
@@ -298,7 +298,7 @@ h2 {
                 stroke=var(--pantone-red-200)
                 stroke-width=2
               />
-              <line 
+              <line
                 x1={xScale(mouseMoveValue.x)}
                 x2={xScale(mouseMoveValue.x)}
                 y1={top}
@@ -306,7 +306,7 @@ h2 {
                 stroke=var(--pantone-red-200)
                 stroke-width=2
               />
-              <text 
+              <text
                 transition:fade={{ duration: 75 }}
                 x={
                   Math.min(xScale(mouseDownValue.x), xScale(mouseMoveValue.x)) + 5
@@ -325,7 +325,7 @@ h2 {
             {/if}
             <!-- <Line lineDrawAnimation={{ duration: 1200 }} data={metricData} xAccessor=date yAccessor={key} /> -->
             <g in:fly={{ duration: 200, y: 10 }}>
-              <Line  data={metricData} xAccessor=date yAccessor={key} />
+              <Line data={metricData} xAccessor=date yAccessor={key} />
             </g>
           </g>
 
@@ -334,15 +334,15 @@ h2 {
           </g> -->
 
                     <g in:fade={{ duration: 1000, delay: 300 }}>
-            <VerticalErrorBar 
-              x={hoverPt.date} 
-              minY={hoverPt[`${key}Low`]} 
+            <VerticalErrorBar
+              x={hoverPt.date}
+              minY={hoverPt[`${key}Low`]}
               maxY={hoverPt[`${key}High`]}
             />
           </g>
-          
+
           <g in:fly={{ duration: 1000, y: 200 }}>
-            <Point x={hoverPt.date} y={hoverPt[key]} r={3} color=var(--digital-blue-500) />
+            <Point scaling={false} x={hoverPt.date} y={hoverPt[key]} size={3} color=var(--digital-blue-500) />
           </g>
 
           {#if hoverPt}
@@ -358,7 +358,7 @@ h2 {
     {/each}
   </div>
 
-  <div 
+  <div
     in:fly={{ duration: 500, delay: 1000, y: -10 }}
     style="
     width: 970px;
@@ -383,25 +383,26 @@ h2 {
 
       <g slot=annotation let:xScale let:yScale let:left let:right>
         <line x1={right + 10} x2={right + 10}
-          y1={yScale(legendData[legendData.length - 1].yMin)} 
+          y1={yScale(legendData[legendData.length - 1].yMin)}
           y2={yScale(legendData[legendData.length - 1].yMax)}
           stroke=var(--cool-gray-500)
         />
-        <line 
+        <line
           x1={right + 10} x2={right + 5}
-          y1={yScale(legendData[legendData.length - 1].yMin)} 
+          y1={yScale(legendData[legendData.length - 1].yMin)}
           y2={yScale(legendData[legendData.length - 1].yMin)}
           stroke=var(--cool-gray-500)
         />
-        <line 
+        <line
           x1={right + 10} x2={right + 5}
-          y1={yScale(legendData[legendData.length - 1].yMax)} 
+          y1={yScale(legendData[legendData.length - 1].yMax)}
           y2={yScale(legendData[legendData.length - 1].yMax)}
           stroke=var(--cool-gray-500)
         />
-        <Point 
+        <Point
           x={legendData[0].x}
           y={legendData[0].y}
+          color=var(--digital-blue-500)
         />
         <g style="
           text-transform: uppercase;
@@ -410,11 +411,11 @@ h2 {
         ">
           <g style="transform: translate({right + 16}px, {yScale(legendData[legendData.length - 1].y) - 10}px);"
           >
-            <text 
+            <text
               >95% confidence</text>
               <text y={13}
               >interval for</text>
-            <text 
+            <text
               y={26}>point estimate</text>
           </g>
           <g style="

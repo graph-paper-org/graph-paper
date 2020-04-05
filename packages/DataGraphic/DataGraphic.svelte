@@ -31,8 +31,8 @@ export let yDomainMax;
 export let yDomain = [yDomainMin, yDomainMax];
 export let yDomainTween = { duration: 0 };
 
-export let xType = 'scalePoint';
-export let yType = 'scalePoint';
+export let xType = 'linear';
+export let yType = 'linear';
 
 export let left = 50;
 export let right = 16;
@@ -179,7 +179,9 @@ function firstDefinedValue(...vars) {
   let i = 0;
   while (i < vars.length) {
     const v = vars[i];
-    if (v !== undefined) return v;
+    if (v !== undefined) {
+      return v;
+    }
     i += 1;
   }
   return undefined;
@@ -187,14 +189,31 @@ function firstDefinedValue(...vars) {
 
 function initializeDomain(scaleType) {
   if (scaleType === 'time') return [new Date(), new Date()];
-  return [0, 0];
+  return [0, 1];
 }
 
 let internalXDomain = tweened(initializeDomain(xType), xDomainTween);
 let internalYDomain = tweened(initializeDomain(yType), yDomainTween);
 
+// update the scale stores if the domain changes.
+// FIXME: refactor these functions to take range arguments as well,
+// and xPadding. etc. etc. – this should be completely reactive
+// w/ all relevant scale arguments.
+
+export let xScaleStore = writable(createXPointScale($internalXDomain));
+export let yScaleStore = writable(createYPointScale($internalYDomain));
+
+export let xScale = $xScaleStore;
+export let yScale = $yScaleStore;
+
+$: xScale = $xScaleStore;
+$: yScale = $yScaleStore;
+
 const xExtents = writable({});
 const yExtents = writable({});
+
+setContext('gp:datagraphic:xExtents', xExtents);
+setContext('gp:datagraphic:yExtents', yExtents);
 
 $: xPlotExtents = getDomainFromExtents($xExtents);
 $: yPlotExtents = getDomainFromExtents($yExtents);
@@ -203,29 +222,14 @@ $: $internalXDomain = [
   firstDefinedValue(xDomainMin, xDomain[0], xPlotExtents[0]),
   firstDefinedValue(xDomainMax, xDomain[1], xPlotExtents[1]),
 ];
+
 $: $internalYDomain = [
   firstDefinedValue(yDomainMin, yDomain[0], yPlotExtents[0]),
   firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1]),
 ];
 
-setContext('gp:datagraphic:xExtents', xExtents);
-setContext('gp:datagraphic:yExtents', yExtents);
-
-export let xScaleStore = writable(createXPointScale($internalXDomain));
-export let yScaleStore = writable(createYPointScale($internalYDomain));
-
-// update the scale stores if the domain changes.
-// FIXME: refactor these functions to take range arguments as well,
-// and xPadding. etc. etc. – this should be completely reactive
-// w/ all relevant scale arguments.
 $: $xScaleStore = createXPointScale($internalXDomain);
 $: $yScaleStore = createYPointScale($internalYDomain);
-
-export let xScale = $xScaleStore;
-export let yScale = $yScaleStore;
-
-$: xScale = $xScaleStore;
-$: yScale = $yScaleStore;
 
 setContext('xScale', xScaleStore);
 setContext('yScale', yScaleStore);

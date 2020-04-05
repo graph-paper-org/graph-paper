@@ -1,10 +1,10 @@
 <script>
-import { getContext } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
+import { getContext, onDestroy } from 'svelte'; // eslint-disable-line import/no-extraneous-dependencies
 import { writable } from 'svelte/store'; // eslint-disable-line import/no-extraneous-dependencies
 import { draw, fade } from 'svelte/transition'; // eslint-disable-line import/no-extraneous-dependencies
 import * as SHAPE from 'd3-shape';
 
-import { updateExtents } from '@graph-paper/datagraphic/extents';
+import { updateExtents, removeExtent } from '@graph-paper/datagraphic/extents';
 
 export let xScale = getContext('xScale') || writable((v) => v);
 export let yScale = getContext('yScale') || writable((v) => v);
@@ -45,18 +45,26 @@ $: areaGenerator = SHAPE.area()
   .y0($yScale.range()[0])
   .curve(curveFunction);
 
+
+function destroy() {
+  removeExtent(xExtents, key);
+  removeExtent(yExtents, key);
+}
+
+onDestroy(destroy);
+
 </script>
 
 <g class=line>
-  <path 
-    stroke={color} 
+  <path
+    stroke={color}
     stroke-width={strokeWidth}
-    fill=none 
+    fill=none
     in:draw={lineDrawAnimation}
     d={lineGenerator(data)} />
   {#if area}
-  <path 
-    fill={areaColor} 
+  <path
+    fill={areaColor}
     in:fade
     d={areaGenerator(data)} />
   {/if}

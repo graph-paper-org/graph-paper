@@ -12,17 +12,20 @@ export function updateExtents(store, key, data, accessor = undefined) {
   let dArray = data;
   const isArrayOfObjects = typeof data[0] === "object" && data[0] !== null;
   if (isArrayOfObjects) {
-    if (!accessor)
+    if (!accessor) {
       throw Error("cannot pass in array of objects w/o an accessor");
+    }
     dArray = data.map((di) => di[accessor]);
   }
-  if (!("set" in store && "subscribe" in store && "update" in store))
+  if (!("set" in store && "subscribe" in store && "update" in store)) {
     throw Error(
       "must pass in a svelte store w/ a subscribe, update, and set method"
     );
+  }
   store.update((storeValue) => {
-    if (!(typeof storeValue === "object" && storeValue !== null))
+    if (!(typeof storeValue === "object" && storeValue !== null)) {
       throw Error("store value must be an object");
+    }
     const [min, max] = extent(dArray);
     return {
       ...storeValue,
