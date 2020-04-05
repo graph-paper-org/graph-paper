@@ -19,8 +19,6 @@ export let scaling = true;
 const xScale = getContext('xScale') || writable((v) => v);
 const yScale = getContext('yScale') || writable((v) => v);
 
-// should we be updating extents here?
-
 const xExtents = getContext('gp:datagraphic:xExtents');
 const yExtents = getContext('gp:datagraphic:yExtents');
 
@@ -30,7 +28,7 @@ export const key = Math.random()
 
 let intermediate = [];
 $: if (data) {
-  intermediate = data;// .map((di) => ({ x: di[x], y: di[y] }));
+  intermediate = data;
 } else {
   intermediate = [{ x, y }];
 }
