@@ -28,27 +28,20 @@ Basic scatterplot:
 
 ```html
 <script>
-  import DataGraphic from "@graph-paper/datagraphic";
-  import { LeftAxis } from "@graph-paper/guides";
-  import { BottomAxis } from "@graph-paper/guides";
-  import { Point } from "@graph-paper/elmements";
+import { randomNormal } from 'd3-random';
+import DataGraphic from '@graph-paper/datagraphic';
+import { LeftAxis, BottomAxis } from '@graph-paper/guides';
+import { Point } from '../..';
 
-  const data = Array.from({ length: 100 }).map(() => {
-    return {
-      xv: Math.random() * 100,
-      yv: Math.random() * 100,
-    };
-  });
+const r = randomNormal(50, 20);
+const data = Array.from({ length: 100 }).map(() => ({ x: r(), y: r() }));
 
-  const size = 3;
-  const color = "tomato";
-  const alpha = 0.5;
 </script>
-<!-- the default accessors for x and y are "x" and "y" -->
-<DataGraphic width="{500}" height="{400}">
+
+<DataGraphic width={500} height={400}>
   <LeftAxis />
   <BottomAxis />
-  <Point {data} {size} {color} {alpha} x="xv" y="yv" />
+  <Point {data} />
 </DataGraphic>
 ```
 
