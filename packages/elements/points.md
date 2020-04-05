@@ -4,8 +4,8 @@ The point element maps two values to coordinates, represented by a symbol. A col
 
 This package implements `<Point />`, which maps either:
 
-1) a **single data point** with coordinates `x` and `y`, or
-2) a **collection of points** with `data`, `x` (a string that accesses the x value) and `y` (a string that accesses the y value). For each element in `data`, plot each point.
+1. a **single data point** with coordinates `x` and `y`, or
+2. a **collection of points** with `data`, `x` (a string that accesses the x value) and `y` (a string that accesses the y value). For each element in `data`, plot each point.
 
 ## Arguments for `<Point />`
 
@@ -28,32 +28,29 @@ Basic scatterplot:
 
 ```html
 <script>
-import DataGraphic from '@graph-paper/datagraphic';
-import { LeftAxis } from '@graph-paper/guides';
-import { BottomAxis } from '@graph-paper/guides';
-import { Point } from '@graph-paper/elmements';
+  import DataGraphic from "@graph-paper/datagraphic";
+  import { LeftAxis } from "@graph-paper/guides";
+  import { BottomAxis } from "@graph-paper/guides";
+  import { Point } from "@graph-paper/elmements";
 
-const data = Array.from({length: 100}).map(() => {
-  return {
-    xv: Math.random() * 100, yv: Math.random() * 100
-  }
-});
+  const data = Array.from({ length: 100 }).map(() => {
+    return {
+      xv: Math.random() * 100,
+      yv: Math.random() * 100,
+    };
+  });
 
-const size = 3;
-const color = 'tomato';
-const alpha = .5;
-
+  const size = 3;
+  const color = "tomato";
+  const alpha = 0.5;
 </script>
 <!-- the default accessors for x and y are "x" and "y" -->
-<DataGraphic width={500} height={400}>
+<DataGraphic width="{500}" height="{400}">
   <LeftAxis />
   <BottomAxis />
   <Point {data} {size} {color} {alpha} x="xv" y="yv" />
 </DataGraphic>
-
 ```
-
-
 
 ## Future Directions
 
