@@ -1,14 +1,14 @@
 <script>
   import { randomNormal } from 'd3-random';
   import { tweened } from 'svelte/motion';
-  import { elasticOut as easing } from 'svelte/easing';
+  import { cubicOut as easing } from 'svelte/easing';
   import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';
   import Button from '../../../Button/Button.svelte';
 
-  const rnorm = randomNormal(50, 20);
+  const rnorm = () => Math.random();// randomNormal(50, 20);
   export let size = 3;
   export let alpha = 1;
   export let color = 'red';
@@ -18,53 +18,42 @@
   export let strokeWidth = 1;
 
   // let clickedPoints = spring([], { damping: 0.6, stiffness: 0.1 });
-  let clickedPoints = Array.from({ length: 30 }).map(() => ({ x: rnorm(), y: rnorm() }));
-
-  let hoverSize = tweened(size, { duration: 400, easing });
-  let hoverValue = {};
-
+  let addedPoints = [{ x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }, { x: rnorm(), y: rnorm() }];
   function addPoint() {
-    if (hoverValue.body) {
-      clickedPoints.push({ ...hoverValue, body: 0 });
-      clickedPoints = clickedPoints;
+    addedPoints.push({ x: rnorm(), y: rnorm() });
+    addedPoints = addedPoints;
+  }
+
+  setInterval(() => {
+    addPoint();
+    if (addedPoints.length > 100) {
+      addedPoints.shift();
     }
+  }, 500);
 
-    $hoverSize = size;
-  }
-
-  function changeSize() {
-    $hoverSize = size + 12;
-  }
 </script>
 
-  <h2>{'<Point />'} – A Single Point</h2>
+  <h2>{'<Point />'} – Points stretch extents reactively</h2>
   <div>
-    Click to add points to the graph.
-  </div>
-  <div>
-    Points added: {clickedPoints.length}
+    Click to add points to the graph. {addedPoints.length}
   </div>
 
   <DataGraphic
-      xType=linear
-      yType=linear
       width={500}
       height={400}
-      bind:hoverValue
-      on:click={addPoint}
-      on:mousedown={changeSize}
-      on:mouseleave={() => { $hoverSize = size; }}
+      let:xScale
   >
+    <g slot="annotation" let:xScale let:yScale>
+      <text x=10 y=20 font-size=14 fill=black>{xScale.domain()}</text>
+      <text x=10 y=40 font-size=14 fill=black>{xScale.domain()}</text>
+    </g>
       <LeftAxis />
       <BottomAxis />
-      {#if hoverValue && hoverValue.body}
-        <Point x={hoverValue.x} y={hoverValue.y} size={$hoverSize} alpha={0.5} />
-      {/if}
-      {#each clickedPoints as pt}
+      {#each addedPoints as pt}
         <Point
           x={pt.x}
           y={pt.y}
-          {size}
+          size={10}
           {alpha}
           {color}
           {colorAlpha}

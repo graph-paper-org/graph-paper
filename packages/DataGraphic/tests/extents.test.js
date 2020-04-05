@@ -17,6 +17,15 @@ describe('updateExtents', () => {
     test03: { max: 30, min: 0 },
   };
 
+  const singleOutput01 = {
+    single01: { max: 10, min: 10 },
+  };
+
+  const singleOutput02 = {
+    single01: { max: 10, min: 10 },
+    single02: { max: -3, min: -3 },
+  };
+
   it('rejects when parameters are missing', () => {
     const validExtents = writable({});
     const invalidExtents = writable(0);
@@ -40,6 +49,14 @@ describe('updateExtents', () => {
   it('updates the extents with data that contains null and undefined', () => {
     updateExtents(extentsStore, 'test03', data02, 'y');
     expect(get(extentsStore)).toEqual(output03);
+  });
+
+  it('updates the extents in a case of a single new extent respresenting one point', () => {
+    const newStore = writable({});
+    updateExtents(newStore, 'single01', [10]);
+    expect(get(newStore)).toEqual(singleOutput01);
+    updateExtents(newStore, 'single02', [-3]);
+    expect(get(newStore)).toEqual(singleOutput02);
   });
 });
 
@@ -86,5 +103,11 @@ describe('getDomainFromExtents', () => {
     expect(getDomainFromExtents(get(extentsStore))).toEqual([-12, 200]);
     removeExtent(extentsStore, 'test1');
     expect(getDomainFromExtents(get(extentsStore))).toEqual([-10, 200]);
+  });
+  it('gets domain from extents that represent single points', () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, 'single01', [10]); // eg one data point where x = 10
+    updateExtents(extentsStore, 'single02', [-3]); // eg one data point where x = -3
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([-3, 10]);
   });
 });

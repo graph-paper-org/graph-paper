@@ -133,19 +133,19 @@ h3 {
       <BottomAxis ticks={[1900, 1950, 2000]} />
       <Line
       lineDrawAnimation={{ duration: 1000, delay: i * 45 }}
-        data={line} 
-        xAccessor=x 
+        data={line}
+        xAccessor=x
         yAccessor=y />
 
       <g slot='mouseover' let:value=>
         {#if hoverValue.body}
-        <Point 
+        <Point
             x={hoverValue.x} y={getY(line, Math.floor(hoverValue.x))} r={2} />
           />
-          <Point 
-            x={hoverValue.x} 
-            y={getY(line, Math.floor(hoverValue.x))} 
-            r={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)} 
+          <Point
+            x={hoverValue.x}
+            y={getY(line, Math.floor(hoverValue.x))}
+            r={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)}
             opacity={0.2}
             />
           <MarginText fontSize=11.5 justify=left yOffset={4} temporaryLabel={Math.floor(value.x) || ''} />
