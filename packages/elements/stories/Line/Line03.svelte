@@ -18,10 +18,7 @@ import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 
 import Button from '../../../Button/Button.svelte';
-// import Cancel from 'udgl/icons/Cancel.svelte';
 import { window1D } from '../../../core/utils/window-functions';
-
-// import FirefoxReleaseVersionMarkers from '../../../src/components/FirefoxReleaseVersionMarkers.svelte';
 
 let dtfmt = timeFormat('%b %d, %Y');
 
@@ -62,9 +59,9 @@ const metricData = dates().map((date, i) => {
     dau: dau * (weekend ? 0.5 : 1),
     dauLow: dau * (weekend ? 0.4 : 1) * 0.9 * (1 - Math.random() / 8),
     dauHigh: dau * (weekend ? 0.7 : 1) * 1.1,
-    wau,
-    wauLow: wau * 0.95,
-    wauHigh: wau * 1.05,
+    wau: i > 100 && i < 160 ? undefined : wau,
+    wauLow: i > 100 && i < 160 ? undefined : wau * 0.95,
+    wauHigh: i > 100 && i < 160 ? undefined : wau * 1.05,
     mau,
     mauLow: mau * 0.9,
     mauHigh: mau * 1.1,
@@ -90,7 +87,7 @@ let xDomain = generateDomain();
 
 let auMax = Math.max(
   ...metricData.map((d) => d.dauHigh),
-  ...metricData.map((d) => d.wauHigh),
+  ...metricData.map((d) => d.wauHigh || 0),
   ...metricData.map((d) => d.mauHigh),
 ) * 1.1;
 
@@ -321,7 +318,7 @@ h2 {
           </g>
           <g slot=body>
             {#if true}
-              <LineBand data={metricData} x=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
+              <LineBand data={metricData} xAccessor=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
             {/if}
             <g in:fly={{ duration: 200, y: 10 }}>
               <Line data={metricData} x=date y={key} />

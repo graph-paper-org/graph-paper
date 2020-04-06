@@ -37,27 +37,28 @@ const curveFunction = SHAPE[curve];
 let lineGenerator;
 let areaGenerator;
 
-$: updateExtents(xExtents, key, data, x);
-$: updateExtents(yExtents, key, data, y);
-
-$: lineGenerator = SHAPE.line()
-  .x((d) => (useXScale ? $xScale(d[x]) : d[x]))
-  .y((d) => (useYScale ? $yScale(d[y]) : d[y]))
-  .curve(curveFunction);
-
-$: areaGenerator = SHAPE.area()
-  .x((d) => $xScale(d[x]))
-  .y1((d) => $yScale(d[y]))
-  .y0($yScale.range()[0])
-  .curve(curveFunction);
-
-
 function destroy() {
   removeExtent(xExtents, key);
   removeExtent(yExtents, key);
 }
 
 onDestroy(destroy);
+
+$: updateExtents(xExtents, key, data, x);
+$: updateExtents(yExtents, key, data, y);
+
+$: lineGenerator = SHAPE.line()
+  .x((d) => (useXScale ? $xScale(d[x]) : d[x]))
+  .y((d) => (useYScale ? $yScale(d[y]) : d[y]))
+  .defined((d) => d[x] !== undefined && d[y] !== undefined)
+  .curve(curveFunction);
+
+$: areaGenerator = SHAPE.area()
+  .x((d) => $xScale(d[x]))
+  .y1((d) => $yScale(d[y]))
+  .y0($yScale.range()[0])
+  .defined((d) => d[x] !== undefined && d[y] !== undefined)
+  .curve(curveFunction);
 
 </script>
 

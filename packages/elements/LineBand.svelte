@@ -20,17 +20,17 @@ const curveFunction = SHAPE[curve];
 
 let areaGenerator;
 $: areaGenerator = SHAPE.area()
+  .defined((d) => d[yMinAccessor] !== undefined && d[yMaxAccessor] !== undefined)
   .x((d) => (useXScale ? $xScale(d[xAccessor]) : d[xAccessor]))
   .y((d) => (useYScale ? $yScale(d[yMinAccessor]) : d[yMinAccessor]))
   .y1((d) => (useYScale ? $yScale(d[yMaxAccessor]) : d[yMaxAccessor]))
   .curve(curveFunction);
-
 </script>
 
 <g class=line-band>
-  <path 
-    d={areaGenerator(data)} 
-    fill={color} 
+  <path
+    d={areaGenerator(data)}
+    fill={color}
     in:fade
     style="mix-blend-mode: {mixBlendMode};" />
 </g>
