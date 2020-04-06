@@ -1,5 +1,10 @@
 # Changelog
 
+## upcoming
+
+- standardizes Line component
+- changes LineBand -> Band
+
 ## 0.0.0-alpha.6
 
 - adds WIP histogram implementation + stories
