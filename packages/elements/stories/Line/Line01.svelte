@@ -132,21 +132,23 @@ h3 {
       <LeftAxis ticks={[0, 50, 100]} showLabels={i === 0 || (!alignY)} />
       <BottomAxis ticks={[1900, 1950, 2000]} />
       <Line
-      lineDrawAnimation={{ duration: 1000, delay: i * 45 }}
+        lineDrawAnimation={{ duration: 1000, delay: i * 45 }}
         data={line}
-        xAccessor=x
-        yAccessor=y />
+        x=x
+        y=y />
 
       <g slot='mouseover' let:value=>
         {#if hoverValue.body}
-        <Point
-            x={hoverValue.x} y={getY(line, Math.floor(hoverValue.x))} r={2} />
+          <Point
+            x={hoverValue.x}
+            y={getY(line, Math.floor(hoverValue.x))}
+            size={2} />
           />
           <Point
             x={hoverValue.x}
             y={getY(line, Math.floor(hoverValue.x))}
-            r={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)}
-            opacity={0.2}
+            size={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)}
+            alpha={0.2}
             />
           <MarginText fontSize=11.5 justify=left yOffset={4} temporaryLabel={Math.floor(value.x) || ''} />
           <MarginText fontSize=11.5 justify=right yOffset={4} temporaryLabel={value.y ? perc(getY(line, Math.floor(hoverValue.x)) / line[0].y - 1) : ''} />

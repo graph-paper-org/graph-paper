@@ -47,16 +47,16 @@ setInterval(() => {
 }, 800);
 
 </script>
-<DataGraphic 
-  xType=linear 
-  yType=linear 
+<DataGraphic
+  xType=linear
+  yType=linear
   xDomainTween={{ duration: 700, easing }}
   yDomainTween={{ duration: 700, easing }}>
     <LeftAxis />
     <BottomAxis />
     {#each datasets as {data, index}, i (index)}
       <g>
-        <Histogram mixBlendMode=multiply color={getColor(index % 4)} {bins} data={data} alpha={0.5} tweenParams={{ duration: 500, easing }} />
+        <Histogram blend=multiply color={getColor(index % 4)} {bins} data={data} alpha={0.5} tweenParams={{ duration: 500, easing }} />
       </g>
     {/each}
   </DataGraphic>

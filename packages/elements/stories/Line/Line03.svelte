@@ -9,7 +9,7 @@ import { fly, fade } from 'svelte/transition';
 
 import DataGraphic from '../../../DataGraphic';
 import {
-  Line, LineBand, Point,
+  Line, Band, Point,
 } from '../..';
 
 
@@ -18,14 +18,11 @@ import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 
 import Button from '../../../Button/Button.svelte';
-// import Cancel from 'udgl/icons/Cancel.svelte';
 import { window1D } from '../../../core/utils/window-functions';
-
-// import FirefoxReleaseVersionMarkers from '../../../src/components/FirefoxReleaseVersionMarkers.svelte';
 
 let dtfmt = timeFormat('%b %d, %Y');
 
-let dates = (n = 365 * 2) => {
+let dates = (n = 365) => {
   let dt = new Date('2017-01-01');
   return Array.from({ length: n }).fill(null).map((_, i) => {
     let dt2 = new Date(dt);
@@ -62,9 +59,9 @@ const metricData = dates().map((date, i) => {
     dau: dau * (weekend ? 0.5 : 1),
     dauLow: dau * (weekend ? 0.4 : 1) * 0.9 * (1 - Math.random() / 8),
     dauHigh: dau * (weekend ? 0.7 : 1) * 1.1,
-    wau,
-    wauLow: wau * 0.95,
-    wauHigh: wau * 1.05,
+    wau: i > 100 && i < 160 ? undefined : wau,
+    wauLow: i > 100 && i < 160 ? undefined : wau * 0.95,
+    wauHigh: i > 100 && i < 160 ? undefined : wau * 1.05,
     mau,
     mauLow: mau * 0.9,
     mauHigh: mau * 1.1,
@@ -90,7 +87,7 @@ let xDomain = generateDomain();
 
 let auMax = Math.max(
   ...metricData.map((d) => d.dauHigh),
-  ...metricData.map((d) => d.wauHigh),
+  ...metricData.map((d) => d.wauHigh || 0),
   ...metricData.map((d) => d.mauHigh),
 ) * 1.1;
 
@@ -321,11 +318,10 @@ h2 {
           </g>
           <g slot=body>
             {#if true}
-              <LineBand data={metricData} xAccessor=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
+              <Band data={metricData} x=date yMin={`${key}Low`}  yMax={`${key}High`} />
             {/if}
-            <!-- <Line lineDrawAnimation={{ duration: 1200 }} data={metricData} xAccessor=date yAccessor={key} /> -->
             <g in:fly={{ duration: 200, y: 10 }}>
-              <Line data={metricData} xAccessor=date yAccessor={key} />
+              <Line data={metricData} x=date y={key} />
             </g>
           </g>
 
@@ -375,11 +371,9 @@ h2 {
     top={0}
     bottom={0}
     right={120}
-    xType=linear
-    yType=linear
   >
       <Line data={legendData} x=x y=y />
-      <LineBand data={legendData} xAccessor=x yMinAccessor=yMin yMaxAccessor=yMax />
+      <Band data={legendData} x=x yMin=yMin yMax=yMax />
 
       <g slot=annotation let:xScale let:yScale let:left let:right>
         <line x1={right + 10} x2={right + 10}

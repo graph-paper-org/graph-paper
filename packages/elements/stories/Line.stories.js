@@ -1,4 +1,4 @@
-import { withKnobs, select, number, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, number, boolean, text } from "@storybook/addon-knobs";
 import BasicLine from "./Line/Basic.svelte";
 import Line01Story from "./Line/Line01.svelte";
 import Line03Story from "./Line/Line03.svelte";
@@ -13,12 +13,14 @@ export const Basic = () => ({
   Component: BasicLine,
   props: {
     points: number("points", 100),
+    size: number("size", 1),
     curve: select("curve", [
       "curveMonotoneX",
       "curveStep",
       "curveLinear",
       "curveNatural",
     ]),
+    dashArray: text("dashArray", "1,0")
   },
 });
 
