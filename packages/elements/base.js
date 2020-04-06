@@ -1,5 +1,5 @@
 import Line from "./Line.svelte";
-import LineBand from "./LineBand.svelte";
+import Ribbon from "./Ribbon.svelte";
 import CanvasLine from "./CanvasLine.svelte";
 import Point from "./Point.svelte";
 import Shape from "./Shape.svelte";
@@ -10,7 +10,7 @@ export default {};
 
 export {
   Line,
-  LineBand,
+  Ribbon,
   CanvasLine,
   Point,
   Shape,

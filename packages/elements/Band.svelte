@@ -9,21 +9,21 @@ export let yScale = getContext('yScale') || writable((v) => v);
 export let useXScale = true;
 export let useYScale = true;
 export let data;
-export let xAccessor = 'x';
-export let yMinAccessor = 'low';
-export let yMaxAccessor = 'high';
+export let x = 'x';
+export let yMin = 'low';
+export let yMax = 'high';
 export let color = 'var(--cool-gray-200)';
 export let curve = 'curveMonotoneX';
-export let mixBlendMode = 'multiply';
+export let blend = 'multiply';
 
 const curveFunction = SHAPE[curve];
 
 let areaGenerator;
 $: areaGenerator = SHAPE.area()
-  .defined((d) => d[yMinAccessor] !== undefined && d[yMaxAccessor] !== undefined)
-  .x((d) => (useXScale ? $xScale(d[xAccessor]) : d[xAccessor]))
-  .y((d) => (useYScale ? $yScale(d[yMinAccessor]) : d[yMinAccessor]))
-  .y1((d) => (useYScale ? $yScale(d[yMaxAccessor]) : d[yMaxAccessor]))
+  .defined((d) => d[yMin] !== undefined && d[yMax] !== undefined)
+  .x((d) => (useXScale ? $xScale(d[x]) : d[x]))
+  .y((d) => (useYScale ? $yScale(d[yMin]) : d[yMin]))
+  .y1((d) => (useYScale ? $yScale(d[yMax]) : d[yMax]))
   .curve(curveFunction);
 </script>
 
@@ -32,5 +32,5 @@ $: areaGenerator = SHAPE.area()
     d={areaGenerator(data)}
     fill={color}
     in:fade
-    style="mix-blend-mode: {mixBlendMode};" />
+    style="mix-blend-mode: {blend};" />
 </g>

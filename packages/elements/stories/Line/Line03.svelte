@@ -9,7 +9,7 @@ import { fly, fade } from 'svelte/transition';
 
 import DataGraphic from '../../../DataGraphic';
 import {
-  Line, LineBand, Point,
+  Line, Band, Point,
 } from '../..';
 
 
@@ -22,7 +22,7 @@ import { window1D } from '../../../core/utils/window-functions';
 
 let dtfmt = timeFormat('%b %d, %Y');
 
-let dates = (n = 365 * 2) => {
+let dates = (n = 365) => {
   let dt = new Date('2017-01-01');
   return Array.from({ length: n }).fill(null).map((_, i) => {
     let dt2 = new Date(dt);
@@ -318,7 +318,7 @@ h2 {
           </g>
           <g slot=body>
             {#if true}
-              <LineBand data={metricData} xAccessor=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
+              <Band data={metricData} x=date yMin={`${key}Low`}  yMax={`${key}High`} />
             {/if}
             <g in:fly={{ duration: 200, y: 10 }}>
               <Line data={metricData} x=date y={key} />
@@ -373,7 +373,7 @@ h2 {
     right={120}
   >
       <Line data={legendData} x=x y=y />
-      <LineBand data={legendData} xAccessor=x yMinAccessor=yMin yMaxAccessor=yMax />
+      <Band data={legendData} x=x yMin=yMin yMax=yMax />
 
       <g slot=annotation let:xScale let:yScale let:left let:right>
         <line x1={right + 10} x2={right + 10}
