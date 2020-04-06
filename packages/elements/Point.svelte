@@ -1,5 +1,7 @@
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getContext, onDestroy } from 'svelte';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { writable } from 'svelte/store';
 
 import { updateExtents, removeExtent } from '@graph-paper/datagraphic/extents';
@@ -16,6 +18,7 @@ export let stroke = color;
 export let strokeWidth = 0;
 export let strokeAlpha = 1;
 export let scaling = true;
+
 const xScale = getContext('xScale') || writable((v) => v);
 const yScale = getContext('yScale') || writable((v) => v);
 

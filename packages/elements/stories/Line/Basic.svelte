@@ -5,14 +5,17 @@ import BottomAxis from '../../../guides/BottomAxis.svelte';
 import Line from '../../Line.svelte';
 
 export let points = 100;
+export let size = 1;
 export let curve = 'curveMonotoneX';
-export let xMin = 0;
-export let xMax = points - 1;
+export let dashArray = '1,0';
+
+let xMin = 0;
+let xMax = points - 1;
 
 let y = 100;
 
 const data = Array.from({ length: points }).map((_, x) => {
-  y += (Math.random() - 0.5) * 10;
+  y += (Math.random() - 0.5) * 80;
   return { x, y };
 });
 
@@ -20,11 +23,8 @@ const data = Array.from({ length: points }).map((_, x) => {
 
 <DataGraphic
     xDomain={[xMin, xMax]}
-    yDomain={[0, 200]}
-    xType=linear
-    yType=linear
 >
     <LeftAxis />
     <BottomAxis />
-    <Line {curve} {data} />
+    <Line {curve} {data} {size} {dashArray} />
 </DataGraphic>

@@ -8,17 +8,23 @@ import { updateExtents, removeExtent } from '@graph-paper/datagraphic/extents';
 
 export let xScale = getContext('xScale') || writable((v) => v);
 export let yScale = getContext('yScale') || writable((v) => v);
-export let xAccessor = 'x';
-export let yAccessor = 'y';
+
+export let data;
+export let x = 'x';
+export let y = 'y';
+export let color = 'var(--digital-blue-500)';
+export let size = 1;
+export let dashArray = '1,0';
+
+export let curve = 'curveMonotoneX';
+
+export let area = false;
+export let areaColor = 'var(--digital-blue-400)';
+
+export let lineDrawAnimation = { duration: 0 };
+
 export let useXScale = true;
 export let useYScale = true;
-export let data;
-export let color = 'var(--digital-blue-500)';
-export let areaColor = 'var(--digital-blue-400)';
-export let strokeWidth = 1;
-export let lineDrawAnimation = { duration: 0 };
-export let curve = 'curveMonotoneX';
-export let area = false;
 
 const xExtents = getContext('gp:datagraphic:xExtents');
 const yExtents = getContext('gp:datagraphic:yExtents');
@@ -31,17 +37,17 @@ const curveFunction = SHAPE[curve];
 let lineGenerator;
 let areaGenerator;
 
-$: updateExtents(xExtents, key, data, xAccessor);
-$: updateExtents(yExtents, key, data, yAccessor);
+$: updateExtents(xExtents, key, data, x);
+$: updateExtents(yExtents, key, data, y);
 
 $: lineGenerator = SHAPE.line()
-  .x((d) => (useXScale ? $xScale(d[xAccessor]) : d[xAccessor]))
-  .y((d) => (useYScale ? $yScale(d[yAccessor]) : d[yAccessor]))
+  .x((d) => (useXScale ? $xScale(d[x]) : d[x]))
+  .y((d) => (useYScale ? $yScale(d[y]) : d[y]))
   .curve(curveFunction);
 
 $: areaGenerator = SHAPE.area()
-  .x((d) => $xScale(d[xAccessor]))
-  .y1((d) => $yScale(d[yAccessor]))
+  .x((d) => $xScale(d[x]))
+  .y1((d) => $yScale(d[y]))
   .y0($yScale.range()[0])
   .curve(curveFunction);
 
@@ -58,7 +64,8 @@ onDestroy(destroy);
 <g class=line>
   <path
     stroke={color}
-    stroke-width={strokeWidth}
+    stroke-width={size}
+    stroke-dasharray={dashArray}
     fill=none
     in:draw={lineDrawAnimation}
     d={lineGenerator(data)} />

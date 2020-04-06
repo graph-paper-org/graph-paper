@@ -321,11 +321,10 @@ h2 {
           </g>
           <g slot=body>
             {#if true}
-              <LineBand data={metricData} xAccessor=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
+              <LineBand data={metricData} x=date yMinAccessor={`${key}Low`}  yMaxAccessor={`${key}High`} />
             {/if}
-            <!-- <Line lineDrawAnimation={{ duration: 1200 }} data={metricData} xAccessor=date yAccessor={key} /> -->
             <g in:fly={{ duration: 200, y: 10 }}>
-              <Line data={metricData} xAccessor=date yAccessor={key} />
+              <Line data={metricData} x=date y={key} />
             </g>
           </g>
 
@@ -375,8 +374,6 @@ h2 {
     top={0}
     bottom={0}
     right={120}
-    xType=linear
-    yType=linear
   >
       <Line data={legendData} x=x y=y />
       <LineBand data={legendData} xAccessor=x yMinAccessor=yMin yMaxAccessor=yMax />
