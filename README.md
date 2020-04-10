@@ -2,7 +2,7 @@
 
 A Svelte component library optimized for data visualizations and data apps.
 
-_note: this project is in alpha, and as such is subject to API changes and restructuring._
+_note: this project is in very early alpha, and as such is subject to API changes and restructuring without notice._
 
 ## installation
 
