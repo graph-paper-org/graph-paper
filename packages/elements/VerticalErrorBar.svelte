@@ -1,4 +1,5 @@
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getContext } from 'svelte';
 
 export let minY;

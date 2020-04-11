@@ -6,11 +6,11 @@
   import { fade } from 'svelte/transition';
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { cubicOut as easing } from 'svelte/easing';
-  import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+  import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';
-  import { Button } from '../../../Button';
+  import { Button } from '../../../button';
 
   const rnorm01 = randomNormal(0, 10);
   const rnorm02 = randomNormal(100, 30);

@@ -4,7 +4,7 @@ import { randomNormal } from 'd3-random';
 import { fade } from 'svelte/transition';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing } from 'svelte/easing';
-import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 import Histogram from '../../Histogram.svelte';

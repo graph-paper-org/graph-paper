@@ -1,8 +1,10 @@
 <script>
   import { randomNormal } from 'd3-random';
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { tweened } from 'svelte/motion';
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { elasticOut as easing } from 'svelte/easing';
-  import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+  import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
   import LeftAxis from '../../../guides/LeftAxis.svelte';
   import BottomAxis from '../../../guides/BottomAxis.svelte';
   import Point from '../../Point.svelte';

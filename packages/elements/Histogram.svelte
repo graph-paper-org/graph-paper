@@ -25,7 +25,6 @@ export let yScale = getContext('yScale') || writable((v) => v);
 
 const xExtents = getContext('gp:datagraphic:xExtents');
 const yExtents = getContext('gp:datagraphic:yExtents');
-const dataGraphicKey = getContext('key');
 
 export const key = Math.random()
   .toString(36).substring(2, 15)
@@ -52,14 +51,14 @@ onDestroy(destroy);
 
 <g class=gp__element__histogram>
     {#each hist(data) as {values, x0, x1, length}, i (`${x0}-${x1}`)}
-        <rect 
-          style="mix-blend-mode: {mixBlendMode};" 
-          opacity={alpha} 
-          fill={color} 
-          stroke={stroke || color}  
-          x={$xScale(x0)} 
-          y={$yScale(length) * $tw + $yScale(0) * (1 - $tw) } 
-          width={$xScale(x1) - $xScale(x0)} 
+        <rect
+          style="mix-blend-mode: {mixBlendMode};"
+          opacity={alpha}
+          fill={color}
+          stroke={stroke || color}
+          x={$xScale(x0)}
+          y={$yScale(length) * $tw + $yScale(0) * (1 - $tw) }
+          width={$xScale(x1) - $xScale(x0)}
           height={($yScale(0) - $yScale(length)) * $tw}
         />
     {/each}

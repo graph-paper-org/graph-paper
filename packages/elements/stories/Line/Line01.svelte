@@ -1,8 +1,13 @@
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { onMount } from 'svelte';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { spring } from 'svelte/motion';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { derived } from 'svelte/store';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { format } from 'd3-format';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { fly } from 'svelte/transition';
 
 import DataGraphic from '@graph-paper/datagraphic';

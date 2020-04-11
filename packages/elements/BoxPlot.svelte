@@ -19,7 +19,7 @@ export let opacity = 1;
 </script>
 
 <g in:fly={flyValues} class="small-multiple quantiles" opacity={opacity}>
-  <line 
+  <line
     x1={$xScale(x)}
     x2={$xScale(x)}
     y1={$yScale(lowest)}
@@ -32,7 +32,7 @@ export let opacity = 1;
     height={yScale(lower) - yScale(higher)}
     fill=var(--blue-slate-500)
   />
-  <line  
+  <line
     x1={$xScale(x) - 5}
     x2={$xScale(x) + 5}
     y1={yScale(middle)}

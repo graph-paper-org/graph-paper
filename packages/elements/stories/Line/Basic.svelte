@@ -1,5 +1,5 @@
 <script>
-import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 import Line from '../../Line.svelte';

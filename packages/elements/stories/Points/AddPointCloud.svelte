@@ -5,11 +5,11 @@ import { fly } from 'svelte/transition';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing, elasticOut as flyEasing } from 'svelte/easing';
 import { interpolateMagma as interp } from 'd3-scale-chromatic';
-import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 import Point from '../../Point.svelte';
-import { Button } from '../../../Button';
+import { Button } from '../../../button';
 
 export let size = 3;
 export let colorAlpha = 1;

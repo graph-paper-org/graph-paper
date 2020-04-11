@@ -1,5 +1,6 @@
 // taken from d3-array
 function compare(a, b) {
+  // eslint-disable-next-line no-nested-ternary
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 export function firstIndexAbove({
@@ -11,8 +12,8 @@ export function firstIndexAbove({
 }) {
   while (lo < hi) {
     const mid = (lo + hi) >>> 1; // eslint-disable-line
-    if (compare(+data[mid][key], value) < 0) lo = mid + 1;
-    else hi = mid;
+    if (compare(+data[mid][key], value) < 0) lo = mid + 1; // eslint-disable-line
+    else hi = mid; // eslint-disable-line
   }
   return lo;
 }

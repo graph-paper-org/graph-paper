@@ -1,4 +1,5 @@
-import { withKnobs, select, number, boolean, text } from "@storybook/addon-knobs";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { withKnobs, select, number, text } from "@storybook/addon-knobs";
 import BasicLine from "./Line/Basic.svelte";
 import Line01Story from "./Line/Line01.svelte";
 import Line03Story from "./Line/Line03.svelte";
@@ -20,7 +21,7 @@ export const Basic = () => ({
       "curveLinear",
       "curveNatural",
     ]),
-    dashArray: text("dashArray", "1,0")
+    dashArray: text("dashArray", "1,0"),
   },
 });
 

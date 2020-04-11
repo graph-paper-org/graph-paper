@@ -1,8 +1,5 @@
 <script>
-import { cubicOut as easing } from 'svelte/easing';
-
 import { schemeTableau10 as cm } from 'd3-scale-chromatic';
-
 import DataGraphic from 'udgl/data-graphics/DataGraphic.svelte';
 import Line from 'udgl/data-graphics/elements/Line.svelte';
 import Point from 'udgl/data-graphics/elements/Point.svelte';
@@ -68,7 +65,7 @@ function getXY(d, v) {
     right={120}
   >
     <LeftAxis />
-    
+
     <BottomAxis />
 
     {#each data as line, i}
@@ -84,18 +81,18 @@ function getXY(d, v) {
       {#if value.x}
         {#each getValue(data, value) as v, i}
         <Tweenable params={{ duration: 100 }} value={v} let:tweenValue>
-          <text 
-            x={right} 
+          <text
+            x={right}
             text-anchor=end
             y={top + 12 * (i + 1)}
             font-size=12
           >
             <tspan>
                 {Math.round(tweenValue)}
-            </tspan> <tspan font-size=20 dx=2 dy=2 fill={cm[i]}>•</tspan> 
+            </tspan> <tspan font-size=20 dx=2 dy=2 fill={cm[i]}>•</tspan>
           </text>
-          <text 
-            x={right + 2 } 
+          <text
+            x={right + 2 }
             text-anchor=start
             y={top + 12 * (i + 1)}
             font-size=11
@@ -110,24 +107,24 @@ function getXY(d, v) {
 
       {#if value.x}
       <Springable value={get(data[0], value.x)} let:springValue>
-          <Marker 
-            location={springValue.current.x} 
+          <Marker
+            location={springValue.current.x}
             lineColor=var(--cool-gray-300)
             lineThickness=2
             dasharray='3,2'
           />
-          <text          
+          <text
             text-anchor=middle
             font-size=12
             fill=var(--cool-gray-400)
             font-weight=bold
             text-transform=uppercase
-            x={xScale(springValue.current.x)} 
+            x={xScale(springValue.current.x)}
             y={top - 8}>day {Math.round(springValue.currentIndex)}</text>
       </Springable>
 
       <Springable
-          value={getXY(data, value)} 
+          value={getXY(data, value)}
           let:springValue={spr} >
             {#each spr as {x,y}, i}
               <Point fill={cm[i]} x={x} y={y} r={3} />

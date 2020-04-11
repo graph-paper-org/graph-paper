@@ -5,7 +5,7 @@ import { fade } from 'svelte/transition';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing } from 'svelte/easing';
 import { interpolateSinebow as interp01, interpolateCividis as interp02 } from 'd3-scale-chromatic';
-import DataGraphic from '../../../DataGraphic/DataGraphic.svelte';
+import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 import Line from '../../Line.svelte';

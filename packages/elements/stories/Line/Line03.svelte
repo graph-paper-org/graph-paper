@@ -3,11 +3,9 @@ import { format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { cubicOut as easing } from 'svelte/easing';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { fly, fade } from 'svelte/transition';
 
-import DataGraphic from '../../../DataGraphic';
+import { DataGraphic } from '../../../datagraphic';
 import {
   Line, Band, Point,
 } from '../..';
@@ -17,7 +15,7 @@ import VerticalErrorBar from '../../VerticalErrorBar.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
 
-import Button from '../../../Button/Button.svelte';
+import Button from '../../../button/Button.svelte';
 import { window1D } from '../../../core/utils/window-functions';
 
 let dtfmt = timeFormat('%b %d, %Y');

@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { listen } from "svelte/internal";
 import { placeElement } from "../utils/float-placement";
 
@@ -58,8 +58,8 @@ export function tooltip(node, args) {
       removeEnter();
       removeLeave();
     },
-    update(args) {
-      el.textContent = args.text;
+    update(newArgs) {
+      el.textContent = newArgs.text;
     },
   };
 }

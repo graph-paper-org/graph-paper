@@ -1,4 +1,5 @@
-import { withKnobs, select, number } from "@storybook/addon-knobs";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { withKnobs, number } from "@storybook/addon-knobs";
 import BasicHistogram from "./Histogram/Basic.svelte";
 
 export default {
