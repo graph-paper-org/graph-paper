@@ -4,6 +4,7 @@
 
 - standardizes Line component
 - changes LineBand -> Band
+- adds `@graph-paper/icons`
 
 ## 0.0.0-alpha.6
 

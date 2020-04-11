@@ -12,7 +12,7 @@ import {
   Line, Band, Point,
 } from '../..';
 
-
+import Cancel from '../../../icons/Close.svelte';
 import VerticalErrorBar from '../../VerticalErrorBar.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
 import BottomAxis from '../../../guides/BottomAxis.svelte';
@@ -234,7 +234,7 @@ h2 {
           isScrubbed = false;
           resetDomain();
         }}>clear zoom
-          <!-- <Cancel size={16} /> -->
+          <Cancel size={16} />
         </Button>
       </div>
       {/if}
