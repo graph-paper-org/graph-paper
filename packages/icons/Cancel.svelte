@@ -1,7 +1,8 @@
-   <!-- This icon was adapted from the Photon Design System (licensed under the MPL v2.0):
-    https://design.firefox.com/photon/
-    https://github.com/FirefoxUX/photon-icons/blob/master/icons/desktop/cancel-16.svg
-   -->
+<!--
+This icon was adapted from the Photon Design System (licensed under the MPL v2.0):
+https://design.firefox.com/photon/
+https://github.com/FirefoxUX/photon-icons/blob/master/icons/desktop/cancel-16.svg
+-->
 <script>
 export let size = 24;
 </script>

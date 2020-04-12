@@ -1,8 +1,8 @@
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-
-<!-- This icon was adapted from the Photon Design System. -->
+<!--
+This icon was adapted from the Photon Design System (licensed under the MPL v2.0):
+https://design.firefox.com/photon/
+https://github.com/FirefoxUX/photon-icons/blob/master/icons/desktop/help-16.svg
+-->
 <script>
 export let size = 24;
 </script>
