@@ -10,6 +10,8 @@ import Information from "./Information.svelte";
 import Menu from "./Menu.svelte";
 import Search from "./Search.svelte";
 import Warning from "./Warning.svelte";
+import Check from "./Check.svelte";
+import Cancel from "./Cancel.svelte";
 
 import LineChart from "./LineChart.svelte";
 import BarChart from "./BarChart.svelte";
@@ -28,6 +30,8 @@ const icons = {
   Menu,
   Search,
   Warning,
+  Check,
+  Cancel,
   BarChart,
   Table,
   LineChart,
@@ -47,6 +51,8 @@ export {
   Menu,
   Search,
   Warning,
+  Check,
+  Cancel,
   BarChart,
   Table,
   LineChart,

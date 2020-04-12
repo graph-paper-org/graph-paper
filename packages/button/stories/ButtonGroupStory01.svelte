@@ -1,7 +1,6 @@
 <script>
 import { Stack } from '../../stack';
-import { ButtonGroup, Button } from '..';
-
+import { Button, ButtonGroup } from '..';
 
 export let level = 'high';
 export let compact = false;

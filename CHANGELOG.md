@@ -2,9 +2,10 @@
 
 ## upcoming
 
-- standardizes Line component
-- changes LineBand -> Band
+- standardizes `Line` component
+- changes `LineBand` -> `Band`
 - adds `@graph-paper/icons`
+- add `@graph-paper/chip`
 
 ## 0.0.0-alpha.6
 
