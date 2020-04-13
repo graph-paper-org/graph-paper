@@ -11,6 +11,7 @@ jobs:
       - node/install-packages
       - run: npm install
       - run: npx lerna bootstrap
+      - run: npx eslint .
       - run: npm test
 workflows:
   build-and-test:
