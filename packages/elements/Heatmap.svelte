@@ -58,7 +58,7 @@ function getLengths(ds, sc, accessor) {
 let widths = getLengths(data, $xScale, xAccessor);
 let heights = getLengths(data, $yScale, yAccessor);
 
-let byColor = data.map((d, i) => ({
+let byColor = data.map((d) => ({
   [heatAccessor]: d[heatAccessor] === 0.0 ? 'transparent' : colorMap(scale(d[heatAccessor])),
   [xAccessor]: $xScale(d[xAccessor]),
   [yAccessor]: $yScale(d[yAccessor]) - $yScale.step() / 2,
@@ -70,8 +70,9 @@ let byColor = data.map((d, i) => ({
 const colors = new Set(byColor.map((b) => b[heatAccessor]));
 
 const colorCombos = Array.from(colors).reduce((acc, c) => {
-  acc[c] = byColor.filter((bc) => bc[heatAccessor] === c);
-  return acc;
+  const accCopy = { ...acc };
+  accCopy[c] = byColor.filter((bc) => bc[heatAccessor] === c);
+  return accCopy;
 }, {});
 
 function renderCanvas() {

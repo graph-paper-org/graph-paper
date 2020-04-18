@@ -1,5 +1,5 @@
 <script>
-import Box from '..';
+import { Box } from '..';
 
 export let padding = 1;
 </script>

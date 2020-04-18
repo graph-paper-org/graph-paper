@@ -22,7 +22,7 @@ let dtfmt = timeFormat('%b %d, %Y');
 
 let dates = (n = 365) => {
   let dt = new Date('2017-01-01');
-  return Array.from({ length: n }).fill(null).map((_, i) => {
+  return Array.from({ length: n }).fill(null).map(() => {
     let dt2 = new Date(dt);
     dt.setDate(dt.getDate() + 1);
     return dt2;
@@ -131,12 +131,6 @@ let mouseMoveValue = {};
 let startValue;
 let endValue;
 let hoverPt;
-
-const mMap = metricData.reduce((acc, v) => {
-  // date
-  acc[v.dts] = v;
-  return acc;
-}, {});
 
 const resetMouseClicks = () => {
   mouseDownValue = {};

@@ -35,7 +35,7 @@ function makeLine(m = 3, n = 1) {
 
 const K = 16;
 let lines = Array.from({ length: K })
-  .map((_, i) => spring(makeLine(M), { stiffness: 0.3, damping: 0.6 }));
+  .map(() => spring(makeLine(M), { stiffness: 0.3, damping: 0.6 }));
 
 const lineSet = derived(lines, ($lines) => $lines);
 

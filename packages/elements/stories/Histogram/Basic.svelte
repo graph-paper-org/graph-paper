@@ -1,8 +1,6 @@
 <script>
 import { randomNormal } from 'd3-random';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { fade } from 'svelte/transition';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { cubicOut as easing } from 'svelte/easing';
 import DataGraphic from '../../../datagraphic/DataGraphic.svelte';
 import LeftAxis from '../../../guides/LeftAxis.svelte';
@@ -31,7 +29,9 @@ function addDataset() {
   generate = randomNormal(Math.random() * 100, 5);
   datasets.push({
     index: i,
-    data: Array.from({ length: points * (r < 0.1 ? 1 : Math.floor(1 + Math.random() * 5)) }).map(() => ({ value: generate() })),
+    data: Array.from({
+      length: points * (r < 0.1 ? 1 : Math.floor(1 + Math.random() * 5)),
+    }).map(() => ({ value: generate() })),
   });
   datasets = datasets;
   i += 1;

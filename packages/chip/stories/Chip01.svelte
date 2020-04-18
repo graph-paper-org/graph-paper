@@ -37,8 +37,11 @@ let multipleFilters = [0];
 
 function handleMultipleFilter(v) {
   return () => {
-    if (multipleFilters.includes(v)) multipleFilters = [...multipleFilters.filter((di) => di !== v)];
-    else multipleFilters = [...multipleFilters, v];
+    if (multipleFilters.includes(v)) {
+      multipleFilters = [...multipleFilters.filter((di) => di !== v)];
+    } else {
+      multipleFilters = [...multipleFilters, v];
+    }
   };
 }
 

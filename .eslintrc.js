@@ -34,6 +34,11 @@ module.exports = {
         "import/first": "off",
         "import/no-mutable-exports": "off",
         "prefer-const": "off",
+
+        // Temporarily work around a bug in eslint-plugin-svelte3.
+        //
+        // https://github.com/sveltejs/eslint-plugin-svelte3/issues/41#issuecomment-572503966
+        "no-multiple-empty-lines": ["error", { max: 2, maxBOF: 2, maxEOF: 0 }],
       },
     },
   ],
