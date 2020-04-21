@@ -2,7 +2,7 @@
   "name": "@graph-paper/box",
   "version": "0.0.0-alpha.6",
   "description": "__DESCRIPTION_FORTHCOMING__",
-  "author": "hamilton <hamilton.ulmer@gmail.com>",
+  "author": "Hamilton Ulmer <hamilton.ulmer@gmail.com>",
   "homepage": "",
   "license": "MPL-2.0",
   "main": "index.js",
