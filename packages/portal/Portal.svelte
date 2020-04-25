@@ -2,7 +2,6 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { onMount, onDestroy } from 'svelte';
 
-
   let ref;
   let portal;
   let mounted = false;
@@ -20,11 +19,7 @@
   });
 </script>
 
-<style>
-  .portal-container { display: none; }
-</style>
-
-<div class="portal-container">
+<div class="gp-portal" style="display: none">
   <div bind:this={ref}>
     {#if mounted}
       <slot></slot>
