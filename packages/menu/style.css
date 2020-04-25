@@ -1,0 +1,48 @@
+.menu-list-item {
+  font-size: var(--text-02);
+  user-select: none;
+}
+
+.menu-list-item button {
+  border-radius: 0px;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-2x);
+  padding-left: var(--space-2x);
+  padding-right: var(--space-4x);
+  text-align: left;
+}
+
+.menu-list-item button.compact {
+  padding: var(--space-base);
+  padding-right: var(--space-2x);
+  font-size: var(--text-015);
+}
+
+.menu-list-item button.dark {
+  background-color: var(--blue-slate-800);
+  color: white;
+}
+
+.menu-list-item button:focus,
+.menu-list-item button:focus * {
+  outline: none;
+  border: none;
+  outline-width: 0;
+}
+
+.menu-list-item .hoverable:hover,
+.menu-list-item .hoverable.candidate {
+  background-color: var(--cool-gray-200);
+  outline: none;
+}
+
+.menu-list-item .hoverable.dark:hover,
+.menu-list-item .hoverable.dark.candidate {
+  background-color: var(--blue-slate-500);
+}

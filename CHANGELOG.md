@@ -2,6 +2,7 @@
 
 ## upcoming
 
+- adds `@graph-paper/optionmenu` ([#19](https://github.com/graph-paper-org/graph-paper/pull/19/))
 - standardizes `Line` component
 - changes `LineBand` -> `Band`
 - adds `@graph-paper/icons`

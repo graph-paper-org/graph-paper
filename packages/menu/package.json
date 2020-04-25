@@ -1,10 +1,11 @@
 {
-  "name": "@graph-paper/chip",
+  "name": "@graph-paper/menu",
   "version": "0.0.0-alpha.6",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "Hamilton Ulmer <hamilton.ulmer@gmail.com>",
-  "homepage": "",
-  "license": "MPL-2.0",
+  "contributors": [
+    "John Karahalis <john.karahalis@gmail.com>"
+  ],
   "main": "index.js",
   "directories": {
     "test": "__tests__"
@@ -14,12 +15,5 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "dependencies": {
-    "@graph-paper/icons": "0.0.0-alpha.6"
-  },
-  "devDependencies": {
-    "@graph-paper/button": "0.0.0-alpha.6",
-    "@graph-paper/stack": "0.0.0-alpha.6"
   }
 }

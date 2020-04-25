@@ -1,0 +1,58 @@
+<script>
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  import { setContext } from 'svelte';
+  import { placeElement } from '../core/utils/float-placement';
+
+  import Portal from '../core/Portal.svelte';
+
+
+  export let parent;
+  export let offset = 0;
+  export let location = 'bottom';
+  export let alignment = 'left';
+  export let onParentSelect = () => {};
+
+  let element;
+  let scrollY;
+
+  let innerWidth;
+  let innerHeight;
+
+  let leftPlacement;
+  let topPlacement;
+
+  setContext('onChildSelect', onParentSelect);
+
+  $: if (element && parent) {
+    [leftPlacement, topPlacement] = placeElement({
+      location,
+      alignment,
+      elementPosition: element.getBoundingClientRect(),
+      parentPosition: parent.getBoundingClientRect(),
+      distance: offset,
+      y: scrollY,
+    });
+  }
+</script>
+
+<style>
+  .bound-menu {
+    position: absolute;
+    width: max-content;
+    z-index: 10;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+</style>
+
+<svelte:window bind:innerWidth bind:innerHeight bind:scrollY />
+
+<Portal>
+  <div class=bound-menu bind:this={element} style="
+    left: {leftPlacement}px;
+    top: {topPlacement}px;
+    max-height: calc(100vh - {topPlacement}px - var(--screen-padding));
+    ">
+    <slot></slot>
+  </div>
+</Portal>
