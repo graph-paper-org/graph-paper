@@ -7,6 +7,7 @@ const defaults = {
   location: "bottom",
   alignment: "center",
   distance: 4,
+  visible: true,
 };
 
 export function tooltip(node, args) {
@@ -17,6 +18,9 @@ export function tooltip(node, args) {
   el.textContent = options.text;
   el.style.position = "absolute";
   el.style.transition = `opacity ${duration}ms, transform ${duration}ms`;
+
+  let { visible } = options;
+  let entered = false;
 
   function setLocation() {
     const [left, top] = placeElement({
@@ -32,20 +36,28 @@ export function tooltip(node, args) {
     el.style.left = `${left}px`;
   }
 
-  function append() {
-    if (el.textContent.length && options.text) {
-      el.textContent = options.text;
-      document.body.appendChild(el);
-      el.style.opacity = "0";
-
+  function updateElement(newText, isVisible) {
+    el.textContent = newText;
+    document.body.appendChild(el);
+    el.style.opacity = "0";
+    if (isVisible && entered) {
       setTimeout(() => {
         el.style.opacity = "1";
+        visible = true;
       });
-      setLocation();
+    }
+    setLocation();
+  }
+
+  function append() {
+    entered = true;
+    if (el.textContent.length && options.text) {
+      updateElement(options.text, visible);
     }
   }
 
   function remove() {
+    entered = false;
     el.remove();
   }
 
@@ -59,7 +71,8 @@ export function tooltip(node, args) {
       removeLeave();
     },
     update(newArgs) {
-      el.textContent = newArgs.text;
+      visible = newArgs.visible === undefined || newArgs.visible;
+      updateElement(newArgs.text, visible);
     },
   };
 }

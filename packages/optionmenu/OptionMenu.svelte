@@ -89,122 +89,23 @@
   onMount(() => {
     if (title) titleWidth = titleElement.getBoundingClientRect().width;
   });
+
 </script>
-
-<style>
-  .activating-button {
-    padding: var(--space-1h);
-    padding-left: var(--space-base);
-    padding-right: var(--space-1h);
-    font-size: var(--text-015);
-    margin:0;
-    text-align: left;
-    background-color: white;
-    display:grid;
-    grid-auto-flow: column;
-    width: max-content;
-    grid-column-gap: var(--space-1h);
-    color: var(--cool-gray-650);
-    border-radius: var(--space-1h);
-  }
-
-  .down-caret {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    justify-self: end;
-    transition: transform 100ms;
-  }
-
-  .down-caret--active {
-    transform: rotate(-180deg);
-  }
-
-  button:disabled {
-    color: var(--cool-gray-500);
-    font-style: italic;
-    background-color: var(--cool-gray-subtle);
-  }
-
-  .activating-button__title {
-    color: var(--cool-gray-700);
-    padding-left: var(--space-base);
-    width: max-content;
-  }
-
-  .menu-list-item__content {
-    display: grid;
-    grid-auto-flow: column;
-    grid-column-gap: var(--space-2x);
-    align-items: start;
-    justify-content: start;
-    --color: var(--cool-gray-700);
-    --subcolor: var(--cool-gray-650);
-  }
-
-  .menu-list-item__icon {
-    display: grid;
-    align-items: center;
-    color: var(--color);
-  }
-
-  .menu-list-item__icon--disabled {
-    --color: var(--cool-gray-350);
-  }
-
-  .menu-list-item__text {
-    width: 100%;
-    justify-self: stretch;
-  }
-
-  .menu-list-item__title {
-    font-size: var(--text-02);
-    color: var(--color);
-  }
-
-  .menu-list-item__description {
-    padding-top: var(--space-1q);
-    max-width: var(--space-32x);
-    font-size: var(--text-015);
-    color: var(--subcolor);
-  }
-
-  .active {
-    background-color: var(--cool-gray-150);
-  }
-
-  hr {
-    border: none;
-    border-bottom: 1px solid var(--cool-gray-200);
-    padding:0px;
-    margin:0px;
-  }
-
-  .menu-list-item__title--disabled {
-    --color: var(--cool-gray-600);
-    font-style: italic;
-  }
-
-  .menu-list-item__description--disabled {
-    --subcolor: var(--cool-gray-600);
-    font-style: italic;
-  }
-</style>
 
 <svelte:window on:keydown={keyDown} />
 
-<div class="menu-button" bind:this={buttonParent}>
+<div class="option-menu" bind:this={buttonParent}>
   {#if title}
-    <div bind:this={titleElement} class="activating-button__title overline-text--01">{title}</div>
+    <div bind:this={titleElement} class="option-menu__label overline-text--01">{title}</div>
   {/if}
   <button
     bind:this={button}
-    class="activating-button"
+    class="option-menu__button"
     on:click={toggle}
     style="min-width: calc({titleWidth}px + var(--space-base));"
-    class:active={open}
+    class:option-menu__button--active={open}
     disabled={!active}
-    use:tooltipAction={showTooltip ? { text: description, location: descriptionLocation } : null}
+    use:tooltipAction={ { visible: (showTooltip && !open), text: description, location: descriptionLocation }}
     >
         <div>
           {#if multi}
@@ -223,7 +124,7 @@
             {/each}
           {/if}
         </div>
-        <div class="down-caret" class:down-caret--active={open}>
+        <div class="option-menu__down-caret" class:option-menu__down-caret--active={open}>
           <ArrowheadDown size=16 />
         </div>
   </button>
@@ -240,15 +141,15 @@
     <MenuList on:selection={setValue}>
       {#each options as opt, i}
         {#if opt.key === 'DIVIDER'}
-          <hr />
+          <hr class=option-menu__list-item__divider />
         {:else}
           <MenuListItem {compact} hoverable={opt.disabled !== true} key={opt.key} value={opt}>
 
-          <div class=menu-list-item__content>
+          <div class=option-menu__list-item__content>
             {#if multi}
               <div
-                class=menu-list-item__icon
-                class:menu-list-item__icon--disabled={opt.disabled === true}
+                class=option-menu__list-item__icon
+                class:option-menu__list-item__icon--disabled={opt.disabled === true}
               >
                 {#if keys(currentOption).includes(opt.key)}
                   <CheckBox size={14} />
@@ -258,14 +159,14 @@
               </div>
             {/if}
 
-            <div class=menu-list-item__text>
-              <div class:menu-list-item__title--disabled={opt.disabled} class=menu-list-item__title>
+            <div class=option-menu__list-item__text>
+              <div class:option-menu__list-item__title--disabled={opt.disabled} class=option-menu__list-item__title>
                 <div class=menu-liste-item__title__label>
                   {opt.label}
                 </div>
               </div>
               {#if opt.description}
-              <div class:menu-list-item__description--disabled={opt.disabled} class=menu-list-item__description>{opt.description}</div>
+              <div class:option-menu__list-item__description--disabled={opt.disabled} class=option-menu__list-item__description>{opt.description}</div>
               {/if}
             </div>
           </div>
