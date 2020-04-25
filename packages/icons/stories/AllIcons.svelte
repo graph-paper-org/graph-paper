@@ -1,5 +1,5 @@
 <script>
-import icons from '..';
+import * as icons from '..';
 
 export let size = 24;
 export let color = '#000';
