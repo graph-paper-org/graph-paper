@@ -14,7 +14,7 @@ import DataGraphic from '@graph-paper/datagraphic';
 
 import { MarginText, LeftAxis, BottomAxis } from '@graph-paper/guides';
 
-import Button from '@graph-paper/button';
+import { Button } from '@graph-paper/button';
 import Point from '../../Point.svelte';
 import Line from '../../Line.svelte';
 
