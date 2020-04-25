@@ -2,6 +2,7 @@
 
 ## upcoming
 
+- `Button` component now accept `href` ([#59](https://github.com/graph-paper-org/graph-paper/pull/59))
 - adds `@graph-paper/portal` ([#55]((https://github.com/graph-paper-org/graph-paper/pull/55/))
 - adds `@graph-paper/optionmenu` ([#19](https://github.com/graph-paper-org/graph-paper/pull/19/))
 - standardizes `Line` component

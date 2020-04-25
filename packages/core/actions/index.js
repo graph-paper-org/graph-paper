@@ -1,3 +1,4 @@
 import { tooltip } from "./tooltip";
+import { forwardEvents } from "./forwardEvents";
 
-export { tooltip };
+export { tooltip, forwardEvents };

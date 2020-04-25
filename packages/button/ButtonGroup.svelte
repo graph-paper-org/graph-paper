@@ -25,12 +25,12 @@ div :global(button:not(:first-child):not(:last-child)) {
 }
 
 /* FIXME: this should only apply to .gp-button */
-div :global(button:first-child) {
+div :global(.gp-button:first-child) {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
 
-div :global(button:last-child) {
+div :global(.gp-button:last-child) {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
