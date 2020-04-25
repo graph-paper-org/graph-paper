@@ -1,5 +1,7 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { flip } from 'svelte/animate';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { fade } from 'svelte/transition';
 import { Stack } from '@graph-paper/stack';
 import { Button } from '@graph-paper/button';
@@ -133,7 +135,9 @@ h3 {
     <h3>Cancelable</h3>
     <ChipSet>
       {#each cancelables as {index, country}, i (index)}
+      <div animate:flip={{ duration: 200 }}>
         <Chip cancelable on:cancel={removeCancelable(index)}>{country}</Chip>
+      </div>
       {:else}
         <div style='font-size: var(--text-02);' transition:fade={{ duration: 10000, delay: 1000 }}>
           No Chips.
