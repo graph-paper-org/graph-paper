@@ -17,6 +17,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "devDependencies": {
+    "@graph-paper/core": "0.0.0-alpha.6",
     "@graph-paper/portal": "0.0.0-alpha.6"
   }
 }

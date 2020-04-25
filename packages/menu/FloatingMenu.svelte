@@ -2,7 +2,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { setContext } from 'svelte';
   import { Portal } from '@graph-paper/portal';
-import { placeElement } from '../core/utils/float-placement';
+  import { placeElement } from '@graph-paper/core/utils/float-placement';
 
 
   export let parent;
