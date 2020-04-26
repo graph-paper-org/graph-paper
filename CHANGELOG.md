@@ -1,6 +1,8 @@
 # Changelog
 
-## upcoming
+## 0.0.0-alpha.7
+
+Published `2020-04-25`
 
 - Adds `Checkbox`, `CheckboxBlank`, `CheckboxBlankDark` to `@graph-paper/icons` ([#64](https://github.com/graph-paper-org/graph-paper/pull/64))
 - `Button` component now accept `href` ([#59](https://github.com/graph-paper-org/graph-paper/pull/59))
