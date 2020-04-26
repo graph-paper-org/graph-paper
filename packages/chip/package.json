@@ -1,6 +1,6 @@
 {
   "name": "@graph-paper/chip",
-  "version": "0.0.0-alpha.6",
+  "version": "0.0.0-alpha.7",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "Hamilton Ulmer <hamilton.ulmer@gmail.com>",
   "homepage": "",
@@ -16,10 +16,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@graph-paper/icons": "0.0.0-alpha.6"
+    "@graph-paper/icons": "^0.0.0-alpha.7"
   },
   "devDependencies": {
-    "@graph-paper/button": "0.0.0-alpha.6",
-    "@graph-paper/stack": "0.0.0-alpha.6"
+    "@graph-paper/button": "^0.0.0-alpha.7",
+    "@graph-paper/stack": "^0.0.0-alpha.7"
   }
 }
