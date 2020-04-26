@@ -12,6 +12,7 @@ export let color = '#000';
   align-items: center;
   grid-column-gap: var(--space-2x);
   grid-row-gap: var(--space-base);
+  padding-right: var(--space-2x);
 }
 
 .icon--component {
