@@ -3,7 +3,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
 
   import { FloatingMenu, MenuList, MenuListItem } from '@graph-paper/menu';
-  import { ArrowheadDown, CheckBox, CheckBoxBlank } from '@graph-paper/icons';
+  import { ArrowheadDown, Checkbox, CheckboxBlank } from '@graph-paper/icons';
   import { tooltip as tooltipAction } from '@graph-paper/core/actions/tooltip';
 
 
@@ -152,9 +152,9 @@
                 class:option-menu__list-item__icon--disabled={opt.disabled === true}
               >
                 {#if keys(currentOption).includes(opt.key)}
-                  <CheckBox size={14} />
+                  <Checkbox size={14} />
                 {:else}
-                  <CheckBoxBlank size={14} />
+                  <CheckboxBlank size={14} />
                 {/if}
               </div>
             {/if}

@@ -5,8 +5,9 @@ import ArrowheadUp from "./ArrowheadUp.svelte";
 import BarChart from "./BarChart.svelte";
 import Cancel from "./Cancel.svelte";
 import Check from "./Check.svelte";
-import CheckBox from "./CheckBox.svelte";
-import CheckBoxBlank from "./CheckBoxBlank.svelte";
+import Checkbox from "./Checkbox.svelte";
+import CheckboxBlank from "./CheckboxBlank.svelte";
+import CheckboxBlankDark from "./CheckboxBlankDark.svelte";
 import Close from "./Close.svelte";
 import Forward from "./Forward.svelte";
 import Help from "./Help.svelte";
@@ -26,8 +27,9 @@ export {
   BarChart,
   Cancel,
   Check,
-  CheckBox,
-  CheckBoxBlank,
+  Checkbox,
+  CheckboxBlank,
+  CheckboxBlankDark,
   Close,
   Forward,
   Help,
