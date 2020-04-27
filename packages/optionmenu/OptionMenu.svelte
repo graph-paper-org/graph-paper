@@ -3,7 +3,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
 
   import { FloatingMenu, MenuList, MenuListItem } from '@graph-paper/menu';
-  import { ArrowheadDown, Checkbox, CheckboxBlank } from '@graph-paper/icons';
+  import { CaretDown, Checkbox, CheckboxBlank } from '@graph-paper/icons';
   import { tooltip as tooltipAction } from '@graph-paper/core/actions/tooltip';
 
 
@@ -125,7 +125,7 @@
           {/if}
         </div>
         <div class="option-menu__down-caret" class:option-menu__down-caret--active={open}>
-          <ArrowheadDown size=16 />
+          <CaretDown size=16 />
         </div>
   </button>
 </div>

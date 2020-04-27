@@ -22,6 +22,7 @@ export let color = '#000';
 }
 </style>
 
+<div style='column-count: 3;'>
 <div class="icon-set">
   {#each Object.entries(icons) as [name, icon], i}
     <div style='color: {color};' class="icon--component">
@@ -31,4 +32,5 @@ export let color = '#000';
       {name}
     </div>
   {/each}
+</div>
 </div>

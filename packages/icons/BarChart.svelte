@@ -1,16 +1,15 @@
 <script>
 export let size = 24;
+export let color = 'currentColor';
 </script>
-<svg width={size} height={size} viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" fill=currentColor>
-    <g transform="matrix(1,0,0,1,-2,-2)">
-        <g transform="matrix(1.375,0,0,1.11111,-0.75,-2.44444)">
-            <path d="M2,4L6,4L6,22L2,22L2,4"/>
-        </g>
-        <g transform="matrix(1.375,0,0,0.5,6.25,11)">
-            <path d="M2,4L6,4L6,22L2,22L2,4"/>
-        </g>
-        <g transform="matrix(1.375,0,0,0.833333,13.75,3.66667)">
-            <path d="M2,4L6,4L6,22L2,22L2,4"/>
-        </g>
-    </g>
+<svg width={size} height={size} fill={color} viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g transform="matrix(1.125,0,0,0.4,-0.125,10.2)">
+      <path d="M5,3.236C5,2.553 4.803,2 4.56,2C3.795,2 2.227,2 1.453,2C1.333,2 1.218,2.134 1.133,2.373C1.048,2.612 1,2.936 1,3.273C1,6.134 1,13.037 1,15.814C1,16.469 1.189,17 1.422,17C2.187,17 3.796,17 4.568,17C4.683,17 4.793,16.872 4.874,16.644C4.955,16.417 5,16.108 5,15.786C5,12.979 5,6.065 5,3.236Z"/>
+  </g>
+  <g transform="matrix(1.125,0,0,0.666667,5.625,5.66667)">
+      <path d="M5,2.742C5,2.332 4.803,2 4.56,2C3.795,2 2.227,2 1.453,2C1.333,2 1.218,2.08 1.133,2.224C1.048,2.367 1,2.561 1,2.764C1,5.335 1,13.656 1,16.232C1,16.436 1.048,16.631 1.133,16.775C1.219,16.919 1.334,17 1.455,17C2.231,17 3.803,17 4.565,17C4.681,17 4.791,16.923 4.873,16.785C4.954,16.648 5,16.461 5,16.266C5,13.723 5,5.298 5,2.742Z"/>
+  </g>
+  <g transform="matrix(1.125,0,0,1.06667,11.375,-1.13333)">
+      <path d="M5,2.464C5,2.208 4.803,2 4.56,2C3.795,2 2.227,2 1.453,2C1.203,2 1,2.214 1,2.477C1,4.732 1,14.295 1,16.531C1,16.79 1.199,17 1.445,17C2.216,17 3.793,17 4.56,17C4.677,17 4.789,16.951 4.871,16.864C4.954,16.777 5,16.659 5,16.536C5,14.306 5,4.694 5,2.464Z"/>
+  </g>
 </svg>
