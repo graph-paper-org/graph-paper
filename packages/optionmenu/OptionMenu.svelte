@@ -2,6 +2,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { onMount, createEventDispatcher } from 'svelte';
 
+  import { onClickOutside } from '@graph-paper/core/utils';
   import { FloatingMenu, MenuList, MenuListItem } from '@graph-paper/menu';
   import { CaretDown, Checkbox, CheckboxBlank } from '@graph-paper/icons';
   import { tooltip as tooltipAction } from '@graph-paper/core/actions/tooltip';
@@ -24,30 +25,9 @@
   let button;
   let width;
 
-  // https://stackoverflow.com/a/3028037/4297741
-  function hideOnClickOutside(element) {
-    const outsideClickListener = (event) => {
-      if (
-        !buttonParent
-        || (!element.contains(event.target)
-        && !buttonParent.contains(event.target)
-        && open)
-      ) {
-        /* eslint-disable no-use-before-define */
-        toggle();
-        removeClickListener();
-        /* eslint-enable no-use-before-define */
-      }
-    };
-    const removeClickListener = () => {
-      document.removeEventListener('click', outsideClickListener);
-    };
-    document.addEventListener('click', outsideClickListener);
-  }
-
   function toggle() {
     open = !open;
-    hideOnClickOutside(button);
+    if (open) onClickOutside(() => { open = false; }, button, buttonParent);
   }
 
   function keys(opts) {
