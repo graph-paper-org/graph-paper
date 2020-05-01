@@ -2,6 +2,10 @@
 
 ## unreleased
 
+## 0.0.0-alpha.8
+
+Published `2020-05-01`
+
 - Fix bug where dates do not get properly set in extents ([#75](https://github.com/graph-paper-org/graph-paper/pull/75))
 - Move `hideClickOnOutside` listener from `@graph-paper/optionmenu` to `@graph-paper/core/utils` ([#70](https://github.com/graph-paper-org/graph-paper/pull/70))
 - Add a number of new icons to `@graph-paper/icons`, including new `Checkbox` icons, `Add` icons, `Remove` icons, `Sequence`, `More` icons and so on ([#65](https://github.com/graph-paper-org/graph-paper/pull/65))
