@@ -1,12 +1,6 @@
 body.sb-show-main {
   background: none;
   background-color: var(--cool-gray-100);
-  display: grid;
-  grid-template-rows: max-content;
-  min-height: 100vh;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
 }
 
 #root {
