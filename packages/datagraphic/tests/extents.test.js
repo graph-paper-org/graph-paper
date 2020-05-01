@@ -110,4 +110,18 @@ describe("getDomainFromExtents", () => {
     updateExtents(extentsStore, "single02", [-3]); // eg one data point where x = -3
     expect(getDomainFromExtents(get(extentsStore))).toEqual([-3, 10]);
   });
+  it("gets domain from extents that represents a single point", () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, "single01", [10]); // eg one data point where x = 10
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([10, 10]);
+  });
+  it("returns undefined for extents that are undefined", () => {
+    const extentsStore = writable({});
+    updateExtents(extentsStore, "single01", [undefined]); // eg one data point where x = 10
+    updateExtents(extentsStore, "single02", [null]); // eg one data point where x = -3
+    expect(getDomainFromExtents(get(extentsStore))).toEqual([
+      undefined,
+      undefined,
+    ]);
+  });
 });

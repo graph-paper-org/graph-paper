@@ -9,9 +9,6 @@ export let size = 1;
 export let curve = 'curveMonotoneX';
 export let dashArray = '1,0';
 
-let xMin = 0;
-let xMax = points - 1;
-
 let y = 100;
 
 const data = Array.from({ length: points }).map((_, x) => {
@@ -21,9 +18,7 @@ const data = Array.from({ length: points }).map((_, x) => {
 
 </script>
 
-<DataGraphic
-    xDomain={[xMin, xMax]}
->
+<DataGraphic>
     <LeftAxis />
     <BottomAxis />
     <Line {curve} {data} {size} {dashArray} />

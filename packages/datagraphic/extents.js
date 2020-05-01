@@ -44,7 +44,8 @@ export function removeExtent(store, k) {
 }
 
 export function getDomainFromExtents(storeValue) {
-  const vMin = min([...Object.values(storeValue).map((b) => b.min), Infinity]);
-  const vMax = max([...Object.values(storeValue).map((b) => b.max), -Infinity]);
-  return [vMin, vMax];
+  return [
+    min([...Object.values(storeValue).map((b) => b.min)]),
+    max([...Object.values(storeValue).map((b) => b.max)]),
+  ];
 }

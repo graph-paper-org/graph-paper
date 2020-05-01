@@ -200,8 +200,19 @@ function initializeDomain(scaleType) {
   return [0, 1];
 }
 
-let internalXDomain = tweened(initializeDomain(xType), xDomainTween);
-let internalYDomain = tweened(initializeDomain(yType), yDomainTween);
+// Extents (bounds of the data elements) & Domains (bounds of the graph, based on
+// user specifications & extents)
+
+// if tweening is set for a domain, then we will update the tween params
+// once the mounting is finished.
+
+let internalXDomainTween = { duration: 0 };
+let internalYDomainTween = { duration: 0 };
+
+const initialXDomain = initializeDomain(xType);
+const initialYDomain = initializeDomain(yType);
+let internalXDomain = tweened(initializeDomain(xType), internalXDomainTween);
+let internalYDomain = tweened(initializeDomain(yType), internalYDomainTween);
 
 // update the scale stores if the domain changes.
 // FIXME: refactor these functions to take range arguments as well,
@@ -217,6 +228,10 @@ export let yScale = $yScaleStore;
 $: xScale = $xScaleStore;
 $: yScale = $yScaleStore;
 
+// These extents are set within data graphic elements like <Line /> or <Point />
+// internally. The children of DataGraphic will reactively update these stores
+// and DataGraphic will then reactively update the domain (unless the user specifies
+// a domain / min / max explicitly).
 const xExtents = writable({});
 const yExtents = writable({});
 
@@ -226,15 +241,16 @@ setContext('gp:datagraphic:yExtents', yExtents);
 $: xPlotExtents = getDomainFromExtents($xExtents);
 $: yPlotExtents = getDomainFromExtents($yExtents);
 
-$: $internalXDomain = [
-  firstDefinedValue(xDomainMin, xDomain[0], xPlotExtents[0]),
-  firstDefinedValue(xDomainMax, xDomain[1], xPlotExtents[1]),
-];
 
-$: $internalYDomain = [
-  firstDefinedValue(yDomainMin, yDomain[0], yPlotExtents[0]),
-  firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1]),
-];
+$: internalXDomain.set([
+  firstDefinedValue(xDomainMin, xDomain[0], xPlotExtents[0], initialXDomain[0]),
+  firstDefinedValue(xDomainMax, xDomain[1], xPlotExtents[1], initialXDomain[1]),
+], internalXDomainTween);
+
+$: internalYDomain.set([
+  firstDefinedValue(yDomainMin, yDomain[0], yPlotExtents[0], initialYDomain[0]),
+  firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1], initialYDomain[1]),
+], internalYDomainTween);
 
 $: $xScaleStore = createXPointScale($internalXDomain);
 $: $yScaleStore = createYPointScale($internalYDomain);
@@ -242,8 +258,18 @@ $: $yScaleStore = createYPointScale($internalYDomain);
 setContext('xScale', xScaleStore);
 setContext('yScale', yScaleStore);
 
+// this code sets the mouseover values of x & y (in the domain space)
+// and px & py (in the range / virtual pixel space).
+
+// FIXME: the createMouseStore function is needlessly complicated imo,
+// and doesn't really lend itself to easy testing. We should remove
+// this function from this component and put it into a helper or util or something.
 const internalRolloverStore = writable({
-  x: undefined, y: undefined, px: undefined, py: undefined,
+  x: undefined,
+  y: undefined,
+  px: undefined,
+  py: undefined,
+  body: false,
 });
 
 function createMouseStore(svgElem) {
@@ -319,15 +345,25 @@ const emptyValue = () => ({
 
 export let hoverValue = emptyValue();
 
+
+// FIXME: this flow always felt a little weird. We should remove it
+// entirely.
 onMount(() => {
   dataGraphicMounted = true;
 });
 
 $: if (dataGraphicMounted) {
-  // initiateRollovers(svg)
   rollover.setSVG(svg);
   internalRolloverStore.subscribe((v) => {
     hoverValue = v;
+  });
+
+  // here, we are technically waiting a tick before updating the domain tweens.
+  // This gives room for all the extents to be calculated before jumping into animating them.
+  // Without this, the graph kind of springs into place, which does not feel ideal.
+  setTimeout(() => {
+    internalXDomainTween = xDomainTween;
+    internalYDomainTween = yDomainTween;
   });
 }
 

@@ -4,6 +4,7 @@ import BasicLine from "./Line/Basic.svelte";
 import Line01Story from "./Line/Line01.svelte";
 import Line03Story from "./Line/Line03.svelte";
 import Line04Story from "./Line/Line04.svelte";
+import Line05Story from "./Line/Line05.svelte";
 
 export default {
   title: "Line",
@@ -43,5 +44,14 @@ export const Line04 = () => ({
       "curveLinear",
       "curveNatural",
     ]),
+  },
+});
+
+export const Line05 = () => ({
+  Component: Line05Story,
+  props: {
+    title: "A Standard Line Graph",
+    supertitle: "Over Time",
+    description: "The lines go up and down like a mountain!",
   },
 });
