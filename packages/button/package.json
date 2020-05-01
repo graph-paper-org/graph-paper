@@ -1,6 +1,6 @@
 {
   "name": "@graph-paper/button",
-  "version": "0.0.0-alpha.7",
+  "version": "0.0.0-alpha.8",
   "description": "__DESCRIPTION_FORTHCOMING__",
   "author": "Hamilton Ulmer <hamilton.ulmer@gmail.com>",
   "homepage": "",
@@ -16,10 +16,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@graph-paper/core": "^0.0.0-alpha.7"
+    "@graph-paper/core": "^0.0.0-alpha.8"
   },
   "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48",
   "devDependencies": {
-    "@graph-paper/stack": "^0.0.0-alpha.7"
+    "@graph-paper/stack": "^0.0.0-alpha.8"
   }
 }
