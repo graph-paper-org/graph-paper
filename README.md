@@ -9,7 +9,7 @@ _note: this project is in very early alpha, and as such is subject to API change
 Each package can be installed individually:
 
 ```
-npm install --save-dev @graph-paper/DataGraphic
+npm install --save-dev @graph-paper/datagraphic
 npm install --save-dev @graph-paper/elements
 ```
 
