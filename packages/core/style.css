@@ -120,34 +120,42 @@
   /* Basic colors: a bluish grayish color, bluer than the UX colors, grayer
     than the digital blues we use for buttons etc. */
   --blue-slate-100: hsl(209, 75%, 87%);
-  --blue-slate-200: hsl(220, 64%, 82%);
-  --blue-slate-300: hsl(225, 48%, 77%);
-  --blue-slate-400: hsl(229, 25%, 56%);
+  --blue-slate-150: hsl(210, 53%, 80%);
+  --blue-slate-200: hsl(213, 40%, 74%);
+  --blue-slate-250: hsl(215, 31%, 68%);
+  --blue-slate-300: hsl(218, 26%, 61%);
+  --blue-slate-350: hsl(222, 22%, 55%);
+  --blue-slate-400: hsl(223, 20%, 49%);
+  --blue-slate-450: hsl(227, 21%, 42%);
   --blue-slate-500: hsl(231, 18%, 36%);
-  --blue-slate-600: hsl(233, 21%, 30%);
-  --blue-slate-700: hsl(235, 25%, 23%);
-  --blue-slate-800: hsl(237, 25%, 14%);
+  --blue-slate-550: hsl(232, 18%, 33%);
+  --blue-slate-600: hsl(233, 18%, 29%);
+  --blue-slate-650: hsl(233, 20%, 26%);
+  --blue-slate-700: hsl(232, 20%, 23%);
+  --blue-slate-750: hsl(234, 20%, 19%);
+  --blue-slate-800: hsl(236, 21%, 16%);
+  --blue-slate-850: hsl(240, 22%, 13%);
   --blue-slate-900: hsl(240, 25%, 9%);
 
   /* UX GRAYS – use the cool gray variables. */
-  --cool-gray-subtle: #f5fafc;
-  --cool-gray-100: #f1f6fa;
-  --cool-gray-150: #e0e9ee;
-  --cool-gray-200: #d1dbe3;
-  --cool-gray-250: #c1ced7;
-  --cool-gray-300: #b2c1cb;
-  --cool-gray-350: #a4b5c0;
-  --cool-gray-400: #96a8b4;
-  --cool-gray-450: #899ca8;
-  --cool-gray-500: #7c909d;
-  --cool-gray-550: #6f8491;
-  --cool-gray-600: #637886;
-  --cool-gray-650: #586c7a;
-  --cool-gray-700: #4d616e;
-  --cool-gray-750: #435663;
-  --cool-gray-800: #394b57;
-  --cool-gray-850: #30404b;
-  --cool-gray-900: #273640;
+  --cool-gray-subtle: hsl(197, 54%, 97%);
+  --cool-gray-100: hsl(207, 47%, 96%);
+  --cool-gray-150: hsl(201, 29%, 91%);
+  --cool-gray-200: hsl(207, 24%, 85%);
+  --cool-gray-250: hsl(205, 22%, 80%);
+  --cool-gray-300: hsl(204, 19%, 75%);
+  --cool-gray-350: hsl(204, 18%, 70%);
+  --cool-gray-400: hsl(204, 17%, 65%);
+  --cool-gray-450: hsl(203, 15%, 60%);
+  --cool-gray-500: hsl(204, 14%, 55%);
+  --cool-gray-550: hsl(203, 13%, 50%);
+  --cool-gray-600: hsl(204, 15%, 46%);
+  --cool-gray-650: hsl(205, 16%, 41%);
+  --cool-gray-700: hsl(204, 18%, 37%);
+  --cool-gray-750: hsl(204, 19%, 33%);
+  --cool-gray-800: hsl(204, 21%, 28%);
+  --cool-gray-850: hsl(204, 22%, 24%);
+  --cool-gray-900: hsl(204, 24%, 20%);
 
   /* UX gray shorthands */
   --bg-gray-01: var(--cool-gray-100);
@@ -160,55 +168,79 @@
   --body-gray-02: var(--cool-gray-900);
 
   /* use digital blue as link + button color for accessibility */
-  --digital-blue-100: hsl(209, 70%, 93%);
-  --digital-blue-200: hsl(209, 75%, 87%);
-  --digital-blue-300: hsl(209, 85%, 75%);
-  --digital-blue-400: hsl(209, 95%, 60%);
+  --digital-blue-100: hsl(209, 90%, 93%);
+  --digital-blue-150: hsl(209, 90%, 86%);
+  --digital-blue-200: hsl(209, 90%, 79%);
+  --digital-blue-250: hsl(209, 85%, 73%);
+  --digital-blue-300: hsl(209, 85%, 66%);
+  --digital-blue-350: hsl(209, 85%, 59%);
+  --digital-blue-400: hsl(209, 85%, 53%);
+  --digital-blue-450: hsl(209, 95%, 46%);
   --digital-blue-500: hsl(209, 100%, 39%);
+  --digital-blue-550: hsl(209, 100%, 36%);
   --digital-blue-600: hsl(209, 100%, 34%);
+  --digital-blue-650: hsl(209, 100%, 32%);
   --digital-blue-700: hsl(209, 100%, 29%);
+  --digital-blue-750: hsl(209, 100%, 27%);
   --digital-blue-800: hsl(209, 100%, 24%);
+  --digital-blue-850: hsl(209, 100%, 22%);
   --digital-blue-900: hsl(209, 100%, 19%);
 
   /* use pantone red for errors */
   --pantone-red-100: hsl(355, 100%, 95%);
-  --pantone-red-200: hsl(355, 96%, 85%);
-  --pantone-red-300: hsl(355, 91%, 75%);
-  --pantone-red-400: hsl(355, 88%, 65%);
+  --pantone-red-150: hsl(354, 80%, 88%);
+  --pantone-red-200: hsl(354, 76%, 82%);
+  --pantone-red-250: hsl(355, 72%, 76%);
+  --pantone-red-300: hsl(355, 71%, 70%);
+  --pantone-red-350: hsl(355, 70%, 64%);
+  --pantone-red-400: hsl(355, 70%, 57%);
+  --pantone-red-450: hsl(355, 69%, 51%);
   --pantone-red-500: hsl(355, 84%, 45%);
-  --pantone-red-600: hsl(355, 84%, 35%);
-  --pantone-red-700: hsl(355, 90%, 23%);
-  --pantone-red-800: hsl(355, 100%, 18%);
+  --pantone-red-550: hsl(355, 85%, 41%);
+  --pantone-red-600: hsl(355, 85%, 37%);
+  --pantone-red-650: hsl(355, 87%, 33%);
+  --pantone-red-700: hsl(355, 88%, 29%);
+  --pantone-red-750: hsl(355, 89%, 26%);
+  --pantone-red-800: hsl(355, 91%, 22%);
+  --pantone-red-850: hsl(354, 96%, 18%);
   --pantone-red-900: hsl(355, 100%, 14%);
 
   /* use pond green for success states */
-  --pond-green-100: #c7fadc;
-  --pond-green-150: #b5eece;
-  --pond-green-200: #a3e3c1;
-  --pond-green-250: #92d7b4;
-  --pond-green-300: #83cba9;
-  --pond-green-350: #74c09d;
-  --pond-green-400: #66b493;
-  --pond-green-450: #59a889;
-  --pond-green-500: #4d9d7f;
-  --pond-green-550: #429175;
-  --pond-green-600: #37866c;
-  --pond-green-650: #2e7a63;
-  --pond-green-700: #256e5a;
-  --pond-green-750: #1d6352;
-  --pond-green-800: #175749;
-  --pond-green-850: #114b40;
-  --pond-green-900: #0c4037;
+  --pond-green-100: hsl(145, 84%, 88%);
+  --pond-green-150: hsl(146, 63%, 82%);
+  --pond-green-200: hsl(148, 53%, 76%);
+  --pond-green-250: hsl(150, 46%, 71%);
+  --pond-green-300: hsl(152, 41%, 65%);
+  --pond-green-350: hsl(152, 38%, 60%);
+  --pond-green-400: hsl(155, 34%, 55%);
+  --pond-green-450: hsl(156, 31%, 50%);
+  --pond-green-500: hsl(158, 34%, 46%);
+  --pond-green-550: hsl(159, 37%, 41%);
+  --pond-green-600: hsl(160, 42%, 37%);
+  --pond-green-650: hsl(162, 45%, 33%);
+  --pond-green-700: hsl(164, 50%, 29%);
+  --pond-green-750: hsl(165, 55%, 25%);
+  --pond-green-800: hsl(167, 58%, 22%);
+  --pond-green-850: hsl(169, 63%, 18%);
+  --pond-green-900: hsl(170, 68%, 15%);
 
   /* use bright yellows for warnings */
   --bright-yellow-100: hsl(53, 100%, 95%);
-  --bright-yellow-200: hsl(50, 100%, 80%);
-  --bright-yellow-300: hsl(44, 100%, 73%);
-  --bright-yellow-400: hsl(40, 100%, 67%);
+  --bright-yellow-150: hsl(44, 100%, 90%);
+  --bright-yellow-200: hsl(41, 100%, 85%);
+  --bright-yellow-250: hsl(40, 100%, 80%);
+  --bright-yellow-300: hsl(38, 100%, 75%);
+  --bright-yellow-350: hsl(38, 100%, 71%);
+  --bright-yellow-400: hsl(38, 100%, 66%);
+  --bright-yellow-450: hsl(37, 100%, 61%);
   --bright-yellow-500: hsl(37, 100%, 56%);
-  --bright-yellow-600: hsl(35, 100%, 37%);
-  --bright-yellow-700: hsl(33, 100%, 25%);
-  --bright-yellow-800: hsl(27, 100%, 20%);
+  --bright-yellow-550: hsl(36, 82%, 51%);
+  --bright-yellow-600: hsl(35, 80%, 46%);
+  --bright-yellow-650: hsl(34, 82%, 41%);
+  --bright-yellow-700: hsl(32, 83%, 36%);
+  --bright-yellow-750: hsl(30, 85%, 31%);
+  --bright-yellow-800: hsl(28, 88%, 26%);
+  --bright-yellow-850: hsl(25, 93%, 21%);
   --bright-yellow-900: hsl(20, 100%, 16%);
 
   /* probe type colors */
