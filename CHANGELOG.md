@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- Refactor width / height of `DataGraphic` component to reactively update ([#83](https://github.com/graph-paper-org/graph-paper/pull/82))
+
 ## 0.0.0-alpha.8
 
 Published `2020-05-01`

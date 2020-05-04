@@ -1,6 +1,6 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { setContext, getContext, onMount } from 'svelte';
+import { setContext, onMount } from 'svelte';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, derived } from 'svelte/store';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -108,19 +108,23 @@ setContext('margins', margins);
 
 setContext('key', key);
 
-export let width = getContext('width') || 800;
-export let height = getContext('height') || 300;
+let container;
+
+export let width;
+export let height;
 
 // graphic width, graphic height, body width, body height
-export let graphicWidth = writable(width);
-$: $graphicWidth = width;
+let internalWidth = width;
+let internalHeight = height === undefined ? 300 : height;
+export let graphicWidth = writable(internalWidth);
+export let graphicHeight = writable(internalHeight);
 
-export let graphicHeight = writable(height);
-$: $graphicHeight = height;
+// see onMount below for the case where the width & height props are not defined.
+$: $graphicWidth = internalWidth;
+$: $graphicHeight = internalHeight;
 
 export let bodyWidth = derived(graphicWidth, ($width) => $width - margins.left - margins.right);
 export let bodyHeight = derived(graphicHeight, ($height) => $height - margins.top - margins.bottom);
-
 
 // set the locations of the plot bounds
 export let leftPlot = derived(graphicWidth, () => margins.left);
@@ -149,11 +153,11 @@ function getScaleFunction(type) {
 }
 
 // FIXME: refactor.
-function createXPointScale(values) {
+function createXPointScale(values, leftRange, rightRange) {
   const scaleFunction = getScaleFunction(xType);
   let scale = scaleFunction()
     .domain(values)
-    .range([$leftPlot, $rightPlot]);
+    .range([leftRange, rightRange]);
 
   if (xType === 'scalePoint') {
     scale = scale.padding(xPadding);
@@ -166,11 +170,11 @@ function createXPointScale(values) {
 }
 
 // FIXME: refactor.
-function createYPointScale(values) {
+function createYPointScale(values, bottomRange, topRange) {
   // const scaleFunction = yType === 'scalePoint' ? scalePoint : scaleLinear;
   const scaleFunction = getScaleFunction(yType);
 
-  let scale = scaleFunction().domain(values).range([$bottomPlot, $topPlot]);
+  let scale = scaleFunction().domain(values).range([bottomRange, topRange]);
   if (yType === 'scalePoint') {
     scale = scale.padding(yPadding);
   }
@@ -219,8 +223,8 @@ let internalYDomain = tweened(initializeDomain(yType), internalYDomainTween);
 // and xPadding. etc. etc. – this should be completely reactive
 // w/ all relevant scale arguments.
 
-export let xScaleStore = writable(createXPointScale($internalXDomain));
-export let yScaleStore = writable(createYPointScale($internalYDomain));
+export let xScaleStore = writable(createXPointScale($internalXDomain, $leftPlot, $rightPlot));
+export let yScaleStore = writable(createYPointScale($internalYDomain, $bottomPlot, $topPlot));
 
 export let xScale = $xScaleStore;
 export let yScale = $yScaleStore;
@@ -252,8 +256,8 @@ $: internalYDomain.set([
   firstDefinedValue(yDomainMax, yDomain[1], yPlotExtents[1], initialYDomain[1]),
 ], internalYDomainTween);
 
-$: $xScaleStore = createXPointScale($internalXDomain);
-$: $yScaleStore = createYPointScale($internalYDomain);
+$: $xScaleStore = createXPointScale($internalXDomain, $leftPlot, $rightPlot);
+$: $yScaleStore = createYPointScale($internalYDomain, $bottomPlot, $topPlot);
 
 setContext('xScale', xScaleStore);
 setContext('yScale', yScaleStore);
@@ -348,8 +352,16 @@ export let hoverValue = emptyValue();
 
 // FIXME: this flow always felt a little weird. We should remove it
 // entirely.
+let resizer;
 onMount(() => {
   dataGraphicMounted = true;
+  // the resize observer will look at the parent element
+  // in cases where width or height is not defined.
+  resizer = new ResizeObserver(([e]) => {
+    if (width === undefined) internalWidth = e.contentRect.width;
+    if (height === null) internalHeight = e.contentRect.height;
+  });
+  resizer.observe(container.parentElement);
 });
 
 $: if (dataGraphicMounted) {
@@ -379,7 +391,7 @@ $: if (dataGraphicMounted) {
 
 </style>
 
-<div class=data-graphic-container style="width: {$graphicWidth}px; height: {$graphicHeight}px;">
+<div bind:this={container} class=data-graphic-container style="width: {$graphicWidth}px; height: {$graphicHeight}px;">
   <svg
     style="width: {$graphicWidth}px; height: {$graphicHeight}px;"
     bind:this={svg}
@@ -409,6 +421,7 @@ $: if (dataGraphicMounted) {
     {#if dataGraphicMounted}
       <g id='graphic-body-background-{key}' style="clip-path: url(#graphic-body-{key})">
         <slot name='body-background'
+          hoverValue={hoverValue}
           xScale={xScale}
           yScale={yScale}
           left={$leftPlot}
@@ -463,7 +476,7 @@ $: if (dataGraphicMounted) {
     <!-- pass the rollover value into the scale -->
     {#if dataGraphicMounted}
       <slot name='mouseover'
-        value={$internalRolloverStore}
+        hoverValue={$internalRolloverStore}
         xScale={xScale}
         yScale={yScale}
         left={$leftPlot}

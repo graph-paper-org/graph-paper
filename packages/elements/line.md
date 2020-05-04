@@ -2,7 +2,7 @@
 
 A line connects several points together to demonstrate a trend or path.
 
-## Arguments for `<Line />`
+## Props for `<Line />`
 
 - `data` (required)
 - `x` (required, default `x`) – the accessor for the x orientation.
