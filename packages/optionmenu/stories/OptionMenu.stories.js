@@ -1,11 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { select, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
 import { OptionMenu } from "..";
 import SideBySideStory from "./SideBySideStory.svelte";
 
 export default {
   title: "Option Menu",
+  decorators: [withKnobs],
 };
 
 const alignmentOptions = {
