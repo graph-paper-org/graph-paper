@@ -148,7 +148,7 @@
               x="x"
               y="y" />
 
-            <g slot="mouseover" let:value>
+            <g slot="mouseover" let:hoverValue={value}>
               {#if hoverValue.body}
                 <Point
                   x={hoverValue.x}
