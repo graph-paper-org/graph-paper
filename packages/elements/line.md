@@ -25,7 +25,7 @@ See the `stories/Line` in this package for more examples.
 
 Basic line chart:
 
-```html
+```svelte
 <script>
   import { randomNormal } from "d3-random";
   import DataGraphic from "@graph-paper/datagraphic";

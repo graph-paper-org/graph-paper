@@ -26,7 +26,7 @@ See the `stories/Point` in this package for more examples.
 
 Basic scatterplot:
 
-```html
+```svelte
 <script>
   import { randomNormal } from "d3-random";
   import DataGraphic from "@graph-paper/datagraphic";
