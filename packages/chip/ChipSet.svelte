@@ -1,3 +1,3 @@
-<div class='gp-chip-set'>
-  <slot></slot>
+<div class="gp-chip-set">
+  <slot />
 </div>

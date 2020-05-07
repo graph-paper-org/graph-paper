@@ -1,9 +1,9 @@
 <script>
-  import { OptionMenu } from '..';
+  import { OptionMenu } from "..";
 
-  let fontSize = '16px';
-  let formatting = 'normal';
-  let textAlign = 'left';
+  let fontSize = "16px";
+  let formatting = "normal";
+  let textAlign = "left";
 </script>
 
 <style>
@@ -34,7 +34,9 @@
   }
 </style>
 
-<div id="page" style={`
+<div
+  id="page"
+  style={`
   --font-size: ${fontSize};
   --font-style: ${formatting === 'italic' ? 'italic' : 'normal'};
   --font-weight: ${formatting === 'bold' ? 'bold' : 'normal'};
@@ -42,38 +44,23 @@
 `}>
   <div id="menus">
     <OptionMenu
-      options={[
-        { key: '16px', label: '16px' },
-        { key: '24px', label: '24px' },
-        { key: '32px', label: '32px' },
-      ]}
+      options={[{ key: '16px', label: '16px' }, { key: '24px', label: '24px' }, { key: '32px', label: '32px' }]}
       currentOption={{ key: '16px', label: '16px' }}
       on:selection={(evt) => {
         fontSize = evt.detail.option.key;
-      }}
-    />
+      }} />
     <OptionMenu
-      options={[
-        { key: 'normal', label: 'Normal' },
-        { key: 'bold', label: 'Bold' },
-        { key: 'italic', label: 'Italic' },
-      ]}
+      options={[{ key: 'normal', label: 'Normal' }, { key: 'bold', label: 'Bold' }, { key: 'italic', label: 'Italic' }]}
       currentOption={{ key: 'normal', label: 'Normal' }}
       on:selection={(evt) => {
         formatting = evt.detail.option.key;
-      }}
-    />
+      }} />
     <OptionMenu
-      options={[
-        { key: 'left', label: 'Left' },
-        { key: 'center', label: 'Center' },
-        { key: 'right', label: 'Right' },
-      ]}
+      options={[{ key: 'left', label: 'Left' }, { key: 'center', label: 'Center' }, { key: 'right', label: 'Right' }]}
       currentOption={{ key: 'left', label: 'Left' }}
       on:selection={(evt) => {
         textAlign = evt.detail.option.key;
-      }}
-    />
+      }} />
   </div>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum congue

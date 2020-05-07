@@ -1,14 +1,13 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
-  import { setContext } from 'svelte';
-  import { Portal } from '@graph-paper/portal';
-  import { placeElement } from '@graph-paper/core/utils/float-placement';
-
+  import { setContext } from "svelte";
+  import { Portal } from "@graph-paper/portal";
+  import { placeElement } from "@graph-paper/core/utils/float-placement";
 
   export let parent;
   export let offset = 0;
-  export let location = 'bottom';
-  export let alignment = 'left';
+  export let location = "bottom";
+  export let alignment = "left";
   export let onParentSelect = () => {};
 
   let element;
@@ -20,7 +19,7 @@
   let leftPlacement;
   let topPlacement;
 
-  setContext('onChildSelect', onParentSelect);
+  setContext("onChildSelect", onParentSelect);
 
   $: if (element && parent) {
     [leftPlacement, topPlacement] = placeElement({
@@ -47,11 +46,11 @@
 <svelte:window bind:innerWidth bind:innerHeight bind:scrollY />
 
 <Portal>
-  <div class=bound-menu bind:this={element} style="
-    left: {leftPlacement}px;
-    top: {topPlacement}px;
-    max-height: calc(100vh - {topPlacement}px - var(--screen-padding));
-    ">
-    <slot></slot>
+  <div
+    class="bound-menu"
+    bind:this={element}
+    style=" left: {leftPlacement}px; top: {topPlacement}px; max-height:
+    calc(100vh - {topPlacement}px - var(--screen-padding)); ">
+    <slot />
   </div>
 </Portal>

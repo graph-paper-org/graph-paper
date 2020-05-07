@@ -1,8 +1,5 @@
 <script>
-import Axis from './Axis.svelte';
+  import Axis from "./Axis.svelte";
 </script>
 
-<Axis 
-  {...$$props}
-  side=right
-/>
+<Axis {...$$props} side="right" />

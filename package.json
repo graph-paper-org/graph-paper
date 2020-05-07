@@ -9,7 +9,7 @@
     "lint:shell": "shellcheck all create",
     "test": "jest test --no-cache",
     "storybook": "start-storybook -s ./public -p 6006",
-    "format": "prettier --write ."
+    "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -35,6 +35,7 @@
     "lerna": "^3.20.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
+    "prettier-plugin-svelte": "^1.1.0",
     "shellcheck": "^0.4.2",
     "svelte": "^3.20.1",
     "svelte-loader": "^2.13.6"

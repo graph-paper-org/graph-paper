@@ -1,11 +1,5 @@
 <script>
-
-import Axis from './Axis.svelte';
-
+  import Axis from "./Axis.svelte";
 </script>
 
-<Axis 
-  {...$$props}
-  side='bottom'
-  mainScaleName='xScale'
-/>
+<Axis {...$$props} side="bottom" mainScaleName="xScale" />
