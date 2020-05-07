@@ -4,12 +4,14 @@
   "description": "Reusable Svelte components for building data visualizations & data products",
   "main": "index.js",
   "scripts": {
+    "format": "prettier ---plugin-search-dir=. -write .",
+    "format:check": "prettier --plugin-search-dir=. --check .",
     "lint": "npm-run-all lint:*",
     "lint:js": "eslint --ext .js,.svelte .",
     "lint:shell": "shellcheck all create",
-    "test": "jest test --no-cache",
     "storybook": "start-storybook -s ./public -p 6006",
-    "format": "prettier --write --plugin-search-dir=. ."
+    "test": "npm-run-all format:check lint test:jest",
+    "test:jest": "jest test --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
