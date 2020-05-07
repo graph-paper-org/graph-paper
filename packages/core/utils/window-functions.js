@@ -12,7 +12,8 @@ export function firstIndexAbove({
 }) {
   while (lo < hi) {
     const mid = (lo + hi) >>> 1; // eslint-disable-line
-    if (compare(+data[mid][key], value) < 0) lo = mid + 1; // eslint-disable-line
+    // eslint-disable-next-line no-param-reassign
+    if (compare(+data[mid][key], value) < 0) lo = mid + 1;
     else hi = mid; // eslint-disable-line
   }
   return lo;

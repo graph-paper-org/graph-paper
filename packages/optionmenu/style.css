@@ -3,10 +3,10 @@
   padding-left: var(--space-base);
   padding-right: var(--space-1h);
   font-size: var(--text-015);
-  margin:0;
+  margin: 0;
   text-align: left;
   background-color: white;
-  display:grid;
+  display: grid;
   grid-auto-flow: column;
   width: max-content;
   grid-column-gap: var(--space-1h);
@@ -83,8 +83,8 @@
 .option-menu__list-item__divider {
   border: none;
   border-bottom: 1px solid var(--cool-gray-200);
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .option-menu__list-item__title--disabled {

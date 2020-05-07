@@ -13,7 +13,6 @@ Published `2020-05-01`
 - Add a number of new icons to `@graph-paper/icons`, including new `Checkbox` icons, `Add` icons, `Remove` icons, `Sequence`, `More` icons and so on ([#65](https://github.com/graph-paper-org/graph-paper/pull/65))
 - Add a new prop, `color` to all icons, which defaults to the css value `currentColor` (as before) ([#65](https://github.com/graph-paper-org/graph-paper/pull/65))
 
-
 ## 0.0.0-alpha.7
 
 Published `2020-04-25`

@@ -14,7 +14,6 @@ A line connects several points together to demonstrate a trend or path.
 - `dashArray` (string, default `1,0`) – the specification pattern for dashes and gaps in the line, following the [SVG `stroke-dasharray`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) attribute.
 - `area` / `areaColor` (`FIXME` these should be deprecated) defines the area under the curve.
 
-
 ### additional arguments
 
 - `useXScale` / `useYScale` (default `true`) – if `false`, expect the value for given scale to either be in the range-space (that is, in terms of the svg pixels).
@@ -28,18 +27,17 @@ Basic line chart:
 
 ```html
 <script>
-import { randomNormal } from 'd3-random';
-import DataGraphic from '@graph-paper/datagraphic';
-import { LeftAxis, BottomAxis } from '@graph-paper/guides';
-import { Line } from '@graph-paper/elements';
+  import { randomNormal } from "d3-random";
+  import DataGraphic from "@graph-paper/datagraphic";
+  import { LeftAxis, BottomAxis } from "@graph-paper/guides";
+  import { Line } from "@graph-paper/elements";
 
-const r = randomNormal(0, 20);
-let y = 100;
-const data = Array.from({ length: 100 }).map((_,i) => {
-  y += r();
-  return { x: i, y };
-});
-
+  const r = randomNormal(0, 20);
+  let y = 100;
+  const data = Array.from({ length: 100 }).map((_, i) => {
+    y += r();
+    return { x: i, y };
+  });
 </script>
 
 <DataGraphic width={500} height={400}>

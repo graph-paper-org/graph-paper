@@ -36,7 +36,7 @@ And they all contain the same slot props:
 - `left` / `right` / `top` / `bottom` the padding between the edge of the plot body, in pixels
 - `width` the current width of the graph, in pixels
 - `height` the current height of the graph, in pixels
-- `hoverValue` the current hovered value __FILL THIS IN SOMEWHERE__
+- `hoverValue` the current hovered value **FILL THIS IN SOMEWHERE**
 
 These slot props allow users to mix and match Graph Paper components with custom ones / plain SVG.
 
