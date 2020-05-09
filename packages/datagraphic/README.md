@@ -11,10 +11,10 @@ The main parent component for data graphic generation.
 - `width` (number) the width of the graph in pixels. If omitted, the data graphic will inflate to take up the width of the parent of `DataGraphic`.
 - `height` (number, default `300`) the height of the graph in pixels. If omitted, will default to 300. If passed in a value of `null`, the data graphic will inflate to take up the height of the parent of `DataGraphic`.
 - `left` / `right` / `top` / `bottom` (number) the padding between the edge and the plot body, in pixels
-- `xDomainMin` / `xDomainMax` (number) the x-axis min and max
-- `xDomain` (array of two numbers) an array that contains the min and max. If omitted, will be generated from the children of `DataGraphic`. If `xDomainMin` or `xDomainMax` are specified, these individually take precedence over their respective values in `xDomain`.
-- `yDomainMin` / `yDomainMax` (number, optional) the y-axis min and max
-- `yDomain` (array of two numbers) an array that contains the min and max of the y axis. If omitted, will be generated from the children of `DataGraphic`. If `yDomainMin` or `yDomainMax` are specified, these individually take precedence over their respective values in `yDomain`.
+- `xMin` / `xMax` (number) the x-axis min and max
+- `xDomain` (array of two numbers) an array that contains the min and max. If omitted, will be generated from the children of `DataGraphic`. If `xMin` or `xMax` are specified, these individually take precedence over their respective values in `xDomain`.
+- `yMin` / `yMax` (number, optional) the y-axis min and max
+- `yDomain` (array of two numbers) an array that contains the min and max of the y axis. If omitted, will be generated from the children of `DataGraphic`. If `yMin` or `yMax` are specified, these individually take precedence over their respective values in `yDomain`.
 - `hoverValue` _FILL IN_ used primarily with `bind`
 - `dataGraphicMounted` _FILL IN_ used primarily with `bind`
 

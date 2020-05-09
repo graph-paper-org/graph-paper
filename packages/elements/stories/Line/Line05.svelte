@@ -114,7 +114,7 @@
       right={120}
       xType="time"
       yType="linear"
-      yDomainMin={0}
+      yMin={0}
       xDomainTween={{ duration, easing }}
       yDomainTween={{ duration, easing }}>
       <LeftAxis />

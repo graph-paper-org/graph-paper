@@ -23,14 +23,14 @@
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
 
-  export let xDomainMin;
-  export let xDomainMax;
-  export let xDomain = [xDomainMin, xDomainMax];
+  export let xMin;
+  export let xMax;
+  export let xDomain = [xMin, xMax];
   export let xDomainTween = { duration: 0 };
 
-  export let yDomainMin;
-  export let yDomainMax;
-  export let yDomain = [yDomainMin, yDomainMax];
+  export let yMin;
+  export let yMax;
+  export let yDomain = [yMin, yMax];
   export let yDomainTween = { duration: 0 };
 
   export let xType = "linear";
@@ -291,36 +291,16 @@
 
   $: internalXDomain.set(
     [
-      firstDefinedValue(
-        xDomainMin,
-        xDomain[0],
-        xPlotExtents[0],
-        initialXDomain[0]
-      ),
-      firstDefinedValue(
-        xDomainMax,
-        xDomain[1],
-        xPlotExtents[1],
-        initialXDomain[1]
-      ),
+      firstDefinedValue(xMin, xDomain[0], xPlotExtents[0], initialXDomain[0]),
+      firstDefinedValue(xMax, xDomain[1], xPlotExtents[1], initialXDomain[1]),
     ],
     internalXDomainTween
   );
 
   $: internalYDomain.set(
     [
-      firstDefinedValue(
-        yDomainMin,
-        yDomain[0],
-        yPlotExtents[0],
-        initialYDomain[0]
-      ),
-      firstDefinedValue(
-        yDomainMax,
-        yDomain[1],
-        yPlotExtents[1],
-        initialYDomain[1]
-      ),
+      firstDefinedValue(yMin, yDomain[0], yPlotExtents[0], initialYDomain[0]),
+      firstDefinedValue(yMax, yDomain[1], yPlotExtents[1], initialYDomain[1]),
     ],
     internalYDomainTween
   );
