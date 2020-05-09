@@ -45,20 +45,21 @@
 
   // borders
   export let borderColor = "var(--cool-gray-200)";
-  export let borderThickness = 1;
+  export let borderSize = 1;
   export let borderOpacity = 1;
-  export let leftBorder;
-  export let rightBorder;
-  export let topBorder;
-  export let bottomBorder;
+  export let border = false;
+  export let leftBorder = border;
+  export let rightBorder = border;
+  export let topBorder = border;
+  export let bottomBorder = border;
   export let leftBorderColor = borderColor;
   export let rightBorderColor = borderColor;
   export let topBorderColor = borderColor;
   export let bottomBorderColor = borderColor;
-  export let leftBorderThickness = borderThickness;
-  export let rightBorderThickness = borderThickness;
-  export let topBorderThickness = borderThickness;
-  export let bottomBorderThickness = borderThickness;
+  export let leftBorderSize = borderSize;
+  export let rightBorderSize = borderSize;
+  export let topBorderSize = borderSize;
+  export let bottomBorderSize = borderSize;
   export let leftBorderOpacity = borderOpacity;
   export let rightBorderOpacity = borderOpacity;
   export let topBorderOpacity = borderOpacity;
@@ -71,27 +72,27 @@
     [
       leftBorder,
       leftBorderColor,
-      leftBorderThickness,
+      leftBorderSize,
       leftBorderOpacity,
       $leftPlot,
       $leftPlot,
-      $topPlot - topBorderThickness / 2,
-      $bottomPlot + bottomBorderThickness / 2,
+      $topPlot - topBorderSize / 2,
+      $bottomPlot + bottomBorderSize / 2,
     ],
     [
       rightBorder,
       rightBorderColor,
-      rightBorderThickness,
+      rightBorderSize,
       rightBorderOpacity,
       $rightPlot,
       $rightPlot,
-      $topPlot - topBorderThickness / 2,
-      $bottomPlot + bottomBorderThickness / 2,
+      $topPlot - topBorderSize / 2,
+      $bottomPlot + bottomBorderSize / 2,
     ],
     [
       topBorder,
       topBorderColor,
-      topBorderThickness,
+      topBorderSize,
       topBorderOpacity,
       $leftPlot,
       $rightPlot,
@@ -101,7 +102,7 @@
     [
       bottomBorder,
       bottomBorderColor,
-      bottomBorderThickness,
+      bottomBorderSize,
       bottomBorderOpacity,
       $leftPlot,
       $rightPlot,
@@ -557,7 +558,7 @@
     {/if}
 
     <!-- data graphic borders -->
-    {#each borders as [showBorder, color, thickness, opacity, x1, x2, y1, y2]}
+    {#each borders as [showBorder, color, size, opacity, x1, x2, y1, y2]}
       {#if showBorder}
         <line
           {x1}
@@ -565,7 +566,7 @@
           {y1}
           {y2}
           stroke={color}
-          stroke-width={thickness}
+          stroke-width={size}
           {opacity} />
       {/if}
     {/each}

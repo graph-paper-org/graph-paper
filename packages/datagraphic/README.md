@@ -18,6 +18,11 @@ The main parent component for data graphic generation.
 - `hoverValue` _FILL IN_ used primarily with `bind`
 - `dataGraphicMounted` _FILL IN_ used primarily with `bind`
 
+- `border` - (boolean, default `false`) draw all the graphic borders, which delineate the plot area from the margins. Render an individual border with `leftBorder`, `rightBorder`, `topBorder`, and `bottomBorder`.
+- `borderSize` - (number, default 1) the thickness of the borders. Change a side's border sizing with `leftBorderSize`, `rightBorderSize`, `topBorderSize`, and `bottomBorderSize`. Requires `border` to be `true`.
+- `borderColor` - (string, default `var(--cool-gray-200)`) the color of the borders. Change a side's border color with `leftBorderColor`, `rightBorderColor`, `topBorderColor`, and `bottomBorderColor`. Requires `border` to be `true`.
+- `borderOpacity` - (string, default `var(--cool-gray-200)`) the opacity of the borders. Change a side's border opacity with `leftBorderOpacity`, `rightBorderOpacity`, `topBorderOpacity`, and `bottomBorderOpacity`. Requires `border` to be `true`.
+
 ## Slots
 
 All slots in `DataGraphic` fit within the SVG element, best utilized through `g` tags, eg `<g slot="body">...</g>`. These slots constitute the fundamental layers of a data graphic. They render in this order:
