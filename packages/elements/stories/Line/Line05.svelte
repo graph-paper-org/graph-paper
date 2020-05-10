@@ -123,9 +123,9 @@
         <Line {data} x="date" y="v1" />
         <Line {data} x="date" y="v2" color="var(--pantone-red-500)" />
       </g>
-      <g slot="annotation" let:hoverValue let:xScale let:top let:bottom>
-        <HorizontalWindow {datasets} value={hoverValue.x} let:output>
-          {#if hoverValue.x}
+      <g slot="annotation" let:mousePosition let:xScale let:top let:bottom>
+        <HorizontalWindow {datasets} value={mousePosition.x} let:output>
+          {#if mousePosition.x}
             <text
               x={xScale(output[0].match.date)}
               y={top - 4}

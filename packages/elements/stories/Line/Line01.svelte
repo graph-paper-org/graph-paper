@@ -40,7 +40,7 @@
 
   const lineSet = derived(lines, ($lines) => $lines);
 
-  let hoverValue = {};
+  let mousePosition = {};
 
   function getY(data, x) {
     const match = data.find((v) => v.x === x);
@@ -128,7 +128,7 @@
           <div class="small-multiple__header offset-for-graphs">
             <h3>{labels[i]}</h3>
             <div class="small-multiple__metric">
-              {fmt(getY(line, Math.floor(hoverValue.x ? hoverValue.x : line[line.length - 1].x)))}
+              {fmt(getY(line, Math.floor(mousePosition.x ? mousePosition.x : line[line.length - 1].x)))}
             </div>
           </div>
           <DataGraphic
@@ -139,7 +139,7 @@
             width={200}
             height={100}
             top={20}
-            bind:hoverValue>
+            bind:mousePosition>
             <LeftAxis ticks={[0, 50, 100]} showLabels={i === 0 || !alignY} />
             <BottomAxis ticks={[1900, 1950, 2000]} />
             <Line
@@ -148,17 +148,17 @@
               x="x"
               y="y" />
 
-            <g slot="mouseover" let:hoverValue={value}>
-              {#if hoverValue.body}
+            <g slot="mouseover" let:mousePosition={value}>
+              {#if mousePosition.body}
                 <Point
-                  x={hoverValue.x}
-                  y={getY(line, Math.floor(hoverValue.x))}
+                  x={mousePosition.x}
+                  y={getY(line, Math.floor(mousePosition.x))}
                   size={2} />
                 />
                 <Point
-                  x={hoverValue.x}
-                  y={getY(line, Math.floor(hoverValue.x))}
-                  size={1 + 10 * (getY(line, Math.floor(hoverValue.x)) / 100)}
+                  x={mousePosition.x}
+                  y={getY(line, Math.floor(mousePosition.x))}
+                  size={1 + 10 * (getY(line, Math.floor(mousePosition.x)) / 100)}
                   alpha={0.2} />
                 <MarginText
                   fontSize="11.5"
@@ -169,7 +169,7 @@
                   fontSize="11.5"
                   justify="right"
                   yOffset={4}
-                  temporaryLabel={value.y ? perc(getY(line, Math.floor(hoverValue.x)) / line[0].y - 1) : ''} />
+                  temporaryLabel={value.y ? perc(getY(line, Math.floor(mousePosition.x)) / line[0].y - 1) : ''} />
               {/if}
             </g>
 

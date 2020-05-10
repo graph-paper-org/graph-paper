@@ -5,6 +5,8 @@
 - Change `xDomainMin` / `xDomainMax` & y equivalents to `xMin` / `xMax` etc. ([#95](https://github.com/graph-paper-org/graph-paper/pull/95))
 - Refactor width / height of `DataGraphic` component to reactively update ([#83](https://github.com/graph-paper-org/graph-paper/pull/82))
 - Change `borderThickness` to `borderSize` in `DataGraphic` ([#96](https://github.com/graph-paper-org/graph-paper/pull/96))
+- Refactor mouse position calculations ([#98](https://github.com/graph-paper-org/graph-paper/pull/98))
+- Rename `hoverValue` to `mousePosition` in `DataGraphic` and throughout all code examples ([#98](https://github.com/graph-paper-org/graph-paper/pull/98))
 
 ## 0.0.0-alpha.8
 

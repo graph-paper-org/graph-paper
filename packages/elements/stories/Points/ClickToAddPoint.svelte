@@ -25,11 +25,11 @@
   }));
 
   let hoverSize = tweened(size, { duration: 400, easing });
-  let hoverValue = {};
+  let mousePosition = {};
 
   function addPoint() {
-    if (hoverValue.body) {
-      clickedPoints.push({ ...hoverValue, body: 0 });
+    if (mousePosition.body) {
+      clickedPoints.push({ ...mousePosition, body: 0 });
       clickedPoints = clickedPoints;
     }
 
@@ -49,7 +49,7 @@
   yType="linear"
   width={500}
   height={400}
-  bind:hoverValue
+  bind:mousePosition
   on:click={addPoint}
   on:mousedown={changeSize}
   on:mouseleave={() => {
@@ -57,8 +57,12 @@
   }}>
   <LeftAxis />
   <BottomAxis />
-  {#if hoverValue && hoverValue.body}
-    <Point x={hoverValue.x} y={hoverValue.y} size={$hoverSize} alpha={0.5} />
+  {#if mousePosition && mousePosition.body}
+    <Point
+      x={mousePosition.x}
+      y={mousePosition.y}
+      size={$hoverSize}
+      alpha={0.5} />
   {/if}
   {#each clickedPoints as pt}
     <Point

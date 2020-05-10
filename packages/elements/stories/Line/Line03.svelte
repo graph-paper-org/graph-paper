@@ -160,7 +160,7 @@
     },
   ];
 
-  let hoverValue = {};
+  let mousePosition = {};
   let mouseDownValue = {};
   let mouseMoveValue = {};
   let startValue;
@@ -216,8 +216,8 @@
 
   $: hoverPt = get(
     metricData,
-    hoverValue.x && hoverValue.body
-      ? hoverValue.x
+    mousePosition.x && mousePosition.body
+      ? mousePosition.x
       : metricData.find((m) => m.dts === dtfmt(xDomain[1])).date,
     xDomain
   );
@@ -291,13 +291,13 @@
         yDomain={[0, yMax]}
         xType="time"
         yType="linear"
-        bind:hoverValue
+        bind:mousePosition
         on:mousedown={() => {
-          mouseDownValue = hoverValue;
+          mouseDownValue = mousePosition;
         }}
         on:mousemove={() => {
           if (mouseDownValue) {
-            mouseMoveValue = hoverValue;
+            mouseMoveValue = mousePosition;
           }
         }}
         on:mouseup={endMouseEvent}

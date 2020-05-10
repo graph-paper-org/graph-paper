@@ -15,7 +15,7 @@ The main parent component for data graphic generation.
 - `xDomain` (array of two numbers) an array that contains the min and max. If omitted, will be generated from the children of `DataGraphic`. If `xMin` or `xMax` are specified, these individually take precedence over their respective values in `xDomain`.
 - `yMin` / `yMax` (number, optional) the y-axis min and max
 - `yDomain` (array of two numbers) an array that contains the min and max of the y axis. If omitted, will be generated from the children of `DataGraphic`. If `yMin` or `yMax` are specified, these individually take precedence over their respective values in `yDomain`.
-- `hoverValue` _FILL IN_ used primarily with `bind`
+- `mousePosition` _FILL IN_ used primarily with `bind`
 - `dataGraphicMounted` _FILL IN_ used primarily with `bind`
 
 - `border` - (boolean, default `false`) draw all the graphic borders, which delineate the plot area from the margins. Render an individual border with `leftBorder`, `rightBorder`, `topBorder`, and `bottomBorder`.
@@ -41,8 +41,14 @@ And they all contain the same slot props:
 - `left` / `right` / `top` / `bottom` the padding between the edge of the plot body, in pixels
 - `width` the current width of the graph, in pixels
 - `height` the current height of the graph, in pixels
-- `hoverValue` the current hovered value **FILL THIS IN SOMEWHERE**
+- `mousePosition` the current mouse position **FILL THIS IN SOMEWHERE**
 
 These slot props allow users to mix and match Graph Paper components with custom ones / plain SVG.
 
 The slots can be used in any way users prefer. The semantics of the slots are meant mostly to convey the order they render in.
+
+## Context keys / stores
+
+Children of `DataGraphic` have a number of contexts available to them.
+
+**FIXME**

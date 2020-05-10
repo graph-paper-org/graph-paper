@@ -13,6 +13,7 @@
     scaleBand,
   } from "d3-scale";
 
+  import { getMousePosition, defaultMousePosition } from "./mouse-position";
   import { getDomainFromExtents } from "./extents";
 
   export let svg;
@@ -114,7 +115,7 @@
   export let xPadding = 0.5;
   export let xInnerPadding = xPadding;
   export let xOuterPadding = xPadding;
-  export let yPadding = 0;
+  export let yPadding = 0.5;
   export let yInnerPadding = yPadding;
   export let yOuterPadding = yPadding;
 
@@ -199,7 +200,6 @@
   function createXPointScale(values, leftRange, rightRange) {
     const scaleFunction = getScaleFunction(xType);
     let scale = scaleFunction().domain(values).range([leftRange, rightRange]);
-
     if (xType === "scalePoint") {
       scale = scale.padding(xPadding);
     }
@@ -240,24 +240,36 @@
     return undefined;
   }
 
-  function initializeDomain(scaleType) {
-    if (scaleType === "time") return [new Date(), new Date()];
-    return [0, 1];
-  }
-
   // Extents (bounds of the data elements) & Domains (bounds of the graph, based on
   // user specifications & extents)
 
   // if tweening is set for a domain, then we will update the tween params
   // once the mounting is finished.
 
+  function isContinuous(t) {
+    return t === "linear" || t === "time";
+  }
+
   let internalXDomainTween = { duration: 0 };
   let internalYDomainTween = { duration: 0 };
 
-  const initialXDomain = initializeDomain(xType);
-  const initialYDomain = initializeDomain(yType);
-  let internalXDomain = tweened(initializeDomain(xType), internalXDomainTween);
-  let internalYDomain = tweened(initializeDomain(yType), internalYDomainTween);
+  function defaultDomain(scaleType) {
+    if (scaleType === "time") return [new Date(), new Date()];
+    if (scaleType === "linear") return [0, 1];
+    return [];
+  }
+
+  function initializeDomainStore(scaleType, domain) {
+    return isContinuous(scaleType)
+      ? tweened(domain, { duration: 0 })
+      : writable(domain);
+  }
+
+  const initialXDomain = defaultDomain(xType);
+  const initialYDomain = defaultDomain(yType);
+
+  let internalXDomain = initializeDomainStore(xType, initialXDomain);
+  let internalYDomain = initializeDomainStore(yType, initialYDomain);
 
   // update the scale stores if the domain changes.
   // FIXME: refactor these functions to take range arguments as well,
@@ -290,124 +302,41 @@
   $: xPlotExtents = getDomainFromExtents($xExtents);
   $: yPlotExtents = getDomainFromExtents($yExtents);
 
-  $: internalXDomain.set(
-    [
-      firstDefinedValue(xMin, xDomain[0], xPlotExtents[0], initialXDomain[0]),
-      firstDefinedValue(xMax, xDomain[1], xPlotExtents[1], initialXDomain[1]),
-    ],
-    internalXDomainTween
-  );
+  $: if (isContinuous(xType)) {
+    internalXDomain.set(
+      [
+        firstDefinedValue(xMin, xDomain[0], xPlotExtents[0], initialXDomain[0]),
+        firstDefinedValue(xMax, xDomain[1], xPlotExtents[1], initialXDomain[1]),
+      ],
+      internalXDomainTween
+    );
+  } else {
+    $internalXDomain = xDomain;
+  }
 
-  $: internalYDomain.set(
-    [
-      firstDefinedValue(yMin, yDomain[0], yPlotExtents[0], initialYDomain[0]),
-      firstDefinedValue(yMax, yDomain[1], yPlotExtents[1], initialYDomain[1]),
-    ],
-    internalYDomainTween
-  );
+  $: if (isContinuous(yType)) {
+    internalYDomain.set(
+      [
+        firstDefinedValue(yMin, yDomain[0], yPlotExtents[0], initialYDomain[0]),
+        firstDefinedValue(yMax, yDomain[1], yPlotExtents[1], initialYDomain[1]),
+      ],
+      internalYDomainTween
+    );
+  } else {
+    $internalYDomain = yDomain;
+  }
 
   $: $xScaleStore = createXPointScale($internalXDomain, $leftPlot, $rightPlot);
   $: $yScaleStore = createYPointScale($internalYDomain, $bottomPlot, $topPlot);
-
   setContext("xScale", xScaleStore);
   setContext("yScale", yScaleStore);
 
-  // this code sets the mouseover values of x & y (in the domain space)
-  // and px & py (in the range / virtual pixel space).
-
-  // FIXME: the createMouseStore function is needlessly complicated imo,
-  // and doesn't really lend itself to easy testing. We should remove
-  // this function from this component and put it into a helper or util or something.
-  const internalRolloverStore = writable({
-    x: undefined,
-    y: undefined,
-    px: undefined,
-    py: undefined,
-    body: false,
-  });
-
-  function createMouseStore(svgElem) {
-    let parentSVG = svgElem;
-    return {
-      setSVG(mountedSVG) {
-        parentSVG = mountedSVG;
-      },
-      subscribe: internalRolloverStore.subscribe,
-      onMouseleave() {
-        internalRolloverStore.set({
-          x: undefined,
-          y: undefined,
-          px: undefined,
-          py: undefined,
-          body: false,
-        });
-      },
-      onMousemove(e, xs, ys) {
-        if (!parentSVG) return;
-        let { clientX, clientY } = e;
-        const pt = parentSVG.createSVGPoint();
-        pt.x = clientX;
-        pt.y = clientY;
-        let svgP = pt.matrixTransform(parentSVG.getScreenCTM().inverse());
-        let actualX = svgP.x;
-        let actualY = svgP.y;
-        let x;
-        let y;
-        // set if cursor is in body area.
-        let body = false;
-        if (
-          actualX > $leftPlot &&
-          actualX < $rightPlot &&
-          actualY > $topPlot &&
-          actualY < $bottomPlot
-        ) {
-          body = true;
-        }
-        if (xs.type === "scalePoint") {
-          const step = xs.step();
-          const xCandidates = xs
-            .domain()
-            .filter((d) => xs(d) - step / 2 < actualX && xs(d) < $rightPlot);
-          x = xCandidates[xCandidates.length - 1];
-        } else if (xs.type === "scaleBand") {
-          const xCandidates = xs
-            .domain()
-            .filter((d) => xs(d) < actualX && xs(d) < $rightPlot);
-          x = xCandidates[xCandidates.length - 1];
-        } else {
-          x = xs.invert(actualX);
-        }
-        if (ys.type === "scalePoint") {
-          const yCandidates = ys.domain().filter((d) => ys(d) < actualY);
-          [y] = yCandidates;
-        } else {
-          y = ys.invert(actualY);
-        }
-        const nextState = {
-          x,
-          y,
-          px: actualX,
-          py: actualY,
-          body,
-        };
-
-        internalRolloverStore.set(nextState);
-      },
-    };
-  }
-
-  export let rollover = createMouseStore(svg);
+  const mousePositionStore = writable(defaultMousePosition());
+  setContext("gp:datagraphic:mousePosition", mousePositionStore);
 
   export let dataGraphicMounted = false;
 
-  const emptyValue = () => ({
-    x: undefined,
-    y: undefined,
-    px: undefined,
-    py: undefined,
-  });
-
-  export let hoverValue = emptyValue();
+  export let mousePosition = defaultMousePosition();
 
   // FIXME: this flow always felt a little weird. We should remove it
   // entirely.
@@ -424,11 +353,6 @@
   });
 
   $: if (dataGraphicMounted) {
-    rollover.setSVG(svg);
-    internalRolloverStore.subscribe((v) => {
-      hoverValue = v;
-    });
-
     // here, we are technically waiting a tick before updating the domain tweens.
     // This gives room for all the extents to be calculated before jumping into animating them.
     // Without this, the graph kind of springs into place, which does not feel ideal.
@@ -437,6 +361,8 @@
       internalYDomainTween = yDomainTween;
     });
   }
+
+  $: mousePosition = $mousePositionStore;
 </script>
 
 <style>
@@ -458,10 +384,17 @@
     viewbox="0 0 {$graphicWidth}
     {$graphicHeight}"
     on:mousemove={(e) => {
-      rollover.onMousemove(e, $xScaleStore, $yScaleStore);
+      $mousePositionStore = getMousePosition(e, svg, {
+        xScale: $xScaleStore,
+        yScale: $yScaleStore,
+        left: $leftPlot,
+        right: $rightPlot,
+        top: $topPlot,
+        bottom: $bottomPlot,
+      });
     }}
-    on:mouseleave={(e) => {
-      rollover.onMouseleave(e, $xScaleStore, $yScaleStore);
+    on:mouseleave={() => {
+      $mousePositionStore = defaultMousePosition();
     }}
     on:click
     on:mousedown
@@ -475,11 +408,13 @@
       fill={backgroundColor} />
 
     <clipPath id="graphic-body-{key}">
+
       <rect
         x={$leftPlot}
         y={$topPlot}
         width={$bodyWidth}
         height={$bodyHeight} />
+
     </clipPath>
 
     {#if dataGraphicMounted}
@@ -488,7 +423,7 @@
         style="clip-path: url(#graphic-body-{key})">
         <slot
           name="body-background"
-          {hoverValue}
+          {mousePosition}
           {xScale}
           {yScale}
           left={$leftPlot}
@@ -504,7 +439,7 @@
       <g>
         <slot
           name="background"
-          {hoverValue}
+          {mousePosition}
           {xScale}
           {yScale}
           left={$leftPlot}
@@ -519,6 +454,7 @@
     {#if dataGraphicMounted}
       <g id="graphic-body-{key}" style="clip-path: url(#graphic-body-{key})">
         <slot
+          {mousePosition}
           name="body"
           {xScale}
           {yScale}
@@ -527,8 +463,7 @@
           top={$topPlot}
           bottom={$bottomPlot}
           width={$graphicWidth}
-          height={$graphicHeight}
-          hoverValue={$internalRolloverStore} />
+          height={$graphicHeight} />
       </g>
     {/if}
 
@@ -546,7 +481,7 @@
     {#if dataGraphicMounted}
       <slot
         name="mouseover"
-        hoverValue={$internalRolloverStore}
+        {mousePosition}
         {xScale}
         {yScale}
         left={$leftPlot}
@@ -575,6 +510,7 @@
     {#if dataGraphicMounted}
       <slot
         name="annotation"
+        {mousePosition}
         {xScale}
         {yScale}
         left={$leftPlot}
@@ -582,8 +518,7 @@
         top={$topPlot}
         bottom={$bottomPlot}
         width={$graphicWidth}
-        height={$graphicHeight}
-        hoverValue={$internalRolloverStore} />
+        height={$graphicHeight} />
     {/if}
   </svg>
 </div>
