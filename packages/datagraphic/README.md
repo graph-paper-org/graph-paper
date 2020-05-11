@@ -31,8 +31,8 @@ All slots in `DataGraphic` fit within the SVG element, best utilized through `g`
 - `background` a background layer not clipped to the graphic body
 - `body` the main layer, clipped to the graphic body area
 - the unnamed slot
-- `mouseover` used for interactions
 - `annotation` used for markers, annotations, and the like
+- `interaction` used for user interactions like mouse events, scrubbing, etc.
 
 And they all contain the same slot props:
 

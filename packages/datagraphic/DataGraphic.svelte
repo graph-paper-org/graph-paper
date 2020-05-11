@@ -408,7 +408,7 @@
       fill={backgroundColor} />
 
     <clipPath id="graphic-body-{key}">
-
+      <!-- this clip area determines what renders in slot=body and slot=background-body -->
       <rect
         x={$leftPlot}
         y={$topPlot}
@@ -469,7 +469,16 @@
 
     <!-- generalized slot at body level -->
     {#if dataGraphicMounted}
-      <slot />
+      <slot
+        {mousePosition}
+        {xScale}
+        {yScale}
+        left={$leftPlot}
+        right={$rightPlot}
+        top={$topPlot}
+        bottom={$bottomPlot}
+        width={$graphicWidth}
+        height={$graphicHeight} />
     {/if}
 
     <use
@@ -477,10 +486,10 @@
       xlink:href="#graphic-body-content={key}"
       fill="transparent" />
 
-    <!-- pass the rollover value into the scale -->
+    <!-- Annotation layers – for additional points, comments, etc. that must sit above everything else -->
     {#if dataGraphicMounted}
       <slot
-        name="mouseover"
+        name="annotation"
         {mousePosition}
         {xScale}
         {yScale}
@@ -506,10 +515,9 @@
       {/if}
     {/each}
 
-    <!-- Annotation layers – for additional points, comments, etc. that must sit above everything else -->
     {#if dataGraphicMounted}
       <slot
-        name="annotation"
+        name="interaction"
         {mousePosition}
         {xScale}
         {yScale}

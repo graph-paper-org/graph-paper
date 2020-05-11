@@ -7,6 +7,9 @@
 - Change `borderThickness` to `borderSize` in `DataGraphic` ([#96](https://github.com/graph-paper-org/graph-paper/pull/96))
 - Refactor mouse position calculations ([#98](https://github.com/graph-paper-org/graph-paper/pull/98))
 - Rename `hoverValue` to `mousePosition` in `DataGraphic` and throughout all code examples ([#98](https://github.com/graph-paper-org/graph-paper/pull/98))
+- Change `mouseover` slot in `DataGraphic` to `interaction` ([#102](https://github.com/graph-paper-org/graph-paper/pull/102))
+- Move `annotation` slot in `DataGraphic` to be on top ([#102](https://github.com/graph-paper-org/graph-paper/pull/102))
+- Add `Layers.svelte` story ([#102](https://github.com/graph-paper-org/graph-paper/pull/102))
 
 ## 0.0.0-alpha.8
 

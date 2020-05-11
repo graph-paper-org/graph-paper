@@ -148,7 +148,7 @@
               x="x"
               y="y" />
 
-            <g slot="mouseover" let:mousePosition={value}>
+            <g slot="interaction" let:mousePosition={value}>
               {#if mousePosition.body}
                 <Point
                   x={mousePosition.x}
