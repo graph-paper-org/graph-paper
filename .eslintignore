@@ -1,5 +1,4 @@
-!.eslintrc.js
+# Inverse matches (i.e., DO NOT ignore these)
 !/.storybook
 
-packages/*/node_modules
 template/*
