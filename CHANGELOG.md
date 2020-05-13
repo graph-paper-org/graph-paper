@@ -1,6 +1,8 @@
 # Changelog
 
-## unreleased
+## 0.0.0-alpha.9
+
+Published `2020-05-12`
 
 - Change `xDomainMin` / `xDomainMax` & y equivalents to `xMin` / `xMax` etc. ([#95](https://github.com/graph-paper-org/graph-paper/pull/95))
 - Refactor width / height of `DataGraphic` component to reactively update ([#83](https://github.com/graph-paper-org/graph-paper/pull/82))
