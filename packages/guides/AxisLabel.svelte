@@ -8,7 +8,7 @@
   export let bodyDimension = getContext("bodyDimension");
   export let tickDirection = getContext("tickDirection");
   export let fontSizeCorrector = getContext("fontSizeCorrector");
-  export let margins = getContext("margins") || { buffer: 0 };
+  export let buffer = getContext("gp:datagraphic:buffer");
   export let tickFormatter =
     getContext("tickFormatter") ||
     function format(v) {
@@ -26,11 +26,11 @@
   export let dx = 0;
   export let dy = 0;
 
-  function place(v, dim, sc) {
+  function place(v, dim, sc, buff) {
     if (mainDim === dim) {
       return (
         $bodyDimension +
-        tickDirection * margins.buffer +
+        tickDirection * buff +
         (side === "top" || side === "bottom"
           ? tickDirection * fontSizeCorrector
           : 0) +
@@ -64,8 +64,8 @@
   $: transform = `${
     rotate !== 0
       ? `rotate(${rotate} ${
-          place(placement, "x", $mainScale) - alignmentOffset
-        } ${place(placement, "y", $mainScale)}) `
+          place(placement, "x", $mainScale, $buffer) - alignmentOffset
+        } ${place(placement, "y", $mainScale, $buffer)}) `
       : " "
   } ${mainDim === "x" ? `translate(0 ${yAdjustment})` : ""}`;
 </script>
@@ -73,7 +73,7 @@
 <g bind:this={container} transform="translate({alignmentOffset} 0)">
   <text
     bind:this={label}
-    {...{ [`${mainDim}`]: place(placement, mainDim, $mainScale), [`${secondaryDim}`]: place(placement, secondaryDim, $mainScale), dy, dx }}
+    {...{ [`${mainDim}`]: place(placement, mainDim, $mainScale, $buffer), [`${secondaryDim}`]: place(placement, secondaryDim, $mainScale, $buffer), dy, dx }}
     font-size={fontSize}
     font-weight={fontWeight}
     fill={color}

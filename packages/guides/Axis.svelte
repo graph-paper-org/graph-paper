@@ -72,7 +72,7 @@
   export let align = defaultTextAnchor;
 
   const defaults = getContext("defaults");
-  const margins = getContext("margins");
+  const buffer = getContext("gp:datagraphic:buffer");
 
   export let tickDashArray;
 
@@ -146,7 +146,7 @@
   let mainDim = side === "left" || side === "right" ? "x" : "y";
   let secondaryDim = side === "left" || side === "right" ? "y" : "x";
 
-  let fontSizeCorrector = side === "bottom" ? tickFontSize : margins.buffer;
+  let fontSizeCorrector = side === "bottom" ? tickFontSize : $buffer;
 
   // axis system context setting.
   // children like AxisLabel consume these.

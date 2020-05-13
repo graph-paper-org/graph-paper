@@ -9,11 +9,11 @@
   export let bodyDimension = getContext("bodyDimension");
   export let side = getContext("side");
 
-  export let margins = getContext("margins");
+  export let buffer = getContext("gp:datagraphic:buffer");
 
   export let placement;
   export let offset = 0;
-  export let length = margins.buffer; // $tickEnd;
+  export let length = $buffer; // $tickEnd;
   export let width = 1;
   export let color = "var(--cool-gray-300)";
 

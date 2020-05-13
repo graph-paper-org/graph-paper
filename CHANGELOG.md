@@ -1,5 +1,9 @@
 # Changelog
 
+## unpublished
+
+- Refactor data graphic margin calculations to be reactive ([#106](https://github.com/graph-paper-org/graph-paper/pull/106))
+
 ## 0.0.0-alpha.9
 
 Published `2020-05-12`

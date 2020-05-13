@@ -41,7 +41,6 @@
   export let right = 16;
   export let top = 50;
   export let bottom = 20;
-  export let laneGap = 30;
   export let buffer = 5;
 
   // borders
@@ -119,15 +118,6 @@
   export let yInnerPadding = yPadding;
   export let yOuterPadding = yPadding;
 
-  export let margins = {
-    left,
-    right,
-    top,
-    bottom,
-    laneGap,
-    buffer,
-  };
-
   const DEFAULTS = {
     elementWidth: 60,
     axisTickFontSize: 10,
@@ -136,8 +126,6 @@
   };
 
   setContext("defaults", DEFAULTS);
-  setContext("margins", margins);
-
   setContext("key", key);
 
   let container;
@@ -151,30 +139,45 @@
   export let graphicWidth = writable(internalWidth);
   export let graphicHeight = writable(internalHeight);
 
+  let internalLeft = writable(left);
+  let internalRight = writable(right);
+  let internalTop = writable(top);
+  let internalBottom = writable(bottom);
+
+  $: $internalLeft = left;
+  $: $internalRight = right;
+  $: $internalTop = top;
+  $: $internalBottom = bottom;
+
+  let internalBuffer = writable(buffer);
+  $: $internalBuffer = buffer;
+  setContext("gp:datagraphic:buffer", internalBuffer);
+
   // see onMount below for the case where the width & height props are not defined.
   $: $graphicWidth = internalWidth;
   $: $graphicHeight = internalHeight;
 
   export let bodyWidth = derived(
-    graphicWidth,
-    ($width) => $width - margins.left - margins.right
+    [graphicWidth, internalLeft, internalRight],
+    ([$width, $left, $right]) => $width - $left - $right
   );
+
   export let bodyHeight = derived(
-    graphicHeight,
-    ($height) => $height - margins.top - margins.bottom
+    [graphicHeight, internalTop, internalBottom],
+    ([$height, $top, $bottom]) => $height - $top - $bottom
   );
 
   // set the locations of the plot bounds
-  export let leftPlot = derived(graphicWidth, () => margins.left);
+  export let leftPlot = derived(internalLeft, ($left) => $left);
   export let rightPlot = derived(
-    graphicWidth,
-    ($width) => $width - margins.right
+    [graphicWidth, internalRight],
+    ([$width, $right]) => $width - $right
   );
 
-  export let topPlot = derived(graphicHeight, () => margins.top);
+  export let topPlot = derived(internalTop, ($top) => $top);
   export let bottomPlot = derived(
-    graphicHeight,
-    ($height) => $height - margins.bottom
+    [graphicHeight, internalBottom],
+    ([$height, $bottom]) => $height - $bottom
   );
 
   setContext("graphicWidth", graphicWidth);

@@ -28,7 +28,7 @@
 
   orders[key] += 1;
 
-  export let margins = getContext("margins");
+  export let buffer = getContext("gp:datagraphic:buffer");
 
   const scale =
     direction === "vertical" ? getContext("xScale") : getContext("yScale");
@@ -70,9 +70,7 @@
   $: if (direction === "vertical") {
     if (labelPlacement === "top") {
       textEndCoord =
-        $endLocation +
-        -pixelDirection * margins.buffer +
-        ($distance / 2) * $scaling;
+        $endLocation + -pixelDirection * $buffer + ($distance / 2) * $scaling;
       textAnchor = "middle";
       textOrientationCoord = locationCoord;
     }
