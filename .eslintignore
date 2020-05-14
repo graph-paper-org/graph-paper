@@ -1,4 +1,5 @@
 # Inverse matches (i.e., DO NOT ignore these)
+!.prettierrc.js
 !/.storybook
 
 template/*

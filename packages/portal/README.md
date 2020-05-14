@@ -1,6 +1,9 @@
 # Portal
 
-A Portal is a component that pulls its children outside of the current DOM tree, instead appending them to the end of the document. Useful for floating menus, modals, snackbars, and other elements and features that might need to "float" above the content.
+A Portal is a component that pulls its children outside of the current DOM tree,
+instead appending them to the end of the document. Useful for floating menus,
+modals, snackbars, and other elements and features that might need to "float"
+above the content.
 
 This component solely handles _placement_ at the end of the document.
 

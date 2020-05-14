@@ -2,7 +2,8 @@
 
 A Svelte component library optimized for data visualizations and data apps.
 
-_note: this project is in very early alpha, and as such is subject to API changes and restructuring without notice._
+_note: this project is in very early alpha, and as such is subject to API
+changes and restructuring without notice._
 
 ## installation
 
@@ -17,12 +18,8 @@ TODO: add a single big package.
 
 ## development
 
-### setup
-
 1. Run `npm install`
 2. Run `npx lerna bootstrap`
+3. Run `npm run storybook`
 
-### storybook
-
-Run `npm run storybook` to start Storybook, which provides example usage of our
-components.
+See the [developer documentation](docs/development.md) for more information.

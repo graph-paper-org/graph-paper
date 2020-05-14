@@ -1,6 +1,9 @@
 # Chip
 
-A chip is a discrete interaction element conveying information that is filterable, cancelable, and clickable. More information about chips can be found in the [Material Design documentation](https://material.io/components/chips/#input-chips).
+A chip is a discrete interaction element conveying information that is
+filterable, cancelable, and clickable. More information about chips can be found
+in the
+[Material Design documentation](https://material.io/components/chips/#input-chips).
 
 ## usage
 
