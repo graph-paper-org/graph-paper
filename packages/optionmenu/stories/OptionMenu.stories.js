@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
-import { OptionMenu } from "..";
+import DefaultStory from "./DefaultStory.svelte";
+import MultiStory from "./MultiStory.svelte";
 import SideBySideStory from "./SideBySideStory.svelte";
 
 export default {
@@ -36,71 +37,26 @@ function knobs({ title = "Options", description = "Description" }) {
 }
 
 export const Default = () => ({
-  Component: OptionMenu,
+  Component: DefaultStory,
   props: {
-    options: [
-      {
-        key: "win",
-        label: "Windows",
-      },
-      {
-        key: "mac",
-        label: "Mac",
-        description: "Not including versions before Mac OS X",
-      },
-      {
-        key: "linux",
-        label: "Linux",
-        description: "Not currently collecting data",
-        disabled: true,
-      },
-      { key: "DIVIDER" },
-      {
-        key: "mobile",
-        label: "Mobile",
-        description: "All mobile operating systems",
-      },
-    ],
-    currentOption: { key: "win", label: "Windows" },
-    ...knobs({
-      title: "Operating System",
-      description: "Filter by operating system",
-    }),
+    knobProps: {
+      ...knobs({
+        title: "Default Options",
+        description: "Filter by operating system",
+      }),
+    },
   },
 });
 
 export const Multi = () => ({
-  Component: OptionMenu,
+  Component: MultiStory,
   props: {
-    options: [
-      {
-        key: "win",
-        label: "Windows",
-      },
-      {
-        key: "mac",
-        label: "Mac",
-        description: "Not including versions before Mac OS X",
-      },
-      {
-        key: "linux",
-        label: "Linux",
-        description: "Not currently collecting data",
-        disabled: true,
-      },
-      { key: "DIVIDER" },
-      {
-        key: "mobile",
-        label: "Mobile",
-        description: "All mobile operating systems",
-      },
-    ],
-    multi: true,
-    currentOption: [{ key: "win", label: "Windows" }],
-    ...knobs({
-      title: "Multi Options",
-      description: "Filter by operating system",
-    }),
+    knobProps: {
+      ...knobs({
+        title: "Multi Options",
+        description: "Filter by operating system",
+      }),
+    },
   },
 });
 

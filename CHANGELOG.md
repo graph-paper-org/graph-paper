@@ -2,6 +2,8 @@
 
 ## unpublished
 
+- Update the `<OptionMenu>` component to require `<Option>` components in its
+  slot, each of which can accept a "right" slot for styling (Note: API change)
 - Refactor data graphic margin calculations to be reactive
   ([#106](https://github.com/graph-paper-org/graph-paper/pull/106))
 

@@ -9,6 +9,7 @@
   export let location = "bottom";
   export let alignment = "left";
   export let onParentSelect = () => {};
+  export let hidden = false;
 
   let element;
   let scrollY;
@@ -41,6 +42,10 @@
     overflow-x: hidden;
     overflow-y: auto;
   }
+
+  .hidden {
+    visibility: hidden;
+  }
 </style>
 
 <svelte:window bind:innerWidth bind:innerHeight bind:scrollY />
@@ -48,6 +53,7 @@
 <Portal>
   <div
     class="bound-menu"
+    class:hidden
     bind:this={element}
     style=" left: {leftPlacement}px; top: {topPlacement}px; max-height:
     calc(100vh - {topPlacement}px - var(--screen-padding)); ">

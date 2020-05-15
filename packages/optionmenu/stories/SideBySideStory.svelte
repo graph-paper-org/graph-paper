@@ -1,8 +1,8 @@
 <script>
-  import { OptionMenu } from "..";
+  import { OptionMenu, Option } from "..";
 
   let fontSize = "16px";
-  let formatting = "normal";
+  let formatting = [];
   let textAlign = "left";
 </script>
 
@@ -30,7 +30,28 @@
     font-size: var(--font-size);
     font-style: var(--font-style);
     font-weight: var(--font-weight);
+    text-decoration: var(--text-decoration);
     text-align: var(--text-align);
+  }
+
+  .bold,
+  .italic,
+  .underline {
+    font-family: serif;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .italic {
+    font-style: italic;
+    left: -3px;
+    position: relative;
+  }
+
+  .underline {
+    text-decoration: underline;
   }
 </style>
 
@@ -38,29 +59,49 @@
   id="page"
   style={`
   --font-size: ${fontSize};
-  --font-style: ${formatting === 'italic' ? 'italic' : 'normal'};
-  --font-weight: ${formatting === 'bold' ? 'bold' : 'normal'};
+  --font-style: ${formatting.includes('italic') ? 'italic' : 'normal'};
+  --font-weight: ${formatting.includes('bold') ? 'bold' : 'normal'};
+  --text-decoration: ${formatting.includes('underline') ? 'underline' : 'none'};
   --text-align: ${textAlign};
 `}>
   <div id="menus">
     <OptionMenu
-      options={[{ key: '16px', label: '16px' }, { key: '24px', label: '24px' }, { key: '32px', label: '32px' }]}
-      currentOption={{ key: '16px', label: '16px' }}
-      on:selection={(evt) => {
-        fontSize = evt.detail.option.key;
-      }} />
+      on:selection={({ detail: { key } }) => {
+        fontSize = key;
+      }}>
+      <Option selected={fontSize === '16px'} key="16px" label="16px" />
+      <Option selected={fontSize === '24px'} key="24px" label="24px" />
+      <Option selected={fontSize === '32px'} key="32px" label="32px" />
+    </OptionMenu>
     <OptionMenu
-      options={[{ key: 'normal', label: 'Normal' }, { key: 'bold', label: 'Bold' }, { key: 'italic', label: 'Italic' }]}
-      currentOption={{ key: 'normal', label: 'Normal' }}
-      on:selection={(evt) => {
-        formatting = evt.detail.option.key;
-      }} />
+      multi
+      on:selection={({ detail: { keys } }) => {
+        formatting = keys;
+      }}>
+      <Option selected={formatting.includes('bold')} key="bold" label="Bold">
+        <span slot="right" class="bold">B</span>
+      </Option>
+      <Option
+        selected={formatting.includes('italic')}
+        key="italic"
+        label="Italic">
+        <span slot="right" class="italic">I</span>
+      </Option>
+      <Option
+        selected={formatting.includes('underline')}
+        key="underline"
+        label="Underlined">
+        <span slot="right" class="underline">U</span>
+      </Option>
+    </OptionMenu>
     <OptionMenu
-      options={[{ key: 'left', label: 'Left' }, { key: 'center', label: 'Center' }, { key: 'right', label: 'Right' }]}
-      currentOption={{ key: 'left', label: 'Left' }}
-      on:selection={(evt) => {
-        textAlign = evt.detail.option.key;
-      }} />
+      on:selection={({ detail: { key } }) => {
+        textAlign = key;
+      }}>
+      <Option selected={textAlign === 'left'} key="left" label="Left" />
+      <Option selected={textAlign === 'center'} key="center" label="Center" />
+      <Option selected={textAlign === 'right'} key="right" label="Right" />
+    </OptionMenu>
   </div>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum congue

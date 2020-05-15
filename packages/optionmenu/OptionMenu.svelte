@@ -1,16 +1,14 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
-  import { onMount, createEventDispatcher } from "svelte";
-
+  import { onMount, createEventDispatcher, setContext } from "svelte";
+  import { CaretDown } from "@graph-paper/icons";
+  import { FloatingMenu, MenuList } from "@graph-paper/menu";
   import { onClickOutside } from "@graph-paper/core/utils";
-  import { FloatingMenu, MenuList, MenuListItem } from "@graph-paper/menu";
-  import { CaretDown, Checkbox, CheckboxBlank } from "@graph-paper/icons";
   import { tooltip as tooltipAction } from "@graph-paper/core/actions/tooltip";
+  import { createOptionStore } from "./stores";
 
   export let title;
-  export let options;
   export let multi = false;
-  export let currentOption;
   export let compact = false;
   export let alignment = "center";
   export let location = "bottom";
@@ -20,9 +18,17 @@
   export let descriptionLocation = "bottom";
   export let showTooltip = true;
 
+  const enabledOptions = createOptionStore();
+  const selectedOptions = createOptionStore();
+
   let buttonParent;
   let button;
   let width;
+
+  setContext("gp:optionmenu:multi", multi);
+  setContext("gp:optionmenu:compact", compact);
+  setContext("gp:optionmenu:enabledOptions", enabledOptions);
+  setContext("gp:optionmenu:selectedOptions", selectedOptions);
 
   function toggle() {
     open = !open;
@@ -36,42 +42,48 @@
       );
   }
 
-  function keys(opts) {
-    return opts.map((o) => o.key);
-  }
+  let titleElement;
+  let titleWidth = 0;
 
-  function selectable(opts) {
-    return opts.filter((o) => o.key !== "DIVIDER");
+  function handleKeydown({ key }) {
+    if (key === "Escape") {
+      open = false;
+    }
   }
 
   const dispatch = createEventDispatcher();
 
-  function setValue(event) {
-    const newValue = event.detail.value;
-    if (!newValue.disabled) {
-      if (multi) {
-        if (keys(currentOption).includes(newValue.key)) {
-          currentOption = [
-            ...currentOption.filter((o) => o.key !== newValue.key),
-          ];
-        } else {
-          currentOption = [...currentOption, newValue];
-        }
-      } else {
-        currentOption = newValue;
+  function handleSelection({ detail: { key } }) {
+    if (multi) {
+      let keys = $selectedOptions.map((so) => so.key);
+
+      if (keys.includes(key)) {
+        keys = keys.filter((k) => k !== key);
+      } else if (enabledOptions.has(key)) {
+        keys.push(key);
       }
-      if (!multi) open = false;
-      dispatch("selection", { option: currentOption });
+
+      dispatch("selection", { keys });
+    } else if (enabledOptions.has(key)) {
+      dispatch("selection", { key });
     }
   }
 
-  let titleElement;
-  let titleWidth = 0;
-
-  function keyDown({ key }) {
-    if (key === "Escape") {
-      open = false;
+  /**
+   * Return an array containing all numbers between two numbers, inclusive.
+   *
+   * @param {number} x - The first number, inclusive
+   * @param {number} y - The second number, inclusive
+   * @return {number[]} An array of numbers from x to y, inclusive
+   *
+   * @example
+   * range(1, 3); // returns [1, 2, 3]
+   */
+  function range(x, y) {
+    if (x === y) {
+      return [x];
     }
+    return [x, ...range(x + 1, y)];
   }
 
   onMount(() => {
@@ -79,7 +91,7 @@
   });
 </script>
 
-<svelte:window on:keydown={keyDown} />
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="option-menu" bind:this={buttonParent}>
   {#if title}
@@ -97,20 +109,19 @@
     use:tooltipAction={{ visible: showTooltip && !open, text: description, location: descriptionLocation }}>
     <div>
       {#if multi}
-        {#each Array.from({
-          length: selectable(options).length,
-        }).map((_, index) => index) as i, j}
+        <!-- Make the button at least as wide as the widest option label -->
+        {#each range(0, $enabledOptions.length + 1) as i}
           <div
-            style=" visibility: {currentOption.length === i ? 'visible' : 'hidden'};
-            height: {currentOption.length === i ? 'inherit' : 0}; ">
-            {i} / {selectable(options).length - 1} selected
+            style="visibility: {$selectedOptions.length === i ? 'visible' : 'hidden'};
+            height: {$selectedOptions.length === i ? 'inherit' : 0}; ">
+            {i} / {$enabledOptions.length} selected
           </div>
         {/each}
       {:else}
-        {#each options as opt, i}
+        {#each $enabledOptions as opt, i}
           <div
-            style=" visibility: {opt.key === currentOption.key ? 'visible' : 'hidden'};
-            height: {opt.key === currentOption.key ? 'inherit' : 0}; ">
+            style="visibility: {opt.key === $selectedOptions[0].key ? 'visible' : 'hidden'};
+            height: {opt.key === $selectedOptions[0].key ? 'inherit' : 0}; ">
             {opt.label}
           </div>
         {/each}
@@ -124,50 +135,19 @@
   </button>
 </div>
 
-{#if open}
-  <FloatingMenu bind:width offset={1} {location} {alignment} parent={button}>
-    <MenuList on:selection={setValue}>
-      {#each options as opt, i}
-        {#if opt.key === 'DIVIDER'}
-          <hr class="option-menu__list-item__divider" />
-        {:else}
-          <MenuListItem
-            {compact}
-            hoverable={opt.disabled !== true}
-            key={opt.key}
-            value={opt}>
-
-            <div class="option-menu__list-item__content">
-              {#if multi}
-                <div
-                  class="option-menu__list-item__icon"
-                  class:option-menu__list-item__icon--disabled={opt.disabled === true}>
-                  {#if keys(currentOption).includes(opt.key)}
-                    <Checkbox size={14} />
-                  {:else}
-                    <CheckboxBlank size={14} />
-                  {/if}
-                </div>
-              {/if}
-
-              <div class="option-menu__list-item__text">
-                <div
-                  class:option-menu__list-item__title--disabled={opt.disabled}
-                  class="option-menu__list-item__title">
-                  <div class="menu-liste-item__title__label">{opt.label}</div>
-                </div>
-                {#if opt.description}
-                  <div
-                    class:option-menu__list-item__description--disabled={opt.disabled}
-                    class="option-menu__list-item__description">
-                    {opt.description}
-                  </div>
-                {/if}
-              </div>
-            </div>
-          </MenuListItem>
-        {/if}
-      {/each}
-    </MenuList>
-  </FloatingMenu>
-{/if}
+<!-- Always render the Option component(s) being passed in the slot, even if
+     they are hidden. We need them to populate the stores based on the labels of
+     the options, which they will only do when rendered. If the Option component
+     wants to do something when it appears or disappears, it can react to the
+     "hidden" prop. -->
+<FloatingMenu
+  bind:width
+  offset={1}
+  {location}
+  {alignment}
+  parent={button}
+  hidden={!open}>
+  <MenuList on:selection={handleSelection}>
+    <slot />
+  </MenuList>
+</FloatingMenu>
