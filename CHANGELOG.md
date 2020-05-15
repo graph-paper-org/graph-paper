@@ -1,9 +1,14 @@
 # Changelog
 
-## unpublished
+## unreleased
+
+## 0.0.0-alpha.10
+
+Published `2020-05-15`
 
 - Update the `<OptionMenu>` component to require `<Option>` components in its
   slot, each of which can accept a "right" slot for styling (Note: API change)
+  ([#93](https://github.com/graph-paper-org/graph-paper/pull/93))
 - Refactor data graphic margin calculations to be reactive
   ([#106](https://github.com/graph-paper-org/graph-paper/pull/106))
 
