@@ -30,8 +30,21 @@
   bind:value={h}
   min="75"
   max="900" />
+
+<h3>container size changes</h3>
+
 <div style="width: {w}px; height: {h}px;">
   <DataGraphic height={null}>
+    <LeftAxis />
+    <BottomAxis />
+    <Line {curve} {data} {size} {dashArray} />
+  </DataGraphic>
+</div>
+
+<h3>graphic size changes</h3>
+
+<div>
+  <DataGraphic width={w} height={h}>
     <LeftAxis />
     <BottomAxis />
     <Line {curve} {data} {size} {dashArray} />

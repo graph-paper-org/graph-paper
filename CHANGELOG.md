@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- Fix issue where width and height not updating reactively in `DataGraphic`
+  ([#113](https://github.com/graph-paper-org/graph-paper/pull/113))
+
 ## 0.0.0-alpha.10
 
 Published `2020-05-15`

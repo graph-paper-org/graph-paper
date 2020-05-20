@@ -135,7 +135,13 @@
 
   // graphic width, graphic height, body width, body height
   let internalWidth = width;
+
   let internalHeight = height === undefined ? 300 : height;
+
+  // if width is set (when it was not previously),
+  // update the internalWidth and internalHeight.
+  $: if (width) internalWidth = width;
+  $: if (height) internalHeight = height;
   export let graphicWidth = writable(internalWidth);
   export let graphicHeight = writable(internalHeight);
 
