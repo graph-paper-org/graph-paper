@@ -1,7 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { withKnobs } from "@storybook/addon-knobs";
+import AxesStory from "./Axes.svelte";
 
 export default {
-  title: "guides",
-  decorators: [withKnobs],
+  title: "Guides",
 };
+
+export const Axes = () => ({
+  Component: AxesStory,
+});

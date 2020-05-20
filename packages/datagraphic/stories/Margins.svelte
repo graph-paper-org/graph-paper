@@ -20,7 +20,7 @@
     return { x, y };
   });
   const params = () => ({
-    duration: 500 + Math.random() * 499,
+    duration: 200 + Math.random() * 300,
     easing,
   });
   let left = tweened(20, params());
@@ -39,7 +39,7 @@
     right.set(which[1] ? 60 : 20);
     top.set(which[2] ? 60 : 20);
     bottom.set(which[3] ? 60 : 20);
-  }, 1000);
+  }, 500);
 </script>
 
 <p>The margins of a graph (left, right, top, bottom) should be reactive.</p>

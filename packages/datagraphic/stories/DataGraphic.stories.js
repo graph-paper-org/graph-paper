@@ -3,6 +3,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 import Borders from "./Borders.svelte";
 import MarginsStory from "./Margins.svelte";
 import LayersStory from "./Layers.svelte";
+import SizeStory from "./WidthAndHeight.svelte";
 
 export default {
   title: "DataGraphic",
@@ -17,4 +18,8 @@ export const borders = () => ({
 
 export const Margins = () => ({
   Component: MarginsStory,
+});
+
+export const WidthAndHeight = () => ({
+  Component: SizeStory,
 });

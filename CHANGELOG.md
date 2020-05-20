@@ -4,6 +4,8 @@
 
 - Fix issue where width and height not updating reactively in `DataGraphic`
   ([#113](https://github.com/graph-paper-org/graph-paper/pull/113))
+- Refactor axis components to support more props & reactivity
+  ([#109](https://github.com/graph-paper-org/graph-paper/pull/109))
 
 ## 0.0.0-alpha.10
 

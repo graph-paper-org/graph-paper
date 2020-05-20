@@ -111,13 +111,14 @@
     <DataGraphic
       width={60 * 12}
       height={400}
+      left={48}
       right={120}
       xType="time"
       yType="linear"
       yMin={0}
       xDomainTween={{ duration, easing }}
       yDomainTween={{ duration, easing }}>
-      <LeftAxis />
+      <LeftAxis tickFormatter={format('$,.0r')} />
       <BottomAxis />
       <g slot="body">
         <Line {data} x="date" y="v1" />

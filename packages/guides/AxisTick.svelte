@@ -1,31 +1,47 @@
 <script>
   import { getContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
 
-  export let dashArray;
-  export let mainScale = getContext("mainScale");
-  export let mainDim = getContext("mainDim");
-  export let secondaryDim = getContext("secondaryDim");
-  export let tickDirection = getContext("tickDirection");
-  export let bodyDimension = getContext("bodyDimension");
-  export let side = getContext("side");
+  export let scale = getContext("gp:axis:scale");
+  export let response = getContext("gp:axis:response");
+  export let orientation = getContext("gp:axis:orientation");
+  export let tickDirection = getContext("gp:axis:tickDirection");
+  export let closestMargin = getContext("gp:axis:closestMargin");
+  export let side = getContext("gp:axis:side");
 
   export let buffer = getContext("gp:datagraphic:buffer");
 
   export let placement;
-  export let offset = 0;
-  export let length = $buffer; // $tickEnd;
-  export let width = 1;
-  export let color = "var(--cool-gray-300)";
+  export let length;
+  $: if (!length) length = $buffer;
 
-  let sideOffset;
-  $: sideOffset = side === "left" || side === "top" ? -offset : offset;
-  export let step =
-    $mainScale.type === "scaleBand" ? $mainScale.bandwidth() / 2 : 0;
+  export let size = 1;
+  export let color = "var(--cool-gray-300)";
+  export let alpha = 1;
+  export let dashArray;
+  export let hOffset = 0;
+  export let vOffset = 0;
+
+  $: orientationOffset =
+    side === "left" || side === "right" ? vOffset : hOffset;
+  $: responseOffset = side === "left" || side === "right" ? hOffset : vOffset;
+
+  export let step;
+  $: if (!step) {
+    step = $scale.type === "scaleBand" ? $scale.bandwidth() / 2 : 0;
+  }
+
+  $: parameters = {
+    [`${response}1`]: $closestMargin + responseOffset,
+    [`${response}2`]: $closestMargin + tickDirection * length + responseOffset,
+    [`${orientation}1`]: $scale(placement) + step + orientationOffset,
+    [`${orientation}2`]: $scale(placement) + step + orientationOffset,
+  };
 </script>
 
 <line
   class="tick"
-  {...{ [`${mainDim}2`]: $bodyDimension + sideOffset + tickDirection * length, [`${mainDim}1`]: $bodyDimension + sideOffset, [`${secondaryDim}1`]: $mainScale(placement) + step, [`${secondaryDim}2`]: $mainScale(placement) + step }}
+  {...parameters}
   stroke-dasharray={dashArray}
   stroke={color}
-  stroke-width={width} />
+  opacity={alpha}
+  stroke-width={size} />

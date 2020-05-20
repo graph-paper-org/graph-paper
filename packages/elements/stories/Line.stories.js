@@ -5,7 +5,6 @@ import Line01Story from "./Line/Line01.svelte";
 import Line03Story from "./Line/Line03.svelte";
 import Line04Story from "./Line/Line04.svelte";
 import Line05Story from "./Line/Line05.svelte";
-import Line06Story from "./Line/Line06.svelte";
 
 export default {
   title: "Line",
@@ -55,8 +54,4 @@ export const Line05 = () => ({
     supertitle: "Over Time",
     description: "The lines go up and down like a mountain!",
   },
-});
-
-export const Line06 = () => ({
-  Component: Line06Story,
 });

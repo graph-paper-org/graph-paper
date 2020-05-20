@@ -27,3 +27,9 @@ body.sb-show-main {
 ._small {
   width: var(--space-16x);
 }
+
+p {
+  max-width: 600px;
+  line-height: 1.5;
+  font-size: var(--text-03);
+}
