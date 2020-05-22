@@ -7,12 +7,10 @@
   import { getContext, onMount, onDestroy } from "svelte";
   import { cubicOut as easing } from "svelte/easing"; // eslint-disable-line import/no-extraneous-dependencies
   import { tweened } from "svelte/motion"; // eslint-disable-line import/no-extraneous-dependencies
-  import { tooltip } from "../core/actions/tooltip";
 
   export let animate = true;
   export let location;
   export let direction = "vertical";
-  export let description;
   export let dasharray = "1,1";
   export let lineThickness = 1;
   export let color = "var(--cool-gray-550)";
@@ -129,8 +127,7 @@
     {dy}
     font-size={labelSize}
     text-anchor={textAnchor}
-    fill={textColor}
-    use:tooltip={{ text: description, location: 'top' }}>
+    fill={textColor}>
     <slot />
   </text>
 </g>
