@@ -6,6 +6,7 @@ body.sb-show-main {
 #root {
   background-color: white;
   width: max-content;
+  min-width: 834px;
   margin: auto;
   padding: var(--space-2x);
   border-radius: var(--space-base);
