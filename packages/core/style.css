@@ -498,48 +498,6 @@ button:focus {
 
 /*  START OF USER DASHBOARD STUFF */
 
-header {
-  min-width: var(--space-24x);
-  width: 100%;
-  height: var(--header-height);
-  background-color: var(--blue-slate-700);
-  box-sizing: border-box;
-  color: var(--primary-text);
-  display: grid;
-  /* grid-template-columns: var(--column-grid); */
-  /* align-content: center; */
-  align-content: center;
-  align-items: center;
-}
-
-header h1 {
-  font-family: var(--brand-font);
-  padding: 0;
-  margin: 0;
-  font-size: 1.5em;
-  color: var(--cool-gray-100);
-  /* transform: translateY(.05em); */
-  display: grid;
-  align-items: center;
-  align-content: center;
-  justify-content: start;
-  font-weight: normal;
-  grid-column-gap: var(--space-base);
-  padding-left: var(--space-2x);
-  grid-auto-flow: column;
-}
-
-header h1 div span {
-  opacity: 0.8;
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem;
-  color: tomato;
-  font-weight: normal;
-  display: inline-block;
-  transform: translateY(0.35em);
-}
-
 .left-drawer {
   grid-column: left;
   min-height: var(--nav-drawer-height);
@@ -584,14 +542,6 @@ header h1 div span {
   padding: 0;
   margin: 0;
   padding: var(--space-base);
-}
-
-main {
-  background-color: var(--bg-gray-01);
-}
-
-main .details {
-  grid-area: details;
 }
 
 .label {
