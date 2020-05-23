@@ -1,6 +1,8 @@
 # Changelog
 
-## unpublished changes
+## next release
+
+## 0.0.0-alpha.12
 
 - Add align / justify props to `Stack`
   ([#134](https://github.com/graph-paper-org/graph-paper/pull/134))
