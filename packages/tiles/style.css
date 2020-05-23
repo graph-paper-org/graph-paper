@@ -2,8 +2,14 @@
   --columns: 3;
   --space: var(--space-1x);
   --column-size: auto;
+  --justify-items: start;
+  --justify-content: start;
   display: grid;
   grid-template-columns: repeat(var(--columns), var(--column-size));
   grid-column-gap: var(--space);
   grid-row-gap: var(--space);
+  justify-items: var(--justify-items);
+  justify-content: var(--justify-content);
+  align-items: var(--align-items);
+  align-content: var(--align-content);
 }
