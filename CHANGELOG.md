@@ -2,6 +2,11 @@
 
 ## unpublished changes
 
+- Add align / justify props to `Stack`
+  ([#134](https://github.com/graph-paper-org/graph-paper/pull/134))
+- Add align / justify props to `Tile`
+  ([#131](https://github.com/graph-paper-org/graph-paper/pull/131))
+
 ## 0.0.0-alpha.11
 
 Published `2020-05-20`

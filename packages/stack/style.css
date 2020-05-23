@@ -1,4 +1,14 @@
 .gp-stack {
+  --space: var(--space-1x);
+  --column-size: auto;
+  --justify-items: stretch;
+  --justify-content: start;
+  --align-items: normal;
+  --align-content: start;
   display: grid;
-  grid-row-gap: var(--space-1x);
+  grid-row-gap: var(--space);
+  justify-items: var(--justify-items);
+  justify-content: var(--justify-content);
+  align-items: var(--align-items);
+  align-content: var(--align-content);
 }

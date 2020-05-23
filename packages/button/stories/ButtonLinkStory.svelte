@@ -6,7 +6,7 @@
   export let compact = false;
 </script>
 
-<Stack>
+<Stack justifyContent="start">
   <Button {level} {compact}>One is a Button</Button>
   <Button
     {level}
