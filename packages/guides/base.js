@@ -2,6 +2,7 @@ import Axis from "./Axis.svelte";
 import AxisLabel from "./AxisLabel.svelte";
 import AxisLine from "./AxisLine.svelte";
 import AxisTick from "./AxisTick.svelte";
+import AxisContainer from "./AxisContainer.svelte";
 import BottomAxis from "./BottomAxis.svelte";
 import LeftAxis from "./LeftAxis.svelte";
 import RightAxis from "./RightAxis.svelte";
@@ -14,6 +15,7 @@ export {
   AxisLabel,
   AxisLine,
   AxisTick,
+  AxisContainer,
   BottomAxis,
   LeftAxis,
   RightAxis,

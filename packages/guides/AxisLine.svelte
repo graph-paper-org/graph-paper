@@ -33,4 +33,5 @@
   stroke={color}
   stroke-width={size}
   opacity={alpha}
+  shape-rendering="crispEdges"
   stroke-dasharray={dashArray} />

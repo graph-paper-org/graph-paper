@@ -2,6 +2,15 @@
 
 ## next release
 
+- Add new real-world example – approval poll from 538
+  (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
+- Add `AxisContainer` to exports in `@graph-paper/guide`
+  (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
+- Remove `mix-blend-mode` in `Band.svelte` for performance reasons
+  (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
+- Move to `crispEdges` for all svg lines
+  (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
+
 ## 0.0.0-alpha.12
 
 - Add align / justify props to `Stack`

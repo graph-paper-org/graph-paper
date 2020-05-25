@@ -18,6 +18,7 @@
   export let color = "var(--digital-blue-500)";
   export let size = 1;
   export let dashArray = "1,0";
+  export let scaling = true;
 
   export let curve = "curveMonotoneX";
 
@@ -41,14 +42,14 @@
   let areaGenerator;
 
   function destroy() {
-    removeExtent(xExtents, key);
-    removeExtent(yExtents, key);
+    if (scaling) removeExtent(xExtents, key);
+    if (scaling) removeExtent(yExtents, key);
   }
 
   onDestroy(destroy);
 
-  $: updateExtents(xExtents, key, data, x);
-  $: updateExtents(yExtents, key, data, y);
+  $: if (scaling) updateExtents(xExtents, key, data, x);
+  $: if (scaling) updateExtents(yExtents, key, data, y);
 
   $: lineGenerator = SHAPE.line()
     .x((d) => (useXScale ? $xScale(d[x]) : d[x]))

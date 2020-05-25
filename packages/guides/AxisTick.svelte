@@ -44,4 +44,5 @@
   stroke-dasharray={dashArray}
   stroke={color}
   opacity={alpha}
+  shape-rendering="crispEdges"
   stroke-width={size} />

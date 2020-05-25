@@ -1,7 +1,6 @@
 <script>
   import { getContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
   import { writable } from "svelte/store"; // eslint-disable-line import/no-extraneous-dependencies
-  import { fade } from "svelte/transition"; // eslint-disable-line import/no-extraneous-dependencies
   import * as SHAPE from "d3-shape";
 
   export let xScale = getContext("xScale") || writable((v) => v);
@@ -13,8 +12,8 @@
   export let yMin = "low";
   export let yMax = "high";
   export let color = "var(--cool-gray-200)";
-  export let curve = "curveMonotoneX";
-  export let blend = "multiply";
+  export let curve = "curveLinear";
+  export let alpha = 1;
 
   const curveFunction = SHAPE[curve];
 
@@ -27,10 +26,8 @@
     .curve(curveFunction);
 </script>
 
+<svelte:options namespace="svg" />
+
 <g class="line-band">
-  <path
-    d={areaGenerator(data)}
-    fill={color}
-    in:fade
-    style="mix-blend-mode: {blend};" />
+  <path d={areaGenerator(data)} fill={color} fill-opacity={alpha} />
 </g>

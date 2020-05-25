@@ -29,6 +29,21 @@ body.sb-show-main {
   width: var(--space-16x);
 }
 
+header {
+  padding: var(--space-4x);
+  padding-top: var(--space-8x);
+}
+
+header div:first-child {
+  text-transform: uppercase;
+  color: var(--cool-gray-650);
+}
+
+header h1 {
+  margin: 0;
+  padding-bottom: var(--space-3x);
+}
+
 p {
   max-width: 600px;
   line-height: 1.5;
