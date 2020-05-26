@@ -10,6 +10,7 @@ import Help from "./Help.svelte";
 import Info from "./Info.svelte";
 import Information from "./Information.svelte";
 import LineChart from "./LineChart.svelte";
+import Scatterplot from "./Scatterplot.svelte";
 import Density from "./Density.svelte";
 import Menu from "./Menu.svelte";
 import Search from "./Search.svelte";
@@ -63,6 +64,7 @@ export {
   Sequence,
   LineChart,
   BarChart,
+  Scatterplot,
   Density,
   Table,
   Calendar,
