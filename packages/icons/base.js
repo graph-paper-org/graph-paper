@@ -19,6 +19,7 @@ import Add from "./Add.svelte";
 import AddCircle from "./AddCircle.svelte";
 import AddCircleDark from "./AddCircleDark.svelte";
 import AddDark from "./AddDark.svelte";
+import Refresh from "./Refresh.svelte";
 
 import Tile from "./Tile.svelte";
 import Stack from "./Stack.svelte";
@@ -94,6 +95,7 @@ export {
   ArrowDownRight,
   Undo,
   Redo,
+  Refresh,
   Documentation,
   DocumentationDark,
   Cancel,
