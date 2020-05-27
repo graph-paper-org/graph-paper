@@ -12,6 +12,8 @@ import Information from "./Information.svelte";
 import LineChart from "./LineChart.svelte";
 import Scatterplot from "./Scatterplot.svelte";
 import Density from "./Density.svelte";
+import Dashboard from "./Dashboard.svelte";
+import Explore from "./Explore.svelte";
 import Menu from "./Menu.svelte";
 import Search from "./Search.svelte";
 import Table from "./Table.svelte";
@@ -66,8 +68,10 @@ export {
   BarChart,
   Scatterplot,
   Density,
+  Dashboard,
   Table,
   Calendar,
+  Explore,
   Code,
   Tile,
   Stack,
