@@ -1,5 +1,4 @@
 <script>
-  import { flip } from "svelte/animate";
   import { format } from "d3-format";
   import { timeFormat } from "d3-time-format";
 
@@ -24,7 +23,6 @@
 
   function changeSize(size) {
     return () => {
-      console.log(size, $store);
       store.update((state) => {
         const newState = { ...state };
         newState.graphSize = size;
@@ -305,7 +303,7 @@
 
   <div class="multiples multiples--{$store.graphSize}">
     {#each graphs as { name, type, key, yMax, axisFormat, hoverFormat }, i (name)}
-      <div animate:flip={{ duration: 1000 }}>
+      <div>
         <MetricChart
           size={$store.size}
           {width}
