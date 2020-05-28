@@ -2,6 +2,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { fade } from "svelte/transition";
   import { timeFormat } from "d3-time-format";
+  import { cubicOut as easing } from "svelte/easing";
 
   import { DataGraphic } from "../../../../datagraphic";
   import { Line, Band, Point } from "../../..";
@@ -102,7 +103,8 @@
   left={36}
   right={24}
   {xDomain}
-  xDomainTween={{ duration: 150 }}
+  xDomainTween={{ duration: 150, easing }}
+  yDomainTween={{ duration: 200, easing }}
   yDomain={[yMin, yMax]}
   xType="time"
   yType="linear"

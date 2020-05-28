@@ -22,6 +22,10 @@
     border-radius: 0px;
   }
 
+  div :global(button:not(:last-child)) {
+    border-right: transparent;
+  }
+
   /* FIXME: this should only apply to .gp-button */
   div :global(.gp-button:first-child) {
     border-top-right-radius: 0px;

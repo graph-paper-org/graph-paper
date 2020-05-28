@@ -22,6 +22,7 @@ import AddDark from "./AddDark.svelte";
 
 import Tile from "./Tile.svelte";
 import Stack from "./Stack.svelte";
+import ThreeByThree from "./ThreeByThree.svelte";
 
 import Undo from "./Undo.svelte";
 import Redo from "./Redo.svelte";
@@ -68,6 +69,7 @@ export {
   Code,
   Tile,
   Stack,
+  ThreeByThree,
   Add,
   AddDark,
   AddCircle,
