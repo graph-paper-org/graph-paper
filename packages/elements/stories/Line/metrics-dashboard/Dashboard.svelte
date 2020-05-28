@@ -14,6 +14,8 @@
   import { Button, ButtonGroup } from "../../../../button";
   import { window1D } from "../../../../core/utils/window-functions";
 
+  import DatePicker from "./DatePicker.svelte";
+
   import Key from "./Key.svelte";
   import Shortcuts from "./Shortcuts.svelte";
 
@@ -32,6 +34,7 @@
   }
 
   let dtfmt = timeFormat("%b %d, %Y");
+  let datePickerFormat = timeFormat("%Y-%m-%d");
 
   let dates = (n = 365) => {
     let dt = new Date("2017-01-01");
@@ -233,6 +236,13 @@
 </script>
 
 <style>
+  .gafc {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-column-gap: var(--space-2x);
+  }
+
   main {
     min-width: 1200px;
   }
@@ -259,7 +269,10 @@
 
   .main-controls {
     display: grid;
-    grid-template-columns: auto max-content;
+    grid-auto-flow: column;
+    justify-content: stretch;
+    justify-items: start;
+    /* grid-template-columns: auto max-content; */
     align-items: center;
     margin-bottom: var(--space-4x);
   }
@@ -288,6 +301,32 @@
       </div>
     {/if}
   </div> -->
+    <div class="gafc">
+      <DatePicker
+        startDate={xDomain[0]}
+        endDate={xDomain[1]}
+        on:applyDates={(evt) => {
+          isScrubbed = true;
+          let { start, end } = evt.detail;
+          xDomain = [start, end];
+        }}
+        on:resetDates={resetDomain} />
+
+      {#if isScrubbed}
+        <div in:fly={{ duration: 400, y: -10 }}>
+          <Button
+            level="medium"
+            compact
+            on:click={() => {
+              isScrubbed = false;
+              resetDomain();
+            }}>
+            clear zoom
+            <Close size={16} />
+          </Button>
+        </div>
+      {/if}
+    </div>
     <div style="justify-self: end;">
       <ButtonGroup level="medium" compact>
         <Button on:click={changeSize('small')}>Small</Button>
