@@ -9,7 +9,14 @@
 
   import MetricChart from "./MetricChart.svelte";
 
-  import { Close, Stack, Tile } from "../../../../icons";
+  import {
+    Close,
+    Stack,
+    Tile,
+    ThreeByThree,
+    Checkbox,
+    CheckboxBlank,
+  } from "../../../../icons";
 
   import { Button, ButtonGroup } from "../../../../button";
   import { window1D } from "../../../../core/utils/window-functions";
@@ -34,9 +41,8 @@
   }
 
   let dtfmt = timeFormat("%b %d, %Y");
-  let datePickerFormat = timeFormat("%Y-%m-%d");
 
-  let dates = (n = 365) => {
+  let dates = (n = 365 * 2) => {
     let dt = new Date("2017-01-01");
     return Array.from({ length: n })
       .fill(null)
@@ -215,27 +221,32 @@
     if (isComparing) isComparing = false;
   }
 
+  let commonScales = true;
+
   $: if (isComparing) {
     compareEnd = xMouse;
   } else {
     compareEnd = {};
   }
-  let width = 350;
+  let width = 375;
   let height = 250;
   $: if ($store.graphSize === "small") {
-    width = 350;
+    width = 375;
     height = 250;
   } else if ($store.graphSize === "medium") {
-    width = 500;
+    width = 550;
     height = 325;
   } else if ($store.graphSize === "large") {
-    width = 900;
+    width = 1200;
     height = 400;
-  } else {
   }
 </script>
 
 <style>
+  h1 {
+    padding-left: var(--space-2x);
+  }
+
   .gafc {
     display: grid;
     grid-auto-flow: column;
@@ -251,8 +262,9 @@
     display: grid;
     grid-column-gap: var(--space-4x);
     grid-row-gap: var(--space-8x);
-    justify-content: start;
-    width: max-content;
+    justify-content: stretch;
+    justify-items: start;
+    width: 100%;
   }
 
   .multiples--small {
@@ -268,6 +280,8 @@
   }
 
   .main-controls {
+    padding-left: var(--space-2x);
+    padding-right: var(--space-2x);
     display: grid;
     grid-auto-flow: column;
     justify-content: stretch;
@@ -285,22 +299,6 @@
   <h1>Metrics Dashboard</h1>
 
   <div class="main-controls">
-    <!-- <div style="min-height: 60px;">
-    {#if isScrubbed}
-      <div in:fly={{ duration: 500, y: 10 }}>
-        <Button
-          level="medium"
-          compact
-          on:click={() => {
-            isScrubbed = false;
-            resetDomain();
-          }}>
-          clear zoom
-          <Close size={16} />
-        </Button>
-      </div>
-    {/if}
-  </div> -->
     <div class="gafc">
       <DatePicker
         startDate={xDomain[0]}
@@ -327,9 +325,26 @@
         </div>
       {/if}
     </div>
-    <div style="justify-self: end;">
+    <div class="gafc" style="justify-self: end">
+      <Button
+        compact
+        level="medium"
+        on:click={() => {
+          commonScales = !commonScales;
+        }}>
+        <div class="gafc" style="grid-column-gap: var(--space-base);">
+          common scales
+          {#if commonScales}
+            <Checkbox size="1em" />
+          {:else}
+            <CheckboxBlank size="1em" />
+          {/if}
+        </div>
+      </Button>
       <ButtonGroup level="medium" compact>
-        <Button on:click={changeSize('small')}>Small</Button>
+        <Button on:click={changeSize('small')}>
+          <ThreeByThree size={16} />
+        </Button>
         <Button on:click={changeSize('medium')}>
           <Tile size={16} />
         </Button>
@@ -351,7 +366,8 @@
           data={metricData}
           y={key}
           {xDomain}
-          {yMax}
+          yMin={commonScales ? 0 : undefined}
+          yMax={commonScales ? yMax : undefined}
           {axisFormat}
           {hoverFormat}
           {endMouseEvent}

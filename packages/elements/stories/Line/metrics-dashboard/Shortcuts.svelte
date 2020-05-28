@@ -4,14 +4,15 @@
 
 <style>
   div {
-    padding-top: var(--space-2x);
+    padding-top: var(--space-4x);
+    padding-left: var(--space-3x);
   }
 
   .shortcuts {
     display: grid;
     grid-template-columns: max-content max-content;
     grid-column-gap: var(--space-2x);
-    font-size: var(--text-02);
+    font-size: var(--text-015);
     padding: 0px;
     margin: 0px;
   }
@@ -27,7 +28,7 @@
 
   span {
     color: var(--cool-gray-700);
-    border: 1px solid var(--cool-gray-700);
+    border: 1px solid var(--cool-gray-200);
     padding: var(--space-1h) var(--space-1x);
     border-radius: var(--space-1h);
     display: inline-grid;

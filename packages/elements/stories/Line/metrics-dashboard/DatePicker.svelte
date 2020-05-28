@@ -11,7 +11,7 @@
 
   const dispatch = createEventDispatcher();
 
-  export let active = true;
+  export let active = false;
 
   let whichOption = "BETWEEN";
 
@@ -224,6 +224,14 @@
     padding-right: var(--space-2x);
     color: var(--ux-gray-500);
     font-size: var(--text-02);
+  }
+
+  /* FIXME: we are duplicating */
+  .gafc {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-column-gap: var(--space-1x);
   }
 </style>
 
