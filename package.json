@@ -24,6 +24,7 @@
     "babel-loader": "^8.1.0",
     "d3-dsv": "^1.2.0",
     "d3-random": "^2.1.0",
+    "d3-scale-chromatic": "^1.5.0",
     "d3-time": "^1.1.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
