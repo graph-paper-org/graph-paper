@@ -10,6 +10,8 @@
   (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
 - Move to `crispEdges` for all svg lines
   (([#140](https://github.com/graph-paper-org/graph-paper/pull/140)))
+- Fix lack of inversion function for log scales in `mouse-position.js`
+  ([#154](https://github.com/graph-paper-org/graph-paper/pull/154))
 
 ## 0.0.0-alpha.12
 

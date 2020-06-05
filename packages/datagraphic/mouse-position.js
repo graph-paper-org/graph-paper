@@ -27,6 +27,7 @@ function scaleCategorical(scale, pixelCoordinate, orientation = "x") {
 
 export const invertPositionalScale = {
   linear: (scale, pixelCoordinate) => scale.invert(pixelCoordinate),
+  log: (scale, pixelCoordinate) => scale.invert(pixelCoordinate),
   time: (scale, pixelCoordinate) => scale.invert(pixelCoordinate),
   scalePoint: scaleCategorical,
   scaleBand: scaleCategorical,

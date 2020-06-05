@@ -17,11 +17,6 @@
     The scalePoint type uses d3-scale's scalePoint. It's possible we will remove
     both scalePoint and scaleBand in favor of a single "categorical" type.
   </p>
-
-  <p>
-    note: this is a WIP contingent on
-    <a href="https://github.com/graph-paper-org/graph-paper/issues/97">#97</a>
-  </p>
   <DataGraphic
     bottom={30}
     width={500}
@@ -67,15 +62,6 @@
           stroke-width="3"
           stroke="var(--cool-gray-300)" />
       {/if}
-
-      <!-- {#each xScale.domain() as pt, i}
-      <line
-        x1={xScale(pt)}
-        x2={xScale(pt)}
-        y1={top}
-        y2={bottom}
-        stroke="black" />
-    {/each} -->
     </g>
   </DataGraphic>
 </div>
