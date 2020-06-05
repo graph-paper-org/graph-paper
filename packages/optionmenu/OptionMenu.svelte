@@ -1,6 +1,6 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
-  import { onMount, createEventDispatcher, setContext } from "svelte";
+  import { createEventDispatcher, setContext } from "svelte";
   import { CaretDown } from "@graph-paper/icons";
   import { FloatingMenu, MenuList } from "@graph-paper/menu";
   import { onClickOutside } from "@graph-paper/core/utils";
@@ -43,7 +43,6 @@
   }
 
   let titleElement;
-  let titleWidth = 0;
 
   function handleKeydown({ key }) {
     if (key === "Escape") {
@@ -85,17 +84,13 @@
     }
     return [x, ...range(x + 1, y)];
   }
-
-  onMount(() => {
-    if (title) titleWidth = titleElement.getBoundingClientRect().width;
-  });
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
 <div class="option-menu" bind:this={buttonParent}>
   {#if title}
-    <div bind:this={titleElement} class="option-menu__label overline-text--01">
+    <div bind:this={titleElement} class="option-menu__title overline-text--01">
       {title}
     </div>
   {/if}
@@ -103,11 +98,10 @@
     bind:this={button}
     class="option-menu__button"
     on:click={toggle}
-    style="min-width: calc({titleWidth}px + var(--space-base));"
     class:option-menu__button--active={open}
     disabled={!active}
     use:tooltipAction={{ visible: showTooltip && !open, text: description, location: descriptionLocation }}>
-    <div>
+    <div class="option-menu__status-text">
       {#if multi}
         <!-- Make the button at least as wide as the widest option label -->
         {#each range(0, $enabledOptions.length + 1) as i}

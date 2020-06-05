@@ -1,39 +1,40 @@
-.option-menu__button {
-  padding: var(--space-1h);
-  padding-left: var(--space-base);
-  padding-right: var(--space-1h);
-  font-size: var(--text-015);
-  margin: 0;
-  text-align: left;
-  background-color: white;
-  display: grid;
-  grid-auto-flow: column;
+.option-menu {
   width: max-content;
-  grid-column-gap: var(--space-1h);
-  color: var(--cool-gray-650);
-  border-radius: var(--space-1h);
 }
 
+.option-menu__title {
+  text-align: center;
+}
+
+.option-menu__button {
+  background-color: white;
+  border-radius: var(--space-1h);
+  color: var(--cool-gray-650);
+  display: grid;
+  font-size: var(--text-015);
+  grid-auto-flow: column;
+  margin: 0;
+  padding: var(--space-1h) var(--space-1h) var(--space-1h) var(--space-base);
+  text-align: left;
+  width: 100%;
+}
+
+.option-menu__button:has(> * + *) {
+  grid-column-gap: var(--space-1h);
+}
 .option-menu__button--active {
   background-color: var(--cool-gray-150);
 }
 
 .option-menu__button:disabled {
+  background-color: var(--cool-gray-subtle);
   color: var(--cool-gray-500);
   font-style: italic;
-  background-color: var(--cool-gray-subtle);
-}
-
-.option-menu__label {
-  color: var(--cool-gray-700);
-  padding-left: var(--space-base);
-  padding-right: var(--space-base);
-  width: max-content;
 }
 
 .option-menu__down-caret {
-  display: grid;
   align-items: center;
+  display: grid;
   justify-items: center;
   justify-self: end;
   transition: transform 100ms;
@@ -43,48 +44,38 @@
   transform: rotate(-180deg);
 }
 
-.option-menu__list-item__content {
-  display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: var(--space-2x);
-  align-items: start;
-  justify-content: start;
+.option-menu__list-item__inner {
   --color: var(--cool-gray-700);
   --subcolor: var(--cool-gray-650);
-}
 
-.option-menu__list-item__icon {
+  /* Do not set a grid-gap here; it would appear whether or not optional
+     children like checkbox or description are present. Instead, set margins on
+     those elements. The margins will only appear if the elements exist. */
   display: grid;
-  align-items: center;
-  color: var(--color);
+  grid-template-areas:
+    "checkbox title slot-right"
+    ". description slot-right";
+  grid-template-columns: auto 1fr auto;
 }
 
-.option-menu__list-item__icon--disabled {
+.option-menu__list-item__checkbox {
+  color: var(--color);
+  display: grid;
+  grid-area: checkbox;
+  margin-right: var(--space-2x);
+  place-items: center;
+}
+
+.option-menu__list-item__checkbox--disabled {
   --color: var(--cool-gray-350);
 }
 
-.option-menu__list-item__text {
-  width: 100%;
-  justify-self: stretch;
-}
-
 .option-menu__list-item__title {
+  color: var(--cool-gray-700);
   font-size: var(--text-02);
-  color: var(--color);
-}
-
-.option-menu__list-item__description {
-  padding-top: var(--space-1q);
-  max-width: var(--space-32x);
-  font-size: var(--text-015);
-  color: var(--subcolor);
-}
-
-.option-menu__list-item__divider {
-  border: none;
-  border-bottom: 1px solid var(--cool-gray-200);
-  padding: 0px;
-  margin: 0px;
+  grid-area: title;
+  line-height: 1;
+  place-self: center start;
 }
 
 .option-menu__list-item__title--disabled {
@@ -92,7 +83,29 @@
   font-style: italic;
 }
 
+.option-menu__list-item__description {
+  color: var(--subcolor);
+  font-size: var(--text-015);
+  grid-area: description;
+  margin-top: var(--space-1x);
+  max-width: var(--space-32x);
+  place-self: center start;
+}
+
 .option-menu__list-item__description--disabled {
   --subcolor: var(--cool-gray-600);
   font-style: italic;
+}
+
+.option-menu__list-item__slot-right {
+  grid-area: slot-right;
+  margin-left: var(--space-2x);
+  place-self: center end;
+}
+
+.option-menu__list-item__divider {
+  border: none;
+  border-bottom: 1px solid var(--cool-gray-200);
+  margin: 0;
+  padding: 0;
 }

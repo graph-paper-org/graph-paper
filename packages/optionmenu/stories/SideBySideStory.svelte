@@ -34,12 +34,6 @@
     text-align: var(--text-align);
   }
 
-  .bold,
-  .italic,
-  .underline {
-    font-family: serif;
-  }
-
   .bold {
     font-weight: bold;
   }

@@ -38,45 +38,34 @@
   }
 </script>
 
-<style>
-  #menu-list-item-inner {
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 30px;
-    justify-content: space-between;
-  }
-</style>
-
 <MenuListItem {compact} {key} value={label} hoverable={!disabled}>
-  <div id="menu-list-item-inner">
-    <div class="option-menu__list-item__content">
-      {#if oneOfMultiple}
-        <div
-          class="option-menu__list-item__icon"
-          class:option-menu__list-item__icon--disabled={disabled}>
-          {#if selected}
-            <Checkbox size={checkboxSize} />
-          {:else}
-            <CheckboxBlank size={checkboxSize} />
-          {/if}
-        </div>
-      {/if}
-
-      <div class="option-menu__list-item__text">
-        <div
-          class="option-menu__list-item__title"
-          class:option-menu__list-item__title--disabled={disabled}>
-          <div class="menu-list-item__title__label">{label}</div>
-        </div>
-        {#if description}
-          <div
-            class="option-menu__list-item__description"
-            class:option-menu__list-item__description--disabled={disabled}>
-            {description}
-          </div>
+  <div class="option-menu__list-item__inner">
+    {#if oneOfMultiple}
+      <div
+        class="option-menu__list-item__checkbox"
+        class:option-menu__list-item__checkbox--disabled={disabled}>
+        {#if selected}
+          <Checkbox size={checkboxSize} />
+        {:else}
+          <CheckboxBlank size={checkboxSize} />
         {/if}
       </div>
+    {/if}
+
+    <div
+      class="option-menu__list-item__title"
+      class:option-menu__list-item__title--disabled={disabled}>
+      {label}
     </div>
-    <slot name="right" />
+
+    {#if description}
+      <div
+        class="option-menu__list-item__description"
+        class:option-menu__list-item__description--disabled={disabled}>
+        {description}
+      </div>
+    {/if}
+
+    <slot class="option-menu__list-item__slot-right" name="right" />
   </div>
 </MenuListItem>
