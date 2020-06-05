@@ -66,6 +66,8 @@
       </div>
     {/if}
 
-    <slot class="option-menu__list-item__slot-right" name="right" />
+    <div class="option-menu__list-item__slot-right-container">
+      <slot name="right" />
+    </div>
   </div>
 </MenuListItem>

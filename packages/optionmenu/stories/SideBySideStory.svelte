@@ -42,10 +42,13 @@
     font-style: italic;
     left: -3px;
     position: relative;
+    top: -1px;
   }
 
   .underline {
+    position: relative;
     text-decoration: underline;
+    top: -1px;
   }
 </style>
 

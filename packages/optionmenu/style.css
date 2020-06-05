@@ -19,9 +19,6 @@
   width: 100%;
 }
 
-.option-menu__button:has(> * + *) {
-  grid-column-gap: var(--space-1h);
-}
 .option-menu__button--active {
   background-color: var(--cool-gray-150);
 }
@@ -33,10 +30,9 @@
 }
 
 .option-menu__down-caret {
-  align-items: center;
   display: grid;
-  justify-items: center;
   justify-self: end;
+  place-items: center;
   transition: transform 100ms;
 }
 
@@ -97,9 +93,10 @@
   font-style: italic;
 }
 
-.option-menu__list-item__slot-right {
+.option-menu__list-item__slot-right-container {
   grid-area: slot-right;
-  margin-left: var(--space-2x);
+  line-height: 1;
+  margin-left: var(--space-3x);
   place-self: center end;
 }
 
