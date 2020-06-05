@@ -1,6 +1,10 @@
 # Changelog
 
-## next release
+## unpublished changes
+
+## 0.0.0-alpha.13
+
+Published `2020-06-05`
 
 - Vertically-center `Option` contents
 - Add new real-world example – approval poll from 538
