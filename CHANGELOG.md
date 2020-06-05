@@ -2,6 +2,8 @@
 
 ## unpublished changes
 
+- Fix a couple of remaining vertical-centering issues the `Option` component
+
 ## 0.0.0-alpha.13
 
 Published `2020-06-05`

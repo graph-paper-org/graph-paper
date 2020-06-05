@@ -1,0 +1,9 @@
+publishing
+
+lerna version 0.0.0-alpha.9
+lerna publish from-git
+update changelog
+run npm run format to update lerna.json file
+
+
+cut -d "," -f 2,5,12,13 approval_polllist.csv | awk -F , '$1 == "All polls" { print }' | cut -d "," -f 2,3,4 > trump_polls.csv
