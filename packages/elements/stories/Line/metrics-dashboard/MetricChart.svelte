@@ -2,6 +2,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { fade } from "svelte/transition";
   import { timeFormat } from "d3-time-format";
+  import { format } from "d3-format";
   import { cubicOut as easing } from "svelte/easing";
 
   import { DataGraphic } from "../../../../datagraphic";
@@ -31,25 +32,30 @@
   export let axisFormat = (v) => v;
   export let hoverFormat = (v) => v;
 
-  export let hoverPt = {};
-
   // these functions should fire off as events.
   export let endMouseEvent;
   export let resetMouseClicks;
 
-  // I don't even know anymore.
-  export let compareStart = {};
-  export let compareEnd = {};
-  export let isComparing = false;
+  let isComparing = false;
+  let compareStart = {};
+  let compareEnd = {};
 
   let xScale;
   let yScale;
 
+  // formatters
   let dtfmt = timeFormat("%b %d, %Y");
-
+  let percentage = format("+.2%");
   const dateDiff = (a, b) => Math.ceil(Math.abs(a - b) / (1000 * 60 * 60 * 24));
 
-  $: if (mousePosition.x) xMouse = mousePosition;
+  function keyDown(evt) {
+    if (evt.shiftKey) isComparing = true;
+    // compareStart = xMouse;
+  }
+
+  function keyUp() {
+    if (isComparing) isComparing = false;
+  }
 
   const get = (d, v, k, dom) => {
     const w = window1D({
@@ -63,10 +69,22 @@
     return 0;
   };
 
+  function percentageDifference(start, end) {
+    return (end - start) / start;
+  }
+
+  $: if (mousePosition.x) xMouse = mousePosition;
+
   $: output =
     xMouse.x && xScale && xMouse.body
       ? get(data, xMouse.x, "date", xScale.domain())
       : data[data.length - 1];
+
+  $: if (isComparing) {
+    compareEnd = output;
+  } else {
+    compareStart = output;
+  }
 </script>
 
 <style>
@@ -88,7 +106,18 @@
   header div {
     justify-self: end;
   }
+
+  .comparison__line {
+    shape-rendering: crispEdges;
+    stroke: var(--digital-blue-200);
+  }
+
+  .comparison__text {
+    font-size: 12px;
+  }
 </style>
+
+<svelte:window on:keydown={keyDown} on:keyup={keyUp} />
 
 <header>
   <h2>{name}</h2>
@@ -132,7 +161,16 @@
       color="var(--cool-gray-200)"
       alpha={0.4} />
   </g>
-  <g slot="background">
+  <g slot="background" let:xScale let:yScale let:top let:bottom>
+    {#if isComparing}
+      <rect
+        x={Math.min(xScale(compareStart.date), xScale(compareEnd.date))}
+        y={top}
+        width={Math.abs(xScale(compareStart.date) - xScale(compareEnd.date))}
+        height={bottom - top}
+        fill="var(--digital-blue-100)"
+        opacity=".3" />
+    {/if}
     <LeftAxis tickColor="var(--cool-gray-150)" tickFormatter={axisFormat} />
     <BottomAxis lineStyle="long" tickColor="var(--cool-gray-150)" />
   </g>
@@ -181,25 +219,52 @@
         <FirefoxReleaseVersionMarkers />
       </g> -->
 
-  {#if output}
-    <g>
-      <VerticalErrorBar
-        x={output.date}
-        minY={output[`${y}Low`]}
-        maxY={output[`${y}High`]} />
+  <g
+    slot="interaction"
+    let:left
+    let:right
+    let:top
+    let:bottom
+    let:xScale
+    let:yScale>
+    {#if output}
+      <!-- isComparing bg -->
 
-      <Point
-        scaling={false}
-        x={output.date}
-        y={output[y]}
-        size={3}
-        color="var(--digital-blue-500)" />
-    </g>
-  {/if}
+      <g transform="translate({xScale(output.date)} 0)">
+        <VerticalErrorBar minY={output[`${y}Low`]} maxY={output[`${y}High`]} />
+        {#if !isComparing}
+          <circle cy={yScale(output[y])} r="3" fill="var(--digital-blue-500)" />
+        {/if}
+        {#if isComparing}
+          <rect
+            y={Math.min(yScale(compareStart[y]), yScale(compareEnd[y]))}
+            height={Math.abs(yScale(compareStart[y]) - yScale(compareEnd[y]))}
+            width={5}
+            fill={compareStart.date < compareEnd.date ? 'var(--cool-gray-900)' : 'var(--pantone-red-500'} />
+          <text
+            class="comparison__text"
+            text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
+            dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
+            y={yScale(output[y])}>
+            {hoverFormat(compareEnd[y])}
+          </text>
+          <text
+            class="comparison__text"
+            text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
+            dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
+            dy="1em"
+            y={yScale(output[y])}
+            fill={compareStart[y] < compareEnd[y] ? 'var(--cool-gray-900)' : 'var(--pantone-red-500)'}>
+            {percentage(percentageDifference(compareStart[y], compareEnd[y]))}
+          </text>
+          <line class="comparison__line" y1={top} y2={bottom} />
+        {/if}
+      </g>
+    {/if}
 
-  {#if output.date}
-    <text x={left} y={12} font-size={12}>{dtfmt(output.date)}</text>
-    <!-- <g fill="var(--cool-gray-600)" style="font-variant-numeric: tabular-nums;">
+    {#if output.date}
+      <text x={left} y={12} font-size={12}>{dtfmt(output.date)}</text>
+      <!-- <g fill="var(--cool-gray-600)" style="font-variant-numeric: tabular-nums;">
       <text x={right} y={12} text-anchor="end" font-size={11}>
         lo {hoverFormat(output[`${y}Low`])}
       </text>
@@ -207,9 +272,22 @@
         hi {hoverFormat(output[`${y}High`])}
       </text>
     </g> -->
-  {/if}
-  {#if isComparing}
-    <text x={36} y={100}>{compareStart[y]}</text>
-    <text x={36} y={110}>{compareEnd[y]}</text>
-  {/if}
+    {/if}
+    {#if isComparing}
+      <line
+        class="comparison__line"
+        x1={xScale(compareStart.date)}
+        x2={xScale(compareStart.date)}
+        y1={top}
+        y2={bottom} />
+      <text
+        class="comparison__text"
+        y={yScale(compareStart[y])}
+        x={xScale(compareStart.date)}
+        text-anchor={compareStart.date < compareEnd.date ? 'end' : 'start'}
+        dx={compareStart.date < compareEnd.date ? '-1em' : '1em'}>
+        {hoverFormat(compareStart[y])}
+      </text>
+    {/if}
+  </g>
 </DataGraphic>

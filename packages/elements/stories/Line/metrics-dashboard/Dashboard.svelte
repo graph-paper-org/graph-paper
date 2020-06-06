@@ -207,27 +207,9 @@
     resetMouseClicks();
   };
 
-  let compareStart = {};
-  let compareEnd = {};
-
   let isComparing = false;
-
-  function keyDown(evt) {
-    if (evt.shiftKey) isComparing = true;
-    compareStart = xMouse;
-  }
-
-  function keyUp() {
-    if (isComparing) isComparing = false;
-  }
-
   let commonScales = true;
 
-  $: if (isComparing) {
-    compareEnd = xMouse;
-  } else {
-    compareEnd = {};
-  }
   let width = 375;
   let height = 250;
   $: if ($store.graphSize === "small") {
@@ -291,8 +273,6 @@
     margin-bottom: var(--space-4x);
   }
 </style>
-
-<svelte:window on:keydown={keyDown} on:keyup={keyUp} />
 
 <main>
 
