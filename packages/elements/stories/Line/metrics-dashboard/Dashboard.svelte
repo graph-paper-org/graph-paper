@@ -197,13 +197,13 @@
     mouseDownValue = {};
     mouseMoveValue = {};
   };
-  let isScrubbed = false;
+  let isScrubbing = false;
 
   const endMouseEvent = () => {
     startValue = new Date(Math.min(mouseDownValue.x, mouseMoveValue.x));
     endValue = new Date(Math.max(mouseDownValue.x, mouseMoveValue.x));
     xDomain = [startValue, endValue];
-    isScrubbed = true;
+    isScrubbing = true;
     resetMouseClicks();
   };
 
@@ -304,19 +304,19 @@
         startDate={xDomain[0]}
         endDate={xDomain[1]}
         on:applyDates={(evt) => {
-          isScrubbed = true;
+          isScrubbing = true;
           let { start, end } = evt.detail;
           xDomain = [start, end];
         }}
         on:resetDates={resetDomain} />
 
-      {#if isScrubbed}
+      {#if isScrubbing}
         <div in:fly={{ duration: 400, y: -10 }}>
           <Button
             level="medium"
             compact
             on:click={() => {
-              isScrubbed = false;
+              isScrubbing = false;
               resetDomain();
             }}>
             clear zoom
@@ -372,9 +372,10 @@
           {hoverFormat}
           {endMouseEvent}
           {resetMouseClicks}
-          {compareStart}
-          {compareEnd}
-          bind:xMouse />
+          bind:xMouse
+          bind:mouseDownValue
+          bind:mouseMoveValue
+          bind:isComparing />
       </div>
     {/each}
   </div>
