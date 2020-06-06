@@ -275,6 +275,14 @@
     {/if}
     {#if isComparing}
       <line
+        shape-rendering="crispEdges"
+        x1={xScale(compareStart.date)}
+        x2={xScale(compareEnd.date)}
+        y1={yScale(compareStart[y])}
+        y2={yScale(compareStart[y])}
+        stroke="var(--cool-gray-900)"
+        stroke-dasharray="1,1" />
+      <line
         class="comparison__line"
         x1={xScale(compareStart.date)}
         x2={xScale(compareStart.date)}
