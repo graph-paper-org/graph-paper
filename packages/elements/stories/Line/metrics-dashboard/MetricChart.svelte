@@ -6,7 +6,7 @@
   import { cubicOut as easing } from "svelte/easing";
 
   import { DataGraphic } from "../../../../datagraphic";
-  import { Line, Band, Point } from "../../..";
+  import { Line, Band } from "../../..";
   import VerticalErrorBar from "../../../VerticalErrorBar.svelte";
   import LeftAxis from "../../../../guides/LeftAxis.svelte";
   import BottomAxis from "../../../../guides/BottomAxis.svelte";

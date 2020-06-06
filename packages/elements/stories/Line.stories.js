@@ -2,7 +2,7 @@
 import { withKnobs, select, number, text } from "@storybook/addon-knobs";
 import BasicLine from "./Line/Basic.svelte";
 import Line01Story from "./Line/Line01.svelte";
-import MetricsDashboardStory from "./Line/metrics-dashboard/Dashboard.svelte";
+import MetricsDashboardStory from "./Line/metrics-dashboard/App.svelte";
 import Line04Story from "./Line/Line04.svelte";
 import Line05Story from "./Line/Line05.svelte";
 
