@@ -14,5 +14,8 @@ export default function onClickOutside(callback, ...elements) {
   const removeClickListener = () => {
     document.removeEventListener("click", outsideClickListener);
   };
-  document.addEventListener("click", outsideClickListener);
+  setTimeout(() => {
+    document.addEventListener("click", outsideClickListener);
+  });
+  return removeClickListener;
 }

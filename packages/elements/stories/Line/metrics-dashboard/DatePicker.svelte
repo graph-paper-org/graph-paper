@@ -257,7 +257,7 @@
     bind:this={element}
     class="date-picker"
     transition:fly={{ duration: 65, y: -5 }}
-    style=" position: absolute; left: {leftPlacement}px; top: {topPlacement}px; ">
+    style=" position: absolute; left: {leftPlacement}px; top: {topPlacement}px;">
     <div class="date-picker__optionset">
       <div
         class="date-picker__option"
