@@ -7,6 +7,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { writable } from "svelte/store";
 
+  import { Box } from "../../../../box";
   import MetricChart from "./MetricChart.svelte";
 
   import {
@@ -226,7 +227,10 @@
 
 <style>
   h1 {
+    margin: 0px;
+    padding: 0px;
     padding-left: var(--space-2x);
+    padding-bottom: var(--space-2x);
   }
 
   .gafc {
@@ -244,9 +248,8 @@
     display: grid;
     grid-column-gap: var(--space-4x);
     grid-row-gap: var(--space-8x);
-    justify-content: stretch;
+    justify-content: center;
     justify-items: start;
-    width: 100%;
   }
 
   .multiples--small {
@@ -268,104 +271,108 @@
     grid-auto-flow: column;
     justify-content: stretch;
     justify-items: start;
-    /* grid-template-columns: auto max-content; */
     align-items: center;
     margin-bottom: var(--space-4x);
+  }
+
+  .bottom {
+    margin: auto;
   }
 </style>
 
 <main>
+  <Box padding={2}>
+    <h1>Metrics Dashboard</h1>
 
-  <h1>Metrics Dashboard</h1>
+    <div class="main-controls">
+      <div class="gafc">
+        <DatePicker
+          startDate={xDomain[0]}
+          endDate={xDomain[1]}
+          on:applyDates={(evt) => {
+            isScrubbing = true;
+            let { start, end } = evt.detail;
+            xDomain = [start, end];
+          }}
+          on:resetDates={resetDomain} />
 
-  <div class="main-controls">
-    <div class="gafc">
-      <DatePicker
-        startDate={xDomain[0]}
-        endDate={xDomain[1]}
-        on:applyDates={(evt) => {
-          isScrubbing = true;
-          let { start, end } = evt.detail;
-          xDomain = [start, end];
-        }}
-        on:resetDates={resetDomain} />
-
-      {#if isScrubbing}
-        <div in:fly={{ duration: 400, y: -10 }}>
-          <Button
-            level="medium"
-            compact
-            on:click={() => {
-              isScrubbing = false;
-              resetDomain();
-            }}>
-            clear zoom
-            <Close size={16} />
-          </Button>
-        </div>
-      {/if}
-    </div>
-    <div class="gafc" style="justify-self: end">
-      <Button
-        compact
-        level="medium"
-        on:click={() => {
-          commonScales = !commonScales;
-        }}>
-        <div class="gafc" style="grid-column-gap: var(--space-base);">
-          common scales
-          {#if commonScales}
-            <Checkbox size="1em" />
-          {:else}
-            <CheckboxBlank size="1em" />
-          {/if}
-        </div>
-      </Button>
-      <ButtonGroup level="medium" compact>
-        <Button on:click={changeSize('small')}>
-          <ThreeByThree size={16} />
-        </Button>
-        <Button on:click={changeSize('medium')}>
-          <Tile size={16} />
-        </Button>
-        <Button on:click={changeSize('large')}>
-          <Stack size={16} />
-        </Button>
-      </ButtonGroup>
-    </div>
-  </div>
-
-  <div class="multiples multiples--{$store.graphSize}">
-    {#each graphs as { name, type, key, yMax, axisFormat, hoverFormat }, i (name)}
-      <div>
-        <MetricChart
-          size={$store.size}
-          {width}
-          {height}
-          {name}
-          data={metricData}
-          y={key}
-          {xDomain}
-          yMin={commonScales ? 0 : undefined}
-          yMax={commonScales ? yMax : undefined}
-          {axisFormat}
-          {hoverFormat}
-          {endMouseEvent}
-          {resetMouseClicks}
-          bind:xMouse
-          bind:mouseDownValue
-          bind:mouseMoveValue
-          bind:isComparing />
+        {#if isScrubbing}
+          <div in:fly={{ duration: 400, y: -10 }}>
+            <Button
+              level="medium"
+              compact
+              on:click={() => {
+                isScrubbing = false;
+                resetDomain();
+              }}>
+              clear zoom
+              <Close size={16} />
+            </Button>
+          </div>
+        {/if}
       </div>
-    {/each}
-  </div>
+      <div class="gafc" style="justify-self: end">
+        <Button
+          compact
+          level="medium"
+          on:click={() => {
+            commonScales = !commonScales;
+          }}>
+          <div class="gafc" style="grid-column-gap: var(--space-base);">
+            common scales
+            {#if commonScales}
+              <Checkbox size="1em" />
+            {:else}
+              <CheckboxBlank size="1em" />
+            {/if}
+          </div>
+        </Button>
+        <ButtonGroup level="medium" compact>
+          <Button on:click={changeSize('small')}>
+            <ThreeByThree size={16} />
+          </Button>
+          <Button on:click={changeSize('medium')}>
+            <Tile size={16} />
+          </Button>
+          <Button on:click={changeSize('large')}>
+            <Stack size={16} />
+          </Button>
+        </ButtonGroup>
+      </div>
+    </div>
 
-  <div
-    in:fly={{ duration: 500, delay: 1000, y: -10 }}
-    style=" width: 970px; display: grid; grid-template-columns: auto auto;
-    align-items: start; justify-content: space-between; ">
-    <Shortcuts />
-    <Key />
-  </div>
+    <div class="multiples multiples--{$store.graphSize}">
+      {#each graphs as { name, type, key, yMax, axisFormat, hoverFormat }, i (name)}
+        <div>
+          <MetricChart
+            size={$store.size}
+            {width}
+            {height}
+            {name}
+            data={metricData}
+            y={key}
+            {xDomain}
+            yMin={commonScales ? 0 : undefined}
+            yMax={commonScales ? yMax : undefined}
+            {axisFormat}
+            {hoverFormat}
+            {endMouseEvent}
+            {resetMouseClicks}
+            bind:xMouse
+            bind:mouseDownValue
+            bind:mouseMoveValue
+            bind:isComparing />
+        </div>
+      {/each}
+    </div>
 
+    <div
+      class="bottom"
+      in:fly={{ duration: 500, delay: 1000, y: -10 }}
+      style=" width: 970px; display: grid; grid-template-columns: auto auto;
+      align-items: start; justify-content: space-between; ">
+      <Shortcuts />
+      <Key />
+    </div>
+  </Box>
 </main>
