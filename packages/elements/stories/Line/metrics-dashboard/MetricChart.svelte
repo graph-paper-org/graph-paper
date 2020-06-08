@@ -5,6 +5,8 @@
   import { format } from "d3-format";
   import { cubicOut as easing } from "svelte/easing";
 
+  import { outline } from "./outline";
+  import { avoidCollision } from "./avoidCollision";
   import { DataGraphic } from "../../../../datagraphic";
   import { Line, Band } from "../../..";
   import VerticalErrorBar from "../../../VerticalErrorBar.svelte";
@@ -241,37 +243,35 @@
             height={Math.abs(yScale(compareStart[y]) - yScale(compareEnd[y]))}
             width={5}
             fill={compareStart.date < compareEnd.date ? 'var(--cool-gray-900)' : 'var(--pantone-red-500'} />
-          <text
-            class="comparison__text"
-            text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
-            dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
-            y={yScale(output[y])}>
-            {hoverFormat(compareEnd[y])}
-          </text>
-          <text
-            class="comparison__text"
-            text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
-            dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
-            dy="1em"
-            y={yScale(output[y])}
-            fill={compareStart[y] < compareEnd[y] ? 'var(--cool-gray-900)' : 'var(--pantone-red-500)'}>
-            {percentage(percentageDifference(compareStart[y], compareEnd[y]))}
-          </text>
+          <g use:avoidCollision={{ x: xScale(output.date), left, right }}>
+            <text
+              use:outline
+              class="comparison__text"
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
+              dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
+              y={yScale(output[y])}>
+              {hoverFormat(compareEnd[y])}
+            </text>
+            <text
+              use:outline
+              class="comparison__text"
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
+              dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
+              dy="1em"
+              y={yScale(output[y])}
+              fill={compareStart[y] < compareEnd[y] ? 'var(--cool-gray-900)' : 'var(--pantone-red-500)'}>
+              {percentage(percentageDifference(compareStart[y], compareEnd[y]))}
+            </text>
+          </g>
           <line class="comparison__line" y1={top} y2={bottom} />
         {/if}
       </g>
     {/if}
 
     {#if output.date}
-      <text x={left} y={12} font-size={12}>{dtfmt(output.date)}</text>
-      <!-- <g fill="var(--cool-gray-600)" style="font-variant-numeric: tabular-nums;">
-      <text x={right} y={12} text-anchor="end" font-size={11}>
-        lo {hoverFormat(output[`${y}Low`])}
+      <text use:outline x={left} y={12} font-size={12}>
+        {dtfmt(output.date)}
       </text>
-      <text x={right} y={26} text-anchor="end" font-size={11}>
-        hi {hoverFormat(output[`${y}High`])}
-      </text>
-    </g> -->
     {/if}
     {#if isComparing}
       <line
@@ -289,6 +289,7 @@
         y1={top}
         y2={bottom} />
       <text
+        use:outline
         class="comparison__text"
         y={yScale(compareStart[y])}
         x={xScale(compareStart.date)}
