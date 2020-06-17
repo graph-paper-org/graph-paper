@@ -5,6 +5,8 @@ A Svelte component library optimized for data visualizations and data apps.
 _note: this project is in very early alpha, and as such is subject to API
 changes and restructuring without notice._
 
+See the graph-paper storybook at [https://graph-paper-org.github.io/graph-paper/](https://graph-paper-org.github.io/graph-paper/)
+
 ## installation
 
 Each package can be installed individually:
