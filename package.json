@@ -10,6 +10,7 @@
     "lint:js": "eslint --ext .js,.svelte .",
     "lint:shell": "shellcheck all create",
     "storybook": "start-storybook -s ./public -p 6006",
+    "deploy-storybook": "storybook-to-ghpages",
     "test": "npm-run-all format:check lint test:jest",
     "test:jest": "jest test --no-cache"
   },
