@@ -107,11 +107,6 @@
 
 <FloatingChild active={toggled} bind:element parent={container}>
   <List>
-    <li style="display: grid; justify-content: stretch; width: 100%;">
-      <button>Aggregate</button>
-      <button>Compare</button>
-    </li>
-    <Divider />
     {#if multi}
       <ListItem on:click={clearSelection}>
         <span slot="secondary">
