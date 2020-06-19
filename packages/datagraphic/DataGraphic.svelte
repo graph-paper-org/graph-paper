@@ -150,10 +150,14 @@
   let internalTop = writable(top);
   let internalBottom = writable(bottom);
 
-  $: $internalLeft = left;
-  $: $internalRight = right;
-  $: $internalTop = top;
-  $: $internalBottom = bottom;
+
+  // FIXME: this could be simplified. We do not need to be using derived stores
+  // below for leftPlot etc., since the only thing that use these internal stores
+  // are derived stores.
+  $: internalLeft.set(left);
+  $: internalRight.set(right);
+  $: internalTop.set(top);
+  $: internalBottom.set(bottom);
 
   let internalBuffer = writable(buffer);
   $: $internalBuffer = buffer;
