@@ -4,7 +4,7 @@ import { cubicOut as easing } from 'svelte/easing';
 import { randomNormal } from 'd3-random'
 import { DataGraphic } from '../../../datagraphic';
 import { Axis } from '../../../guides';
-import { Bar, LineRange } from '../../../elements'
+import { Bar, LineRange, Point, Notch } from '../../../elements'
 
 const LENGTH = 6;
 
@@ -23,7 +23,9 @@ const makeData = (length = LENGTH) => {
     let median = (xMax + xMin) / 2 + r();
     let x75 = (xMax + median) / 2 + r();
     let x25 = (xMin + median) / 2 + r();
-    return {y: i, median, xMin, xMax, x25, x75}
+    let ri = randomNormal(median, 10);
+    let notches = [xMin, ...Array.from({length: 15}).map(ri), xMax]
+    return {y: i, median, xMin, xMax, x25, x75, notches}
   })
 }
 
@@ -79,15 +81,12 @@ let size = 1;
     <Axis {tickColor} side=left lineStyle=short />
     <Axis {tickColor} side=bottom lineStyle=long />
   </g>
-  <g slot=body let:xScale let:yScale>
+  <g slot=body>
       <Bar
         scaling={true}
         data={$values}
         x=xMax y=y {size}
       />
-    {#each $values as {xMax, y}}, i (y)}
-
-    {/each}
   </g>
 </DataGraphic>
 
@@ -105,16 +104,10 @@ let size = 1;
     <Axis {tickColor} side=left lineStyle=long />
     <Axis {tickColor} side=bottom lineStyle=short />
   </g>
-  <g slot=body let:xScale let:yScale>
-    {#each $values as {xMax, y}}, i (y)}
-      <Bar x={y} y={xMax} {size} />
-    {/each}
+  <g slot=body>
+    <Bar data={$values} x=y y=xMax {size} />
   </g>
 </DataGraphic>
-
-
-
-
 
 <DataGraphic
   {width}
@@ -132,22 +125,8 @@ let size = 1;
   </g>
   <g slot=body let:xScale let:yScale>
     <LineRange data={$values} x=xMin xStart=xMax y=y  />
-    {#each $values as {xMin, xMax, y}}, i (y)}
-      <circle
-        cx={xScale(xMin)}
-        cy={yScale(y) + yScale.bandwidth() / 2}
-        r=2
-        stroke=var(--digital-blue-400)
-        fill=white
-      />
-      <circle
-        cx={xScale(xMax)}
-        cy={yScale(y) + yScale.bandwidth() / 2}
-        r=2
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400)
-      />
-    {/each}
+    <Point scaling={false} data={$values} x=xMin y=y color=white strokeWidth={1} stroke=var(--digital-blue-400) />
+    <Point scaling={false} data={$values} x=xMax y=y color=var(--digital-blue-400) strokeWidth={1} stroke=var(--digital-blue-400) />
   </g>
 </DataGraphic>
 
@@ -167,28 +146,10 @@ let size = 1;
   </g>
   <g slot=body let:xScale let:yScale>
     <LineRange data={$values} y=xMin yStart=xMax x=y />
-    {#each $values as {xMin, xMax, y}}, i (y)}
-      <circle
-        cy={yScale(xMin)}
-        cx={xScale(y) + xScale.bandwidth() / 2}
-        r=2
-        stroke=var(--digital-blue-400)
-        fill=white
-      />
-      <circle
-        cy={yScale(xMax)}
-        cx={xScale(y) + xScale.bandwidth() / 2}
-        r=2
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400)
-      />
-    {/each}
+    <Point scaling={false} data={$values} x=y y=xMin color=white strokeWidth={1} stroke=var(--digital-blue-400)  />
+    <Point scaling={false} data={$values} x=y y=xMax color=var(--digital-blue-400) strokeWidth={1} stroke=var(--digital-blue-400)  />
   </g>
 </DataGraphic>
-
-
-
-
 
 <DataGraphic
   {width}
@@ -204,33 +165,56 @@ let size = 1;
     <Axis {tickColor} side=left lineStyle=short />
     <Axis {tickColor} side=bottom lineStyle=long />
   </g>
-  <g slot=body let:xScale let:yScale>
+  <g slot=body>
     <LineRange data={$values} x=xMin xStart=xMax y=y />
-    {#each $values as {xMin, xMax, median, x25, x75, y}}, i (y)}
-      <Bar
-        x={x25}
-        y={y}
-        xStart={x75}
-        color=white
-        outline=var(--digital-blue-400)
-        {size}
-      />
-
-      <line
-        shape-rendering=crispEdges
-        x1={xScale(median)}
-        x2={xScale(median)}
-        y1={yScale(y)}
-        y2={yScale(y) + yScale.bandwidth()}
-        stroke=var(--digital-blue-400)
-      />
-    {/each}
+    <Bar data={$values} x=x25 y=y xStart=x75 color=white outline=var(--digital-blue-400) />
+    <Notch data={$values} x=median y=y color=var(--digital-blue-400) />
   </g>
 </DataGraphic>
 
+<DataGraphic
+  {width}
+  {height}
+  yType=linear
+  xType=scaleBand
+  xDomain={domain}
+  yDomain={[0, 100]}
+  xInnerPadding={innerY}
+  xOuterPadding={outerY}
+>
+  <g slot=background>
+    <Axis {tickColor} side=left lineStyle=long />
+    <Axis {tickColor} side=bottom lineStyle=short />
+  </g>
+  <g slot=body>
+    <LineRange data={$values} y=xMin yStart=xMax x=y />
+    <Bar data={$values} x=y y=x75 yStart=x25 color=white outline=var(--digital-blue-400) />
+    <Notch data={$values} x=y y=median color=var(--digital-blue-400) />
+  </g>
+</DataGraphic>
 
-
-
+<DataGraphic
+  {width}
+  {height}
+  xType=linear
+  yType=scaleBand
+  yDomain={domain}
+  xDomain={[0, 100]}
+  yInnerPadding={innerY}
+  yOuterPadding={outerY}
+>
+  <g slot=background>
+    <Axis {tickColor} side=left lineStyle=short />
+    <Axis {tickColor} side=bottom lineStyle=long />
+  </g>
+  <g slot=body>
+    {#each $values as {y, notches}}
+      {#each notches as notch}
+        <Notch x={notch} y={y} color=var(--digital-blue-400) />
+      {/each}
+    {/each}
+  </g>
+</DataGraphic>
 
 
 
@@ -245,33 +229,16 @@ let size = 1;
   yDomain={[0, 100]}
   xInnerPadding={innerY}
   xOuterPadding={outerY}
-
 >
   <g slot=background>
     <Axis {tickColor} side=left lineStyle=long />
     <Axis {tickColor} side=bottom lineStyle=short />
   </g>
-  <g slot=body let:xScale let:yScale>
-    <LineRange data={$values} y=xMin yStart=xMax x=y />
-    {#each $values as {xMin, xMax, median, x25, x75, y}}, i (y)}
-
-      <Bar
-        y={x75}
-        x={y}
-        yStart={x25}
-        color=white
-        outline=var(--digital-blue-400)
-        {size}
-      />
-
-      <line
-        shape-rendering=crispEdges
-        y1={yScale(median)}
-        y2={yScale(median)}
-        x1={xScale(y)}
-        x2={xScale(y) + xScale.bandwidth()}
-        stroke=var(--digital-blue-400)
-      />
+  <g slot=body>
+    {#each $values as {y, notches}}
+      {#each notches as notch}
+        <Notch y={notch} x={y}  color=var(--digital-blue-400) />
+      {/each}
     {/each}
   </g>
 </DataGraphic>
