@@ -159,7 +159,7 @@
   $: internalBottom.set(bottom);
 
   let internalBuffer = writable(buffer);
-  $: $internalBuffer = buffer;
+  $: internalBuffer.set(buffer);
   setContext("gp:datagraphic:buffer", internalBuffer);
 
   // see onMount below for the case where the width & height props are not defined.
@@ -374,7 +374,7 @@
     });
   }
 
-  $: mousePosition = $mousePositionStore;
+  $: mousePosition = $mousePositionStore; // eslint-disable-line
 </script>
 
 <style>
