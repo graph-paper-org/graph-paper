@@ -42,12 +42,12 @@ if ($xScale.type === 'scaleBand') {
 
 const extentStore = getContext(`gp:datagraphic:${extent}`);
 
-function destroy() {
-  if (scaling) removeExtent(extentStore, extentMinKey);
-  if (scaling) removeExtent(extentStore, extentMaxKey);
-}
+// function destroy() {
+//   if (scaling) removeExtent(extentStore, extentMinKey);
+//   if (scaling) removeExtent(extentStore, extentMaxKey);
+// }
 
-onDestroy(destroy);
+// onDestroy(destroy);
 
 function toParameters(xs, ys, xp, yp, xe, ye, s) {
   if (xs.type === 'scaleBand') {

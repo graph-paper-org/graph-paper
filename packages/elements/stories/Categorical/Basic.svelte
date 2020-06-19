@@ -4,13 +4,13 @@ import { cubicOut as easing } from 'svelte/easing';
 import { randomNormal } from 'd3-random'
 import { DataGraphic } from '../../../datagraphic';
 import { Axis } from '../../../guides';
-import { Bar } from '../../../elements'
+import { Bar, LineRange } from '../../../elements'
 
 const LENGTH = 6;
 
 let r = randomNormal(0, 1);
 
-let width = 300;
+let width = 200;
 let height = 200;
 let tickColor = 'var(--cool-gray-200)'
 
@@ -18,7 +18,7 @@ let domain = Array.from({length: LENGTH}).map((_, i) => i)
 
 const makeData = (length = LENGTH) => {
   return Array.from({length}).map((_, i) => {
-    let xMax = 30 + (Math.random() * 70);
+    let xMax = 20 + (Math.random() * 80);
     let xMin = xMax / 2;
     let median = (xMax + xMin) / 2 + r();
     let x75 = (xMax + median) / 2 + r();
@@ -31,7 +31,7 @@ let values = tweened(makeData(), {duration: 500, easing});
 
 setInterval(() => {
   $values = makeData();
-}, 1000);
+}, 700);
 
 let innerY = .5;
 let outerY = .5;
@@ -131,15 +131,8 @@ let size = 1;
     <Axis {tickColor} side=bottom lineStyle=long />
   </g>
   <g slot=body let:xScale let:yScale>
+    <LineRange data={$values} x=xMin xStart=xMax y=y  />
     {#each $values as {xMin, xMax, y}}, i (y)}
-      <line
-        shape-rendering=crispEdges
-        x1={xScale(xMin)}
-        x2={xScale(xMax)}
-        y1={yScale(y) + yScale.bandwidth() / 2}
-        y2={yScale(y) + yScale.bandwidth() / 2}
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400) />
       <circle
         cx={xScale(xMin)}
         cy={yScale(y) + yScale.bandwidth() / 2}
@@ -158,10 +151,6 @@ let size = 1;
   </g>
 </DataGraphic>
 
-
-
-
-
 <DataGraphic
   {width}
   {height}
@@ -177,15 +166,8 @@ let size = 1;
     <Axis {tickColor} side=bottom lineStyle=short />
   </g>
   <g slot=body let:xScale let:yScale>
+    <LineRange data={$values} y=xMin yStart=xMax x=y />
     {#each $values as {xMin, xMax, y}}, i (y)}
-      <line
-        shape-rendering=crispEdges
-        y1={yScale(xMin)}
-        y2={yScale(xMax)}
-        x1={xScale(y) + xScale.bandwidth() / 2}
-        x2={xScale(y) + xScale.bandwidth() / 2}
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400) />
       <circle
         cy={yScale(xMin)}
         cx={xScale(y) + xScale.bandwidth() / 2}
@@ -223,16 +205,8 @@ let size = 1;
     <Axis {tickColor} side=bottom lineStyle=long />
   </g>
   <g slot=body let:xScale let:yScale>
+    <LineRange data={$values} x=xMin xStart=xMax y=y />
     {#each $values as {xMin, xMax, median, x25, x75, y}}, i (y)}
-      <line
-        shape-rendering=crispEdges
-        x1={xScale(xMin)}
-        x2={xScale(xMax)}
-        y1={yScale(y) + yScale.bandwidth() / 2}
-        y2={yScale(y) + yScale.bandwidth() / 2}
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400) />
-
       <Bar
         x={x25}
         y={y}
@@ -278,15 +252,8 @@ let size = 1;
     <Axis {tickColor} side=bottom lineStyle=short />
   </g>
   <g slot=body let:xScale let:yScale>
+    <LineRange data={$values} y=xMin yStart=xMax x=y />
     {#each $values as {xMin, xMax, median, x25, x75, y}}, i (y)}
-      <line
-        shape-rendering=crispEdges
-        y1={yScale(xMin)}
-        y2={yScale(xMax)}
-        x1={xScale(y) + xScale.bandwidth() / 2}
-        x2={xScale(y) + xScale.bandwidth() / 2}
-        stroke=var(--digital-blue-400)
-        fill=var(--digital-blue-400) />
 
       <Bar
         y={x75}
