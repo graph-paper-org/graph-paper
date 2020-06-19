@@ -150,7 +150,6 @@
   let internalTop = writable(top);
   let internalBottom = writable(bottom);
 
-
   // FIXME: this could be simplified. We do not need to be using derived stores
   // below for leftPlot etc., since the only thing that use these internal stores
   // are derived stores.
