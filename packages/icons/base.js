@@ -10,7 +10,10 @@ import Help from "./Help.svelte";
 import Info from "./Info.svelte";
 import Information from "./Information.svelte";
 import LineChart from "./LineChart.svelte";
+import Scatterplot from "./Scatterplot.svelte";
 import Density from "./Density.svelte";
+import Dashboard from "./Dashboard.svelte";
+import Explore from "./Explore.svelte";
 import Menu from "./Menu.svelte";
 import Search from "./Search.svelte";
 import Table from "./Table.svelte";
@@ -19,6 +22,7 @@ import Add from "./Add.svelte";
 import AddCircle from "./AddCircle.svelte";
 import AddCircleDark from "./AddCircleDark.svelte";
 import AddDark from "./AddDark.svelte";
+import Refresh from "./Refresh.svelte";
 
 import Tile from "./Tile.svelte";
 import Stack from "./Stack.svelte";
@@ -62,9 +66,12 @@ export {
   Sequence,
   LineChart,
   BarChart,
+  Scatterplot,
   Density,
+  Dashboard,
   Table,
   Calendar,
+  Explore,
   Code,
   Tile,
   Stack,
@@ -94,6 +101,7 @@ export {
   ArrowDownRight,
   Undo,
   Redo,
+  Refresh,
   Documentation,
   DocumentationDark,
   Cancel,
