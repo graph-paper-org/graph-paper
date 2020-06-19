@@ -105,7 +105,6 @@
     new Date(Math.max(...metricData.map((d) => d.date))),
   ];
 
-  // let xDomain = tweened(generateDomain(), { duration: 200, easing });
   let xDomain = generateDomain();
 
   let auMax =

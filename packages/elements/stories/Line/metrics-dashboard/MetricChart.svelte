@@ -14,8 +14,6 @@
   import BottomAxis from "../../../../guides/BottomAxis.svelte";
   import { window1D } from "../../../../core/utils/window-functions";
 
-  // import Window1D from "../Window1D.svelte";
-
   export let name;
 
   export let data;
@@ -34,7 +32,6 @@
   export let axisFormat = (v) => v;
   export let hoverFormat = (v) => v;
 
-  // these functions should fire off as events.
   export let endMouseEvent;
   export let resetMouseClicks;
 
@@ -52,7 +49,6 @@
 
   function keyDown(evt) {
     if (evt.shiftKey) isComparing = true;
-    // compareStart = xMouse;
   }
 
   function keyUp() {
@@ -217,10 +213,6 @@
 
   </g>
 
-  <!-- <g style="opacity:.6">
-        <FirefoxReleaseVersionMarkers />
-      </g> -->
-
   <g
     slot="interaction"
     let:left
@@ -230,8 +222,6 @@
     let:xScale
     let:yScale>
     {#if output}
-      <!-- isComparing bg -->
-
       <g transform="translate({xScale(output.date)} 0)">
         <VerticalErrorBar minY={output[`${y}Low`]} maxY={output[`${y}High`]} />
         {#if !isComparing}

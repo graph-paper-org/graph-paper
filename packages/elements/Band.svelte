@@ -23,7 +23,6 @@
 
   const curveFunction = SHAPE[curve];
 
-  // const xExtents = getContext("gp:datagraphic:xExtents");
   const yExtents = getContext("gp:datagraphic:yExtents");
 
   export const key =
@@ -33,7 +32,6 @@
   let keyMin = `${key}-min`;
   let keyMax = `${key}-max`;
   function destroy() {
-    // if (scaling) removeExtent(xExtents, key);
     if (scaling) removeExtent(yExtents, keyMin);
     if (scaling) removeExtent(yExtents, keyMax);
   }

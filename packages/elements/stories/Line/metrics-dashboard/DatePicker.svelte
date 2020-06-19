@@ -61,8 +61,6 @@
   let formattedEndDate = fromDate(endDate);
   let boundStart = formattedStartDate;
   let boundEnd = formattedEndDate;
-  // // $: if (fromDate(endDate) !== formattedEndDate)
-  //   formattedEndDate = fromDate(endDate);
 
   async function applyDates() {
     if (boundStart !== formattedStartDate) formattedStartDate = boundStart;
@@ -73,9 +71,6 @@
         end: toDate(formattedEndDate),
       });
     }
-
-    // await tick();
-    // formattedStartDate = fromDate(startDate);
   }
 
   async function resetDates() {
@@ -123,7 +118,6 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
       0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
       0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-    /* z-index: 45; */
   }
 
   .date-picker:before {
