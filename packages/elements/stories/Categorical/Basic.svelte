@@ -4,6 +4,7 @@ import { cubicOut as easing } from 'svelte/easing';
 import { randomNormal } from 'd3-random'
 import { DataGraphic } from '../../../datagraphic';
 import { Axis } from '../../../guides';
+import { Bar } from '../../../elements'
 
 const LENGTH = 6;
 
@@ -34,6 +35,7 @@ setInterval(() => {
 
 let innerY = .5;
 let outerY = .5;
+let size = 1;
 
 </script>
 
@@ -56,6 +58,11 @@ let outerY = .5;
   <input type=range bind:value={outerY} min=0 max=1 step=.01 />
 </div>
 
+<div>
+  <code>size</code>
+  <input type=range bind:value={size} min=0 max=1 step=.01 />
+</div>
+
 <div class=categorical-grid>
 
 <DataGraphic
@@ -73,10 +80,12 @@ let outerY = .5;
     <Axis {tickColor} side=bottom lineStyle=long />
   </g>
   <g slot=body let:xScale let:yScale>
+      <Bar
+        data={$values}
+        x=xMax y=y {size}
+      />
     {#each $values as {xMax, y}}, i (y)}
-      <rect
-        shape-rendering=crispEdges
-       x={xScale(0)} y={yScale(y)} width={xScale(xMax) - xScale(0)} height={yScale.bandwidth()} fill=var(--digital-blue-400) />
+
     {/each}
   </g>
 </DataGraphic>
@@ -97,9 +106,7 @@ let outerY = .5;
   </g>
   <g slot=body let:xScale let:yScale>
     {#each $values as {xMax, y}}, i (y)}
-      <rect
-        shape-rendering=crispEdges
-        y={yScale(xMax)} x={xScale(y)} width={xScale.bandwidth()} height={yScale(0) - yScale(xMax)} fill=var(--digital-blue-400) />
+      <Bar x={y} y={xMax} {size} />
     {/each}
   </g>
 </DataGraphic>
@@ -225,15 +232,15 @@ let outerY = .5;
         stroke=var(--digital-blue-400)
         fill=var(--digital-blue-400) />
 
-      <rect
-        shape-rendering=crispEdges
-        x={xScale(x25)}
-        y={yScale(y)}
-        width={xScale(x75) - xScale(x25)}
-        height={yScale.bandwidth()}
-        stroke=var(--digital-blue-400)
-        fill=white
+      <Bar
+        x={x25}
+        y={y}
+        xStart={x75}
+        color=white
+        outline=var(--digital-blue-400)
+        {size}
       />
+
       <line
         shape-rendering=crispEdges
         x1={xScale(median)}
@@ -280,15 +287,15 @@ let outerY = .5;
         stroke=var(--digital-blue-400)
         fill=var(--digital-blue-400) />
 
-      <rect
-        shape-rendering=crispEdges
-        y={yScale(x75)}
-        x={xScale(y)}
-        height={yScale(x25) - yScale(x75)}
-        width={xScale.bandwidth()}
-        stroke=var(--digital-blue-400)
-        fill=white
+      <Bar
+        y={x75}
+        x={y}
+        yStart={x25}
+        color=white
+        outline=var(--digital-blue-400)
+        {size}
       />
+
       <line
         shape-rendering=crispEdges
         y1={yScale(median)}
