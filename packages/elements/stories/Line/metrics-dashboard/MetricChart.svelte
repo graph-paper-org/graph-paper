@@ -6,7 +6,6 @@
   import { cubicOut as easing } from "svelte/easing";
 
   import { outline } from "./outline";
-  import { avoidCollision } from "./avoidCollision";
   import { DataGraphic } from "../../../../datagraphic";
   import { Line, Band } from "../../..";
   import VerticalErrorBar from "../../../VerticalErrorBar.svelte";
@@ -243,11 +242,11 @@
             height={Math.abs(yScale(compareStart[y]) - yScale(compareEnd[y]))}
             width={5}
             fill={compareStart.date < compareEnd.date ? 'var(--cool-gray-900)' : 'var(--pantone-red-500'} />
-          <g use:avoidCollision={{ x: xScale(output.date), left, right }}>
+          <g>
             <text
               use:outline
               class="comparison__text"
-              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start' }
               dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
               y={yScale(output[y])}>
               {hoverFormat(compareEnd[y])}
@@ -255,9 +254,9 @@
             <text
               use:outline
               class="comparison__text"
-              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
               dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
               dy="1em"
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start' }
               y={yScale(output[y])}
               fill={compareStart[y] < compareEnd[y] ? 'var(--cool-gray-900)' : 'var(--pantone-red-500)'}>
               {percentage(percentageDifference(compareStart[y], compareEnd[y]))}
