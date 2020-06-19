@@ -20,7 +20,6 @@
   } from "../../../../icons";
 
   import { Button, ButtonGroup } from "../../../../button";
-  import { window1D } from "../../../../core/utils/window-functions";
 
   import DatePicker from "./DatePicker.svelte";
 
