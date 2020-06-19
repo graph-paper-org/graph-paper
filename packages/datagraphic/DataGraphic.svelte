@@ -396,7 +396,7 @@
     viewbox="0 0 {$graphicWidth}
     {$graphicHeight}"
     on:mousemove={(e) => {
-      $mousePositionStore = getMousePosition(e, svg, {
+      $mousePositionStore = getMousePosition(e, svg, { // eslint-disable-line
         xScale: $xScaleStore,
         yScale: $yScaleStore,
         left: $leftPlot,
@@ -406,7 +406,7 @@
       });
     }}
     on:mouseleave={() => {
-      $mousePositionStore = defaultMousePosition();
+      $mousePositionStore = defaultMousePosition();  // eslint-disable-line
     }}
     on:click
     on:mousedown
