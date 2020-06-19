@@ -396,17 +396,17 @@
     viewbox="0 0 {$graphicWidth}
     {$graphicHeight}"
     on:mousemove={(e) => {
-      $mousePositionStore = getMousePosition(e, svg, { // eslint-disable-line
-        xScale: $xScaleStore,
-        yScale: $yScaleStore,
-        left: $leftPlot,
-        right: $rightPlot,
-        top: $topPlot,
-        bottom: $bottomPlot,
-      });
+      mousePositionStore.set(getMousePosition(e, svg, {
+          xScale: $xScaleStore,
+          yScale: $yScaleStore,
+          left: $leftPlot,
+          right: $rightPlot,
+          top: $topPlot,
+          bottom: $bottomPlot,
+        }));
     }}
     on:mouseleave={() => {
-      $mousePositionStore = defaultMousePosition();  // eslint-disable-line
+      mousePositionStore.set(defaultMousePosition());
     }}
     on:click
     on:mousedown
