@@ -150,13 +150,16 @@
   let internalTop = writable(top);
   let internalBottom = writable(bottom);
 
-  $: $internalLeft = left;
-  $: $internalRight = right;
-  $: $internalTop = top;
-  $: $internalBottom = bottom;
+  // FIXME: this could be simplified. We do not need to be using derived stores
+  // below for leftPlot etc., since the only thing that use these internal stores
+  // are derived stores.
+  $: internalLeft.set(left);
+  $: internalRight.set(right);
+  $: internalTop.set(top);
+  $: internalBottom.set(bottom);
 
   let internalBuffer = writable(buffer);
-  $: $internalBuffer = buffer;
+  $: internalBuffer.set(buffer);
   setContext("gp:datagraphic:buffer", internalBuffer);
 
   // see onMount below for the case where the width & height props are not defined.
@@ -371,7 +374,7 @@
     });
   }
 
-  $: mousePosition = $mousePositionStore;
+  $: mousePosition = $mousePositionStore; // eslint-disable-line
 </script>
 
 <style>
@@ -393,17 +396,17 @@
     viewbox="0 0 {$graphicWidth}
     {$graphicHeight}"
     on:mousemove={(e) => {
-      $mousePositionStore = getMousePosition(e, svg, {
-        xScale: $xScaleStore,
-        yScale: $yScaleStore,
-        left: $leftPlot,
-        right: $rightPlot,
-        top: $topPlot,
-        bottom: $bottomPlot,
-      });
+      mousePositionStore.set(getMousePosition(e, svg, {
+          xScale: $xScaleStore,
+          yScale: $yScaleStore,
+          left: $leftPlot,
+          right: $rightPlot,
+          top: $topPlot,
+          bottom: $bottomPlot,
+        }));
     }}
     on:mouseleave={() => {
-      $mousePositionStore = defaultMousePosition();
+      mousePositionStore.set(defaultMousePosition());
     }}
     on:click
     on:mousedown

@@ -30,16 +30,16 @@
   export let useXScale = true;
   export let useYScale = true;
 
+  const curveFunction = SHAPE[curve];
+  let lineGenerator;
+  let areaGenerator;
+
   const xExtents = getContext("gp:datagraphic:xExtents");
   const yExtents = getContext("gp:datagraphic:yExtents");
 
   export const key =
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
-
-  const curveFunction = SHAPE[curve];
-  let lineGenerator;
-  let areaGenerator;
 
   function destroy() {
     if (scaling) removeExtent(xExtents, key);

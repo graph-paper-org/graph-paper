@@ -29,7 +29,7 @@
     let locations = [
       ...pt.map((p) => ({
         ...p,
-        xRange: Math.max(left, xs(p.x)),
+        xRange: Math.max(left, xs(p.x)) || 0,
         yRange: ys(p.y),
       })),
     ];
