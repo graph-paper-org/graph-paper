@@ -25,10 +25,7 @@
     side === "left" || side === "right" ? vOffset : hOffset;
   $: responseOffset = side === "left" || side === "right" ? hOffset : vOffset;
 
-  export let step;
-  $: if (!step) {
-    step = $scale.type === "scaleBand" ? $scale.bandwidth() / 2 : 0;
-  }
+  $: step = $scale.type === "scaleBand" ? $scale.bandwidth() / 2 : 0;
 
   $: parameters = {
     [`${response}1`]: $closestMargin + responseOffset,
