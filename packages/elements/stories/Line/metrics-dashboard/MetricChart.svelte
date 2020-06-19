@@ -3,6 +3,7 @@
   import { fade } from "svelte/transition";
   import { timeFormat } from "d3-time-format";
   import { format } from "d3-format";
+    // eslint-disable-next-line import/no-extraneous-dependencies
   import { cubicOut as easing } from "svelte/easing";
 
   import { outline } from "./outline";

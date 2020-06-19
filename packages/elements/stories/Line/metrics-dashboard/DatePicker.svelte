@@ -1,9 +1,12 @@
 <script>
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { createEventDispatcher, tick } from "svelte";
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { fly } from "svelte/transition";
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { timeFormat, timeParse } from "d3-time-format";
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { timeDay } from "d3-time";
-  // import { FloatingMenu } from "../../../../menu";
   import { placeElement } from "../../../../core/utils/float-placement";
 
   import { Button } from "../../../../button";

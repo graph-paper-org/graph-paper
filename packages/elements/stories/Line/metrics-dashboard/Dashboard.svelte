@@ -123,18 +123,6 @@
   let withCommas = format(",");
   let count = (v) => (v !== undefined ? withCommas(Math.round(v)) : "missing");
 
-  const get = (d, value, dom) => {
-    const w = window1D({
-      value,
-      data: d,
-      key: "date",
-      lowestValue: dom[0],
-      highestValue: dom[1],
-    });
-    if (w.current) return w.current;
-    return 0;
-  };
-
   const graphs = [
     {
       name: "DAU",
@@ -186,7 +174,6 @@
     },
   ];
 
-  let mousePosition = {};
   let mouseDownValue = {};
   let mouseMoveValue = {};
   let startValue;
