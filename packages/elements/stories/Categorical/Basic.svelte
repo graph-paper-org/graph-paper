@@ -81,6 +81,7 @@ let size = 1;
   </g>
   <g slot=body let:xScale let:yScale>
       <Bar
+        scaling={true}
         data={$values}
         x=xMax y=y {size}
       />

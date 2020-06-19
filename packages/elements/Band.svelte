@@ -13,7 +13,7 @@
   export let useXScale = true;
   export let useYScale = true;
   export let data;
-  export let scaling = true;
+  export let scaling = false;
   export let x = "x";
   export let yMin = "low";
   export let yMax = "high";
@@ -31,6 +31,7 @@
 
   let keyMin = `${key}-min`;
   let keyMax = `${key}-max`;
+
   function destroy() {
     if (scaling) removeExtent(yExtents, keyMin);
     if (scaling) removeExtent(yExtents, keyMax);
