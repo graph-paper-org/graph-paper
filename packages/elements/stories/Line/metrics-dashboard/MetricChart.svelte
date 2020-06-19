@@ -246,7 +246,7 @@
             <text
               use:outline
               class="comparison__text"
-              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start' }
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
               dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
               y={yScale(output[y])}>
               {hoverFormat(compareEnd[y])}
@@ -256,7 +256,7 @@
               class="comparison__text"
               dx={compareStart.date > compareEnd.date ? '-1em' : '1em'}
               dy="1em"
-              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start' }
+              text-anchor={compareStart.date > compareEnd.date ? 'end' : 'start'}
               y={yScale(output[y])}
               fill={compareStart[y] < compareEnd[y] ? 'var(--cool-gray-900)' : 'var(--pantone-red-500)'}>
               {percentage(percentageDifference(compareStart[y], compareEnd[y]))}
