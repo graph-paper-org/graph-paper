@@ -112,8 +112,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-        >
+          y={top + 12}>
           slot=background-body
         </text>
       {/if}
@@ -133,8 +132,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-        >
+          y={top + 12}>
           slot=background
         </text>
       {/if}
@@ -161,8 +159,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-        >
+          y={top + 12}>
           default {'<slot />'}
         </text>
       {/if}
@@ -189,8 +186,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-        >
+          y={top + 12}>
           slot=body
         </text>
       {/if}
@@ -214,8 +210,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-        >
+          y={top + 12}>
           slot=body
         </text>
       {/if}
@@ -233,22 +228,31 @@
               y1={top}
               y2={bottom}
               stroke="var(--cool-gray-300)" />
-            <MetricMouseover outlineColor=transparent formatValue={f} point={output} />
+            <MetricMouseover
+              outlineColor="transparent"
+              formatValue={f}
+              point={output} />
           </HorizontalWindow>
         </g>
       {/if}
 
     </g>
 
-    <g class:folded={!unfolded} class="layer" style='--tr: -2; clip-path: url(#explanation-annotation); opacity: .15;'>
-       <HorizontalWindow value={$xv} datasets={shadows} let:output>
+    <g
+      class:folded={!unfolded}
+      class="layer"
+      style="--tr: -2; clip-path: url(#explanation-annotation); opacity: .15;">
+      <HorizontalWindow value={$xv} datasets={shadows} let:output>
         <line
           x1={xScale(output[0].match.x)}
           x2={xScale(output[0].match.x)}
           y1={top}
           y2={bottom}
           stroke="var(--cool-gray-300)" />
-        <MetricMouseover outlineColor=transparent formatValue={f} point={output} />
+        <MetricMouseover
+          outlineColor="transparent"
+          formatValue={f}
+          point={output} />
       </HorizontalWindow>
     </g>
 
@@ -304,7 +308,8 @@
           stroke-width="1"
           stroke-dasharray="5,1" />
         <text
-          class="slot" transition:fly={flyParams}
+          class="slot"
+          transition:fly={flyParams}
           x={right + 6}
           y={top + 12}>
           slot=interaction
