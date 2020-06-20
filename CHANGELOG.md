@@ -2,6 +2,7 @@
 
 ## unpublished changes
 
+- Fix performance issues in `Layer.svelte` story related to blur filters ([#31](https://github.com/graph-paper-org/graph-paper/pull/31))
 - Fix a couple of remaining vertical-centering issues the `Option` component
 
 ## 0.0.0-alpha.13
