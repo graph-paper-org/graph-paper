@@ -52,14 +52,14 @@
   $: if (scaling) updateExtents(yExtents, key, data, y);
 
   $: lineGenerator = SHAPE.line()
-    .x((d) => (useXScale ? $xScale(d[x]) : d[x]))
-    .y((d) => (useYScale ? $yScale(d[y]) : d[y]))
+    .x((d) => (useXScale ? $xScale(d[x]) : d[x]) + ($xScale.type === 'scaleBand' ? $xScale.bandwidth() / 2 : 0))
+    .y((d) => (useYScale ? $yScale(d[y]) : d[y]) + ($yScale.type === 'scaleBand' ? $yScale.bandwidth() / 2 : 0))
     .defined((d) => d[x] !== undefined && d[y] !== undefined)
     .curve(curveFunction);
 
   $: areaGenerator = SHAPE.area()
-    .x((d) => $xScale(d[x]))
-    .y1((d) => $yScale(d[y]))
+    .x((d) => $xScale(d[x]) + ($xScale.type === 'scaleBand' ? $xScale.bandwidth() / 2 : 0))
+    .y1((d) => $yScale(d[y]) + ($yScale.type === 'scaleBand' ? $yScale.bandwidth() / 2 : 0))
     .y0($yScale.range()[0])
     .defined((d) => d[x] !== undefined && d[y] !== undefined)
     .curve(curveFunction);

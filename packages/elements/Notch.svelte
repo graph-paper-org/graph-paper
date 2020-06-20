@@ -15,7 +15,7 @@
 
   export let size = 1;
   export let pad = 0;
-  export let alpha = .6;
+  export let alpha = 1;
   export let color = "black";
 
   const xScale = getContext("xScale") || writable((v) => v);

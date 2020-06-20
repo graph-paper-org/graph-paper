@@ -4,7 +4,7 @@ import { cubicOut as easing } from 'svelte/easing';
 import { randomNormal } from 'd3-random'
 import { DataGraphic } from '../../../datagraphic';
 import { Axis } from '../../../guides';
-import { Bar, LineRange, Point, Notch } from '../../../elements'
+import { Bar, LineRange, Point, Notch, Line, Band } from '../../../elements'
 
 const LENGTH = 6;
 
@@ -240,6 +240,57 @@ let size = 1;
         <Notch y={notch} x={y}  color=var(--digital-blue-400) />
       {/each}
     {/each}
+  </g>
+</DataGraphic>
+
+
+
+
+
+<DataGraphic
+  {width}
+  {height}
+  xType=linear
+  yType=scaleBand
+  yDomain={domain}
+  xDomain={[0, 100]}
+  yInnerPadding={innerY}
+  yOuterPadding={outerY}
+>
+  <g slot=background>
+    <Axis {tickColor} side=left lineStyle=short />
+    <Axis {tickColor} side=bottom lineStyle=long />
+  </g>
+  <g slot=body>
+      <Band scaling={false} data={$values} yMin=y yMax=y x=xMin xEnd=xMax color=var(--digital-blue-100)  />
+      <Band scaling={false} data={$values} yMin=y yMax=y x=x25 xEnd=x75 color=var(--digital-blue-200) />
+      <Line scaling={false} data={$values} x=median y=y size={3} curve=curveLinear />
+  </g>
+</DataGraphic>
+
+
+
+
+
+
+<DataGraphic
+  {width}
+  {height}
+  yType=linear
+  xType=scaleBand
+  xDomain={domain}
+  yDomain={[0, 100]}
+  xInnerPadding={innerY}
+  xOuterPadding={outerY}
+>
+  <g slot=background>
+    <Axis {tickColor} side=left lineStyle=long />
+    <Axis {tickColor} side=bottom lineStyle=short />
+  </g>
+  <g slot=body>
+      <Band data={$values} x=y yMin=xMin yMax=xMax  color=var(--digital-blue-100) />
+      <Band data={$values} x=y yMin=x25 yMax=x75  color=var(--digital-blue-200) />
+      <Line scaling={false} data={$values} y=median x=y size={3} curve=curveLinear />
   </g>
 </DataGraphic>
 
