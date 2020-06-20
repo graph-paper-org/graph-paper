@@ -76,7 +76,9 @@
   }
 
   .slot {
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 12px;
+    fill: var(--cool-gray-750);
   }
 </style>
 
@@ -97,10 +99,6 @@
   bottom={300}>
 
   <g slot="annotation" let:left let:right let:top let:bottom let:xScale>
-  <mask id="myMask">
-    <!-- Everything under a white pixel will be visible -->
-    <rect x="0" y="0" width="100" height="100" fill="white" />
-  </mask>
     <g class:folded={!unfolded} class="layer" style="--tr: 2">
       {#if unfolded}
         <rect
@@ -115,8 +113,7 @@
           transition:fly={flyParams}
           x={right + 6}
           y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+        >
           slot=background-body
         </text>
       {/if}
@@ -137,8 +134,7 @@
           transition:fly={flyParams}
           x={right + 6}
           y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+        >
           slot=background
         </text>
       {/if}
@@ -166,8 +162,7 @@
           transition:fly={flyParams}
           x={right + 6}
           y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+        >
           default {'<slot />'}
         </text>
       {/if}
@@ -195,8 +190,7 @@
           transition:fly={flyParams}
           x={right + 6}
           y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+        >
           slot=body
         </text>
       {/if}
@@ -221,8 +215,7 @@
           transition:fly={flyParams}
           x={right + 6}
           y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+        >
           slot=body
         </text>
       {/if}
@@ -282,16 +275,13 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=annotation
         </text>
 
         <g opacity=".1">
           <Marker location={20}>first</Marker>
           <Marker location={72}>second</Marker>
-
         </g>
       {/if}
       <Marker location={20}>first</Marker>
@@ -313,14 +303,10 @@
           stroke-opacity=".5"
           stroke-width="1"
           stroke-dasharray="5,1" />
-        <!-- <rect transition:fade={fadeParams} x={left} y={top} width={right - left} height={bottom - top} fill="hsl(197, 54%, 99.5%)" fill-opacity=.85 stroke=var(--cool-gray-150) stroke-opacity=.5 stroke-width=2 /> -->
         <text
-          class="slot"
-          transition:fly={flyParams}
+          class="slot" transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=interaction
         </text>
       {/if}
