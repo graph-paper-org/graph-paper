@@ -2,7 +2,10 @@
 
 ## unpublished changes
 
-- Fix performance issues in `Layer.svelte` story related to blur filters ([#31](https://github.com/graph-paper-org/graph-paper/pull/31))
+- Fix bug with infinite loops involving extents and updated data
+  ([#33](https://github.com/graph-paper-org/graph-paper/pull/33))
+- Fix performance issues in `Layer.svelte` story related to blur filters
+  ([#31](https://github.com/graph-paper-org/graph-paper/pull/31))
 - Fix a couple of remaining vertical-centering issues the `Option` component
 
 ## 0.0.0-alpha.13
