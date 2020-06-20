@@ -1,4 +1,6 @@
 import { extent, min, max } from "d3-array";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { get } from "svelte/store";
 /*
 extents
 -------
@@ -22,16 +24,25 @@ export function updateExtents(store, key, data, accessor = undefined) {
       "must pass in a svelte store w/ a subscribe, update, and set method"
     );
   }
-  store.update((storeValue) => {
-    if (!(typeof storeValue === "object" && storeValue !== null)) {
-      throw Error("store value must be an object");
-    }
-    const [minValue, maxValue] = extent(dArray);
-    return {
-      ...storeValue,
-      [key]: { max: maxValue, min: minValue },
-    };
-  });
+
+  const [minValue, maxValue] = extent(dArray);
+
+  const currentValues = get(store)[key];
+  let currentMin;
+  let currentMax;
+  if (currentValues) {
+    currentMin = currentValues.min;
+    currentMax = currentValues.max;
+  }
+
+  if (!currentValues || (currentMin !== minValue && currentMax !== maxValue))
+    store.update((storeValue) => {
+      if (!(typeof storeValue === "object" && storeValue !== null)) {
+        throw Error("store value must be an object");
+      }
+      storeValue[key] = { max: maxValue, min: minValue }; // eslint-disable-line
+      return storeValue;
+    });
 }
 
 export function removeExtent(store, k) {
