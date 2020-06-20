@@ -11,6 +11,7 @@
   export let fontSize = 14;
   export let xBuffer = 8;
   export let yBuffer = 3;
+  export let outlineColor = "white";
   export let alignLabels = true;
   export let showPoints = true;
   export let showLabels = true;
@@ -163,7 +164,7 @@
         params={{ damping: 0.9, stiffness: 0.4 }}>
         <text
           filter="url(#outliner)"
-          fill="white"
+          fill={outlineColor}
           data-location={location.yRange}
           font-size={fontSize}>
           <tspan

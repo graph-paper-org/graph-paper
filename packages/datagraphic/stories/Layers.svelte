@@ -68,7 +68,7 @@
     --tr: 0;
     transform: translate(340px, calc(var(--dist) * var(--tr))) rotate(30deg)
       skewX(-30deg) scale(1, 0.8602);
-    transition: transform 300ms;
+    transition: transform 500ms;
   }
 
   .folded {
@@ -76,7 +76,9 @@
   }
 
   .slot {
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 12px;
+    fill: var(--cool-gray-750);
   }
 </style>
 
@@ -95,11 +97,8 @@
   right={200}
   top={300}
   bottom={300}>
-  <filter id="blur1">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
-  </filter>
-  <g slot="annotation" let:left let:right let:top let:bottom let:xScale>
 
+  <g slot="annotation" let:left let:right let:top let:bottom let:xScale>
     <g class:folded={!unfolded} class="layer" style="--tr: 2">
       {#if unfolded}
         <rect
@@ -113,9 +112,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=background-body
         </text>
       {/if}
@@ -135,9 +132,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=background
         </text>
       {/if}
@@ -153,26 +148,30 @@
           y={top}
           width={right - left}
           height={bottom - top}
-          fill="hsl(201, 29%, 94%)"
-          fill-opacity=".8"
+          fill="hsl(201, 29%, 95%)"
+          fill-opacity=".95"
           stroke="var(--cool-gray-400)"
           stroke-width="3"
           stroke-dasharray="10,3"
           stroke-opacity=".4"
-          style="mix-blend-mode: screen;"
           opacity=".8" />
         <text
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           default {'<slot />'}
         </text>
       {/if}
     </g>
-
+    <clipPath id="explanation-annotation">
+      <rect
+        style="--tr: 0;"
+        x={left}
+        y={top}
+        width={right - left}
+        height={bottom - top} />
+    </clipPath>
     <clipPath id="explanation-body">
       <rect
         style="--tr: -1;"
@@ -187,9 +186,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=body
         </text>
       {/if}
@@ -213,9 +210,7 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=body
         </text>
       {/if}
@@ -223,7 +218,7 @@
         <Line data={d.data} color={d.color} />
       {/each}
       {#if unfolded}
-        <g filter="url(#blur1)" opacity=".7">
+        <g opacity=".2">
           <Marker location={20}>first</Marker>
           <Marker location={72}>second</Marker>
           <HorizontalWindow value={$xv} datasets={shadows} let:output>
@@ -233,11 +228,32 @@
               y1={top}
               y2={bottom}
               stroke="var(--cool-gray-300)" />
-            <MetricMouseover formatValue={f} point={output} />
+            <MetricMouseover
+              outlineColor="transparent"
+              formatValue={f}
+              point={output} />
           </HorizontalWindow>
         </g>
       {/if}
 
+    </g>
+
+    <g
+      class:folded={!unfolded}
+      class="layer"
+      style="--tr: -2; clip-path: url(#explanation-annotation); opacity: .15;">
+      <HorizontalWindow value={$xv} datasets={shadows} let:output>
+        <line
+          x1={xScale(output[0].match.x)}
+          x2={xScale(output[0].match.x)}
+          y1={top}
+          y2={bottom}
+          stroke="var(--cool-gray-300)" />
+        <MetricMouseover
+          outlineColor="transparent"
+          formatValue={f}
+          point={output} />
+      </HorizontalWindow>
     </g>
 
     <g class:folded={!unfolded} class="layer" style="--tr: -2;">
@@ -263,24 +279,13 @@
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=annotation
         </text>
 
-        <g filter="url(#blur1)" opacity=".2">
+        <g opacity=".1">
           <Marker location={20}>first</Marker>
           <Marker location={72}>second</Marker>
-          <HorizontalWindow value={$xv} datasets={shadows} let:output>
-            <line
-              x1={xScale(output[0].match.x)}
-              x2={xScale(output[0].match.x)}
-              y1={top}
-              y2={bottom}
-              stroke="var(--cool-gray-300)" />
-            <MetricMouseover formatValue={f} point={output} />
-          </HorizontalWindow>
         </g>
       {/if}
       <Marker location={20}>first</Marker>
@@ -302,14 +307,11 @@
           stroke-opacity=".5"
           stroke-width="1"
           stroke-dasharray="5,1" />
-        <!-- <rect transition:fade={fadeParams} x={left} y={top} width={right - left} height={bottom - top} fill="hsl(197, 54%, 99.5%)" fill-opacity=.85 stroke=var(--cool-gray-150) stroke-opacity=.5 stroke-width=2 /> -->
         <text
           class="slot"
           transition:fly={flyParams}
           x={right + 6}
-          y={top + 12}
-          font-size="12"
-          fill="var(--cool-gray-750)">
+          y={top + 12}>
           slot=interaction
         </text>
       {/if}
