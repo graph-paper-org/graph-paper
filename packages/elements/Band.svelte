@@ -13,7 +13,7 @@
   export let useXScale = true;
   export let useYScale = true;
   export let data;
-  export let scaling = false;
+  export let scaling = true;
   export let x = "x";
   export let xEnd;
   export let yMin = "low";
@@ -30,8 +30,8 @@
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
 
-  let keyMin = `${key}-min`;
-  let keyMax = `${key}-max`;
+  let keyMin = `${key}-ymin`;
+  let keyMax = `${key}-ymax`;
 
   function destroy() {
     if (scaling) removeExtent(yExtents, keyMin);
@@ -45,13 +45,28 @@
     updateExtents(yExtents, keyMax, data, yMax);
   }
 
-  let areaGenerator;
   $: areaGenerator = SHAPE.area()
     .defined((d) => d[yMin] !== undefined && d[yMax] !== undefined)
-    .x((d) => (useXScale ? $xScale(d[x]) : d[x]) + ($xScale.type === 'scaleBand' ? $xScale.bandwidth() / 2 : 0))
-    .x1((d) => (xEnd ? $xScale(d[xEnd]) : $xScale(d[x])) + ($xScale.type === 'scaleBand' ? $xScale.bandwidth() / 2 : 0))
-    .y((d) => (useYScale ? $yScale(d[yMin]) : d[yMin])   + ($yScale.type === 'scaleBand' ? $yScale.bandwidth() / 2 : 0))
-    .y1((d) => (useYScale ? $yScale(d[yMax]) : d[yMax])  + ($yScale.type === 'scaleBand' ? $yScale.bandwidth() / 2 : 0))
+    .x(
+      (d) =>
+        (useXScale ? $xScale(d[x]) : d[x]) +
+        ($xScale.type === "scaleBand" ? $xScale.bandwidth() / 2 : 0)
+    )
+    .x1(
+      (d) =>
+        (xEnd ? $xScale(d[xEnd]) : $xScale(d[x])) +
+        ($xScale.type === "scaleBand" ? $xScale.bandwidth() / 2 : 0)
+    )
+    .y(
+      (d) =>
+        (useYScale ? $yScale(d[yMin]) : d[yMin]) +
+        ($yScale.type === "scaleBand" ? $yScale.bandwidth() / 2 : 0)
+    )
+    .y1(
+      (d) =>
+        (useYScale ? $yScale(d[yMax]) : d[yMax]) +
+        ($yScale.type === "scaleBand" ? $yScale.bandwidth() / 2 : 0)
+    )
     .curve(curveFunction);
 </script>
 

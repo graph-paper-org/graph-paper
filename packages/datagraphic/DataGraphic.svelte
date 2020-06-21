@@ -208,19 +208,14 @@
     return scalePoint;
   }
 
-  function createBasicScale({scaleType, domain, range}) {
-      const scaleFunction = getScaleFunction(xType);
-    return scaleFunction().domain(domain).range(range);
-  }
-
-  function createScale(params) {
-    const scaleType = params.scaleType;
-    const domain = params.domain;
-    const range = params.range;
-  }
-
   // FIXME: refactor.
-  function createPointScale({scaleType, domain, range, innerPadding, outerPadding}) {
+  function createPointScale({
+    scaleType,
+    domain,
+    range,
+    innerPadding,
+    outerPadding,
+  }) {
     const scaleFunction = getScaleFunction(scaleType);
     let scale = scaleFunction().domain(domain).range(range);
     if (scaleType === "scalePoint") {
@@ -230,22 +225,6 @@
       scale = scale.paddingInner(innerPadding).paddingOuter(outerPadding);
     }
     scale.type = scaleType;
-    return scale;
-  }
-
-  // FIXME: refactor.
-  function createYPointScale(values, bottomRange, topRange, innerPadding, outerPadding) {
-    // const scaleFunction = yType === 'scalePoint' ? scalePoint : scaleLinear;
-    const scaleFunction = getScaleFunction(yType);
-
-    let scale = scaleFunction().domain(values).range([bottomRange, topRange]);
-    if (yType === "scalePoint") {
-      scale = scale.padding(innerPadding);
-    }
-    if (yType === "scaleBand") {
-      scale = scale.paddingInner(innerPadding).paddingOuter(outerPadding);
-    }
-    scale.type = yType;
     return scale;
   }
 
@@ -300,10 +279,18 @@
   // w/ all relevant scale arguments.
 
   export let xScaleStore = writable(
-    createPointScale({scaleType: xType, domain: $internalXDomain, range: [$leftPlot, $rightPlot]})
+    createPointScale({
+      scaleType: xType,
+      domain: $internalXDomain,
+      range: [$leftPlot, $rightPlot],
+    })
   );
   export let yScaleStore = writable(
-    createPointScale({scaleType: yType, domain: $internalYDomain, range: [$bottomPlot, $topPlot]})
+    createPointScale({
+      scaleType: yType,
+      domain: $internalYDomain,
+      range: [$bottomPlot, $topPlot],
+    })
   );
 
   export let xScale = $xScaleStore;
@@ -351,16 +338,18 @@
 
   $: $xScaleStore = createPointScale({
     scaleType: xType,
-    domain: $internalXDomain, range: [$leftPlot, $rightPlot],
+    domain: $internalXDomain,
+    range: [$leftPlot, $rightPlot],
     innerPadding: xInnerPadding,
-    outerPadding: xOuterPadding
+    outerPadding: xOuterPadding,
   });
 
   $: $yScaleStore = createPointScale({
     scaleType: yType,
-    domain: $internalYDomain, range: [$bottomPlot, $topPlot],
+    domain: $internalYDomain,
+    range: [$bottomPlot, $topPlot],
     innerPadding: yInnerPadding,
-    outerPadding: yOuterPadding
+    outerPadding: yOuterPadding,
   });
 
   setContext("xScale", xScaleStore);
@@ -540,7 +529,7 @@
     {#each borders as [showBorder, color, size, opacity, x1, x2, y1, y2]}
       {#if showBorder}
         <line
-          shape-rendering=crispEdges
+          shape-rendering="crispEdges"
           {x1}
           {x2}
           {y1}
