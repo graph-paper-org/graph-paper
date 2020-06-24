@@ -2,6 +2,8 @@
 
 ## unpublished changes
 
+- Add new offset props `dx` and `dy` to `AxisLabel.svelte`
+  ([#45](https://github.com/graph-paper-org/graph-paper/pull/45))
 - Fix bug with infinite loops involving extents and updated data
   ([#33](https://github.com/graph-paper-org/graph-paper/pull/33))
 - Fix performance issues in `Layer.svelte` story related to blur filters

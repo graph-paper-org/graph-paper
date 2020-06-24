@@ -70,7 +70,8 @@
     dy: dyInternal,
     "text-anchor": textAnchor,
   };
-  $: containerParams = (dx || dy) ? `transform: translate(${dx || 0}, ${dy || 0})` : undefined;
+  $: containerParams =
+    dx || dy ? `transform: translate(${dx || 0}, ${dy || 0})` : undefined;
 </script>
 
 <g style={containerParams}>
