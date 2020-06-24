@@ -18,6 +18,8 @@
   export let placement;
   export let fontSize = "10px";
   export let fontWeight = "normal";
+  export let dx;
+  export let dy;
 
   $: if (!tickFormatter) {
     tickFormatter = $tickFormatterStore;
@@ -43,12 +45,12 @@
   if (side === "left") textAnchor = "end";
   if (side === "right") textAnchor = "start";
 
-  let dy;
+  let dyInternal;
   $: if (orientation === "y") {
-    dy = ".35em";
+    dyInternal = ".35em";
   } else if (side === "bottom") {
-    dy = "1em";
-  } else dy = undefined;
+    dyInternal = "1em";
+  } else dyInternal = undefined;
 
   $: parameters = {
     [`${response}`]: place(
@@ -65,12 +67,14 @@
       $closestMargin,
       $buffer
     ),
-    dy,
+    dy: dyInternal,
     "text-anchor": textAnchor,
   };
+  $: containerParams =
+    dx || dy ? `transform: translate(${dx || 0}, ${dy || 0})` : undefined;
 </script>
 
-<g>
+<g style={containerParams}>
   <text
     {...parameters}
     style="font-size: {fontSize}; font-weight: {fontWeight};"
