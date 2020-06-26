@@ -1,4 +1,10 @@
+# Node
 node_modules/
 packages/*/node_modules/
 lerna-debug.log
+
+# Editors
 .vscode
+
+# Misc
+.DS_Store
