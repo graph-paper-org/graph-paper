@@ -28,6 +28,7 @@ export function windowIndices({
 }) {
   const lo = firstIndexAbove({ data, value: lowestValue, key });
   const hi = firstIndexAbove({ data, value: highestValue, key });
+
   let current;
   let previous;
   let next;
@@ -37,6 +38,9 @@ export function windowIndices({
     // left edgee
     previous = lo;
     current = lo;
+  } else if (candidate > hi) {
+    previous = hi - 1;
+    current = hi;
   } else if (candidate === data.length) {
     // right edge
     previous = candidate - 2;
@@ -71,7 +75,6 @@ export function window1D({
     lowestValue,
     highestValue,
   });
-
   return {
     previousIndex: previous,
     currentIndex: current,
