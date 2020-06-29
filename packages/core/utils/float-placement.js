@@ -75,7 +75,7 @@ export function placeElement({
   } else if (alignment === "top") {
     top = parentTop;
     // if bottom edge of float is below height
-    if (top + elementHeight > windowHeight) {
+    if (top + elementHeight > windowHeight - pad) {
       // top = parentBottom - elementHeight;
       top = Math.max(pad, windowHeight - elementHeight - pad);
     }
