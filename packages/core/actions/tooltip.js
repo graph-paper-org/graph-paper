@@ -40,10 +40,17 @@ export function tooltip(node, args) {
     el.textContent = newText;
     document.body.appendChild(el);
     el.style.opacity = "0";
-    if (isVisible && entered) {
+    if (newText && isVisible && entered) {
       setTimeout(() => {
+        el.style.visibility = "visible";
         el.style.opacity = "1";
         visible = true;
+      });
+    } else {
+      setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.visibility = "hidden";
+        // visible = false;
       });
     }
     setLocation();

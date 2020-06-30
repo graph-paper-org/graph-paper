@@ -34,6 +34,7 @@ export function placeElement({
   y = 0,
   windowWidth = window.innerWidth,
   windowHeight = window.innerHeight,
+  pad = 16 * 2,
 }) {
   let left;
   let top;
@@ -74,8 +75,9 @@ export function placeElement({
   } else if (alignment === "top") {
     top = parentTop;
     // if bottom edge of float is below height
-    if (top + elementHeight > windowHeight) {
-      top = parentBottom - elementHeight;
+    if (top + elementHeight > windowHeight - pad) {
+      // top = parentBottom - elementHeight;
+      top = Math.max(pad, windowHeight - elementHeight - pad);
     }
   } else if (alignment === "bottom") {
     top = parentBottom - elementHeight;
