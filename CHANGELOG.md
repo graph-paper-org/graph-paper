@@ -1,6 +1,8 @@
 # Changelog
 
-## unpublished changes
+## 0.0.0-alpha.14
+
+Published `2020-06-29`
 
 - Add new offset props `dx` and `dy` to `AxisLabel.svelte`
   ([#45](https://github.com/graph-paper-org/graph-paper/pull/45))
