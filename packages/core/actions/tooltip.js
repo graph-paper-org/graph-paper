@@ -41,17 +41,12 @@ export function tooltip(node, args) {
     document.body.appendChild(el);
     el.style.opacity = "0";
     if (newText && isVisible && entered) {
-      setTimeout(() => {
-        el.style.visibility = "visible";
-        el.style.opacity = "1";
-        visible = true;
-      });
+      el.style.visibility = "visible";
+      el.style.opacity = "1";
+      visible = true;
     } else {
-      setTimeout(() => {
-        el.style.opacity = "0";
-        el.style.visibility = "hidden";
-        // visible = false;
-      });
+      el.style.opacity = "0";
+      el.style.visibility = "hidden";
     }
     setLocation();
   }

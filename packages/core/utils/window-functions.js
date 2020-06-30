@@ -35,7 +35,7 @@ export function windowIndices({
   const candidate = firstIndexAbove({ value, data, key });
 
   if (candidate <= lo) {
-    // left edgee
+    // left edge
     previous = lo;
     current = lo;
   } else if (candidate > hi) {
