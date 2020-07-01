@@ -24,6 +24,6 @@ jobs:
           npx lerna bootstrap
 
       - name: 🚀 Build & deploy storybook
-        run: npm run deploy-storybook -- --ci --source-branch=main
+        run: npm run deploy-storybook -- --ci
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
