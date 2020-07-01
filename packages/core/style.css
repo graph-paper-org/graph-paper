@@ -9,23 +9,6 @@
 }
 
 @font-face {
-  font-family: "Inter var";
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: "Regular";
-  src: url("/static/fonts/inter/Inter-upright.var.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter var";
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: italic;
-  font-named-instance: "Italic";
-  src: url("/static/fonts/inter/Inter-italic.var.woff2") format("woff2");
-}
-
-@font-face {
   font-family: "Metropolis";
   src: url("/static/fonts/metropolis/Metropolis-Black.woff2") format("woff2");
   font-weight: 900;
@@ -48,7 +31,6 @@
 
 :root {
   --brand-font: "Metropolis";
-  --main-text-font: "Inter var";
   --main-mono-font: "Fira Code";
   --root-font-size: 1em;
 
@@ -291,9 +273,8 @@ body {
   color: #333;
   margin: 0;
   box-sizing: border-box;
-  font-family: var(--main-text-font), -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 label {
