@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: 🛎 Checkout repo
         uses: actions/checkout@v2
+        with:
+          ref: main
 
       - name: 🔧 Setup nodejs
         uses: actions/setup-node@v1
