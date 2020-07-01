@@ -13,6 +13,18 @@
     width: 65vw;
   }
 
+  #toolbar {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+  }
+
+  #filename {
+    font-size: 0.8em;
+    margin: 0;
+  }
+
   #menus {
     background: #fff;
     display: grid;
@@ -61,44 +73,47 @@
   --text-decoration: ${formatting.includes('underline') ? 'underline' : 'none'};
   --text-align: ${textAlign};
 `}>
-  <div id="menus">
-    <OptionMenu
-      on:selection={({ detail: { key } }) => {
-        fontSize = key;
-      }}>
-      <Option selected={fontSize === '16px'} key="16px" label="16px" />
-      <Option selected={fontSize === '24px'} key="24px" label="24px" />
-      <Option selected={fontSize === '32px'} key="32px" label="32px" />
-    </OptionMenu>
-    <OptionMenu
-      multi
-      on:selection={({ detail: { keys } }) => {
-        formatting = keys;
-      }}>
-      <Option selected={formatting.includes('bold')} key="bold" label="Bold">
-        <span slot="right" class="bold">B</span>
-      </Option>
-      <Option
-        selected={formatting.includes('italic')}
-        key="italic"
-        label="Italic">
-        <span slot="right" class="italic">I</span>
-      </Option>
-      <Option
-        selected={formatting.includes('underline')}
-        key="underline"
-        label="Underlined">
-        <span slot="right" class="underline">U</span>
-      </Option>
-    </OptionMenu>
-    <OptionMenu
-      on:selection={({ detail: { key } }) => {
-        textAlign = key;
-      }}>
-      <Option selected={textAlign === 'left'} key="left" label="Left" />
-      <Option selected={textAlign === 'center'} key="center" label="Center" />
-      <Option selected={textAlign === 'right'} key="right" label="Right" />
-    </OptionMenu>
+  <div id="toolbar">
+    <input id="filename" type="text" placeholder="Filename" />
+    <div id="menus">
+      <OptionMenu
+        on:selection={({ detail: { key } }) => {
+          fontSize = key;
+        }}>
+        <Option selected={fontSize === '16px'} key="16px" label="16px" />
+        <Option selected={fontSize === '24px'} key="24px" label="24px" />
+        <Option selected={fontSize === '32px'} key="32px" label="32px" />
+      </OptionMenu>
+      <OptionMenu
+        multi
+        on:selection={({ detail: { keys } }) => {
+          formatting = keys;
+        }}>
+        <Option selected={formatting.includes('bold')} key="bold" label="Bold">
+          <span slot="right" class="bold">B</span>
+        </Option>
+        <Option
+          selected={formatting.includes('italic')}
+          key="italic"
+          label="Italic">
+          <span slot="right" class="italic">I</span>
+        </Option>
+        <Option
+          selected={formatting.includes('underline')}
+          key="underline"
+          label="Underlined">
+          <span slot="right" class="underline">U</span>
+        </Option>
+      </OptionMenu>
+      <OptionMenu
+        on:selection={({ detail: { key } }) => {
+          textAlign = key;
+        }}>
+        <Option selected={textAlign === 'left'} key="left" label="Left" />
+        <Option selected={textAlign === 'center'} key="center" label="Center" />
+        <Option selected={textAlign === 'right'} key="right" label="Right" />
+      </OptionMenu>
+    </div>
   </div>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum congue
