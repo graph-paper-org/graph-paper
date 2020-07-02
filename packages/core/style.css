@@ -240,12 +240,8 @@
   --elevation-1h: 0px 0px var(--space-1h) var(--cool-gray-600);
   --elevation-2x: 0px 0px var(--space-2x) var(--cool-gray-600);
 
-  /* --darkest: rgb(25, 26, 36); */
-
-  /* --column-grid: [left] var(--drawer-width) [body] auto; */
   --column-grid: [left] max-content [body] auto;
 
-  /* --nav-drawer-height: calc(100vh - var(--header-height)); */
   --nav-drawer-height: 100vh;
 
   /* curves and pads for small elements */
@@ -269,7 +265,6 @@ body {
 
 body {
   font-size: var(--root-font-size);
-  /* background-color: var(--bg-gray-01); */
   color: #333;
   margin: 0;
   box-sizing: border-box;
@@ -319,8 +314,6 @@ button:focus {
 .app-layout {
   display: grid;
   min-height: 100vh;
-  /* align-items: stretch; */
-  /* grid-template-rows: max-content max-content; */
 }
 
 .app-layout--vertical {
@@ -578,7 +571,6 @@ button:focus {
   font-size: var(--text-015);
   line-height: 1rem;
   font-weight: 400;
-  /* font-style: italic; */
 }
 
 .body-text--short-01 {
@@ -666,7 +658,6 @@ button:focus {
 .body-control-row {
   display: grid;
   width: 100%;
-  /* grid-template-columns: auto auto; */
   grid-auto-flow: column;
   grid-column-gap: var(--space-4x);
   justify-content: start;
@@ -716,9 +707,7 @@ button:focus {
 }
 
 .data-table {
-  /* width: 100%; */
   border-spacing: 0px;
-  /* position: relative; */
 }
 
 .data-cell {
@@ -745,7 +734,6 @@ tr .data-cell:first-child {
 
 .data-cell--header {
   --default-background-color: white;
-  /* background-color: white; */
   text-align: right;
 
   vertical-align: end;
@@ -753,9 +741,6 @@ tr .data-cell:first-child {
   text-transform: uppercase;
   font-weight: 600;
   color: var(--cool-gray-600);
-
-  /* z-index: 100; */
-  /* padding-top: var(--space-2x); */
 }
 
 tr:hover .data-cell--header {
