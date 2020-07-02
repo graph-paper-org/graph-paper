@@ -17,6 +17,7 @@
 
   const currentCandidate = writable(undefined);
   const allItems = writable([]);
+  let ref;
 
   setContext("currentCandidate", currentCandidate);
   setContext("allItems", allItems);
@@ -43,11 +44,25 @@
   }
 
   const handleKeypress = (event) => {
+    if (document.activeElement !== ref) return;
+
     const { key } = event;
+
     if (key !== "Tab") event.preventDefault();
-    if (key === "ArrowUp") previous();
-    if (key === "ArrowDown") next();
-    if (key === "Enter") select();
+
+    switch (key) {
+      case "ArrowUp":
+        previous();
+        break;
+      case "ArrowDown":
+        next();
+        break;
+      case "Enter":
+        select();
+        break;
+      default:
+        break;
+    }
   };
 </script>
 
@@ -66,6 +81,6 @@
 
 <svelte:window on:keydown={handleKeypress} />
 
-<ul transition:fly={{ duration: 100, y: -5 }} on:selection>
+<ul bind:this={ref} transition:fly={{ duration: 100, y: -5 }} on:selection>
   <slot />
 </ul>
