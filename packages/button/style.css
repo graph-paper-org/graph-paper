@@ -11,7 +11,6 @@
   padding-left: var(--space-2x);
   padding-right: var(--space-2x);
   font-weight: 500;
-  margin: 0;
   display: flex;
   column-gap: var(--space-base);
   text-align: center;
