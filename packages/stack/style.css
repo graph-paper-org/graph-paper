@@ -6,9 +6,24 @@
   --align-items: normal;
   --align-content: start;
   display: grid;
-  grid-row-gap: var(--space);
   justify-items: var(--justify-items);
   justify-content: var(--justify-content);
   align-items: var(--align-items);
   align-content: var(--align-content);
+}
+
+/*
+This approach, while a bit more involved than setting margin-top for * + *,
+does allow all elements in the stack to smoothly transition using svelte's
+slide.
+*/
+
+.gp-stack > * {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.gp-stack > * + *,
+.gp-stack > :first-child {
+  margin-bottom: var(--space);
 }
