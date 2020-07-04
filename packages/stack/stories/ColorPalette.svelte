@@ -65,7 +65,14 @@
     <Axis side="left" />
     {#each colors as color, i (color.bg)}
       <g transition:fade={{ duration: 200 }}>
-        <Point x={color.value} y="Magma" color={color.bg} size={3} stroke={interpolateMagma(0)} strokeWidth={1} strokeAlpha={.5} />
+        <Point
+          x={color.value}
+          y="Magma"
+          color={color.bg}
+          size={3}
+          stroke={interpolateMagma(0)}
+          strokeWidth={1}
+          strokeAlpha={0.5} />
       </g>
     {/each}
   </DataGraphic>
