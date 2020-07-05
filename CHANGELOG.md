@@ -1,6 +1,6 @@
 # Changelog
 
-## unreeleased
+## unreleased
 
 - Re-implement the `Stack` component to use owl selectors instead of
   `grid-column-gap`
