@@ -10,6 +10,7 @@
     "lint:js": "eslint --ext .js,.svelte .",
     "lint:shell": "shellcheck all create",
     "storybook": "start-storybook -s ./public -p 6006",
+    "build-storybook": "build-storybook -s ./public",
     "deploy-storybook": "storybook-to-ghpages",
     "test": "npm-run-all format:check lint test:jest",
     "test:jest": "jest test --no-cache"
@@ -20,6 +21,7 @@
     "@babel/preset-env": "7.10.3",
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-storysource": "^5.3.18",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@storybook/svelte": "^5.3.18",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
