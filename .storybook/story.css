@@ -1,3 +1,7 @@
+html {
+  font-family: sans-serif;
+}
+
 body.sb-show-main {
   background: none;
   background-color: var(--cool-gray-100);
