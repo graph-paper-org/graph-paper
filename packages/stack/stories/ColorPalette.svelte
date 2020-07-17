@@ -84,12 +84,12 @@
     add color
     <Add size="1em" />
   </Button>
-  <div style="width: var(--space-24x);">
+  <div style="width: var(--space-24x); outline: 1px solid lightgray;">
     <Stack>
       {#each colors as { bg, text, index }, i (index)}
         <button
           on:click={remove(index)}
-          transition:slide={{ duration: 200 }}
+          transition:slide={{ duration: 400 }}
           class="color"
           style="--bg:{bg}; --text: {text};">
           {bg}

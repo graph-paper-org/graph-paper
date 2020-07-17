@@ -18,12 +18,15 @@ does allow all elements in the stack to smoothly transition using svelte's
 slide.
 */
 
+.gp-stack:only-child {
+  height: 100%;
+}
+
 .gp-stack > * {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.gp-stack > * + *,
-.gp-stack > :first-child {
-  margin-bottom: var(--space);
+.gp-stack > * + * {
+  margin-top: var(--space);
 }
