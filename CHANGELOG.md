@@ -1,5 +1,18 @@
 # Changelog
 
+## unreleased
+
+- Re-implement the `Stack` component to use owl selectors instead of
+  `grid-column-gap`
+  ([#56](https://github.com/graph-paper-org/graph-paper/pull/56))
+
+## 0.0.0-alpha.15
+
+Published `2020-07-16`
+
+- Fix issue where `OptionMenu` traps keypresses
+  ([#54](https://github.com/graph-paper-org/graph-paper/pull/54))
+
 ## 0.0.0-alpha.14
 
 Published `2020-06-29`
