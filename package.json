@@ -7,7 +7,7 @@
     "format": "prettier --plugin-search-dir=. --write .",
     "format:check": "prettier --plugin-search-dir=. --check .",
     "lint": "npm-run-all lint:*",
-    "lint:js": "eslint --ext .js,.svelte .",
+    "lint:js": "eslint .",
     "lint:shell": "shellcheck all create",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public",
