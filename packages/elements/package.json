@@ -29,7 +29,7 @@
     "d3-format": "^1.4.3",
     "d3-random": "^2.1.0",
     "d3-scale": "^3.2.1",
-    "d3-scale-chromatic": "^1.5.0",
+    "d3-scale-chromatic": "^2.0.0",
     "d3-time-format": "^2.2.3"
   },
   "gitHead": "37d83ce4b4b2c3f9332fd5b0b892b3ced917dd48"
