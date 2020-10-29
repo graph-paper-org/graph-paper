@@ -1,0 +1,56 @@
+.gp-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gp-modal__backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.gp-modal__wrapper {
+  position: relative;
+  z-index: 1000;
+  max-width: var(--space-60x);
+  border-radius: var(--space-1h);
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.gp-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-base);
+  border-bottom: 1px solid var(--body-gray-01);
+}
+.gp-modal__header h1 {
+  padding: var(--space-base) 0;
+  margin: 0;
+  font-size: var(--text-05);
+  line-height: var(--text-05);
+}
+.gp-modal__header button {
+  margin: -var(--space-2x);
+  margin-left: auto;
+  padding: var(--space-base);
+  font-size: var(--text-05);
+  font-weight: 700;
+  opacity: 0.5;
+  line-height: var(--text-05);
+  border: 0;
+  background: white;
+}
+.gp-modal__content {
+  padding: var(--space-base);
+  max-height: 50vh;
+  overflow: auto;
+}
