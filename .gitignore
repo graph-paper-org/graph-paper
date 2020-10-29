@@ -1,6 +1,7 @@
 # Node
 node_modules/
 packages/*/node_modules/
+packages/*/package-lock.json
 lerna-debug.log
 
 # Editors
