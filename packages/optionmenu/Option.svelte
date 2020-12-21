@@ -21,21 +21,21 @@
   // Just a little more readable
   const enabled = !disabled;
 
-  // If the enabled status of this option changed, update the enabledOptions
-  // store
-  $: if (enabled && !enabledOptions.has(key)) {
-    enabledOptions.add(key, label);
-  } else if (!enabled && enabledOptions.has(key)) {
-    enabledOptions.remove(key);
-  }
+  enabledOptions.subscribe(() => {
+    if (enabled && !enabledOptions.has(key)) {
+      enabledOptions.add(key, label);
+    } else if (!enabled && enabledOptions.has(key)) {
+      enabledOptions.remove(key);
+    }
+  });
 
-  // If this option is enabled the selected status changed, update the
-  // selectedOptions store
-  $: if (enabled && selected && !selectedOptions.has(key)) {
-    selectedOptions.add(key, label);
-  } else if (enabled && !selected && selectedOptions.has(key)) {
-    selectedOptions.remove(key);
-  }
+  selectedOptions.subscribe(() => {
+    if (enabled && selected && !selectedOptions.has(key)) {
+      selectedOptions.add(key, label);
+    } else if (enabled && !selected && selectedOptions.has(key)) {
+      selectedOptions.remove(key);
+    }
+  });
 </script>
 
 <MenuListItem {compact} {key} value={label} hoverable={!disabled}>
