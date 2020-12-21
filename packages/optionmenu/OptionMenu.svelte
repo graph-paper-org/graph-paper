@@ -1,6 +1,7 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { createEventDispatcher, setContext } from "svelte";
+  import { afterUpdate } from "svelte";
   import { CaretDown } from "@graph-paper/icons";
   import { FloatingMenu, MenuList } from "@graph-paper/menu";
   import { onClickOutside } from "@graph-paper/core/utils";
@@ -67,6 +68,11 @@
       dispatch("selection", { key });
     }
   }
+  afterUpdate(() => {
+    // reset any options after updating, in case they've changed
+    selectedOptions.reset();
+    enabledOptions.reset();
+  });
 
   /**
    * Return an array containing all numbers between two numbers, inclusive.
