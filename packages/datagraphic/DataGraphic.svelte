@@ -402,7 +402,7 @@
   class="data-graphic-container"
   style="width: {$graphicWidth}px; height: {$graphicHeight}px;">
   <svg
-    style="width: {$graphicWidth}px; height: {$graphicHeight}px;"
+    style="width: {$graphicWidth + 90}px; height: {$graphicHeight}px;"
     bind:this={svg}
     shape-rendering="auto"
     viewbox="0 0 {$graphicWidth}
