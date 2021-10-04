@@ -25,7 +25,7 @@
     "@graph-paper/datagraphic": "^0.0.0-alpha.15",
     "@graph-paper/guides": "^0.0.0-alpha.15",
     "@graph-paper/icons": "^0.0.0-alpha.15",
-    "d3-array": "^2.4.0",
+    "d3-array": "^3.1.1",
     "d3-format": "^1.4.3",
     "d3-random": "^2.1.0",
     "d3-scale": "^3.2.1",
