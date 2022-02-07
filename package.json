@@ -23,7 +23,7 @@
     "@storybook/addon-storysource": "^6.0.10",
     "@storybook/storybook-deployer": "^2.8.6",
     "@storybook/svelte": "^6.0.12",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^27.5.0",
     "babel-loader": "^8.1.0",
     "d3-dsv": "^1.2.0",
     "d3-random": "^2.1.0",
