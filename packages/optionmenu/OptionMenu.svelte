@@ -1,7 +1,6 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
-  import { createEventDispatcher, setContext } from "svelte";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, createEventDispatcher, setContext } from "svelte";
   import { CaretDown } from "@graph-paper/icons";
   import { FloatingMenu, MenuList } from "@graph-paper/menu";
   import { onClickOutside } from "@graph-paper/core/utils";
