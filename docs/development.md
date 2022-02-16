@@ -1,11 +1,7 @@
 ## Development
 
-1. First, run `npm install` to install all dependencies
-2. Then, run `npx lerna bootstrap` to configure all packages correctly
-
-Finally, run `npm run storybook` to run this project in development mode. Run
-`npm run storybook` to run Storybook, which demonstrates how components can be
-used.
+First, run `npm install` to install all dependencies. Then, run
+`npm run storybook` to run this project in development mode.
 
 ### Code quality
 

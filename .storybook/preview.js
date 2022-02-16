@@ -1,2 +1,2 @@
-import "../packages/core/style.css";
+import "../src/lib/core/style.css";
 import "./story.css";

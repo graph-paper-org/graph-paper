@@ -10,19 +10,16 @@ See the graph-paper storybook at
 
 ## installation
 
-Each package can be installed individually:
+graph-paper is (for now) one big package. Don't worry, when your app is bundled,
+anything not needed should be discarded. Install it as follows:
 
 ```
-npm install --save-dev @graph-paper/datagraphic
-npm install --save-dev @graph-paper/elements
+npm install --save-dev @graph-paper/graph-paper
 ```
-
-TODO: add a single big package.
 
 ## development
 
 1. Run `npm install`
-2. Run `npx lerna bootstrap`
-3. Run `npm run storybook`
+2. Run `npm run storybook`
 
 See the [developer documentation](docs/development.md) for more information.

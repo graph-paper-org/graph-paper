@@ -1,7 +1,11 @@
 # Node
+!.env.example
+.env
+.env.*
+/.svelte-kit
+/build
+/package
 node_modules/
-packages/*/node_modules/
-lerna-debug.log
 
 # Editors
 .vscode
