@@ -9,8 +9,8 @@
   import { format } from "d3-format";
   import { DataGraphic } from "..";
   import Line from "../../elements/Line.svelte";
-  import HorizontalWindow from "../../elements/stories/Line/HorizontalWindow.svelte";
-  import MetricMouseover from "../../elements/stories/Line/MetricMouseover.svelte";
+  import HorizontalWindow from "../../elements/HorizontalWindow.svelte";
+  import MetricMouseover from "../../elements/MetricMouseover.svelte";
   import { Button } from "../../button";
   import { LeftAxis, BottomAxis, Marker } from "../../guides";
 

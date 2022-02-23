@@ -2,7 +2,7 @@
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { getContext } from "svelte";
   import Springable from "./Springable.svelte";
-  import { Point } from "../..";
+  import Point from "./Point.svelte";
 
   export let point = [];
 

@@ -1,7 +1,7 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { getContext } from "svelte";
-  import { window1D } from "../../../core/utils/window-functions";
+  import { window1D } from "../core/utils/window-functions";
 
   export let datasets;
   export let value;

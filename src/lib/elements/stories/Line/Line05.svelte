@@ -11,10 +11,7 @@
   import { LeftAxis, BottomAxis } from "../../../guides";
   import { Button } from "../../../button";
   import { LineChart } from "../../../icons";
-  import { Line } from "../..";
-
-  import HorizontalWindow from "./HorizontalWindow.svelte";
-  import MetricMouseover from "./MetricMouseover.svelte";
+  import { HorizontalWindow, MetricMouseover, Line } from "../..";
 
   export let title = "A Graph";
   export let supertitle;

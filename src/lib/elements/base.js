@@ -7,6 +7,9 @@ import LineRange from "./LineRange.svelte";
 import Notch from "./Notch.svelte";
 import VerticalErrorBar from "./VerticalErrorBar.svelte";
 import Histogram from "./Histogram.svelte";
+import HorizontalWindow from "./HorizontalWindow.svelte";
+import MetricMouseover from "./MetricMouseover.svelte";
+import Window1D from "./Window1D.svelte";
 
 export default {};
 
@@ -20,4 +23,7 @@ export {
   Shape,
   VerticalErrorBar,
   Histogram,
+  HorizontalWindow,
+  MetricMouseover,
+  Window1D,
 };
