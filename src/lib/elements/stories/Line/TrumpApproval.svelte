@@ -4,10 +4,8 @@
   import { format } from "d3-format";
   import { timeFormat } from "d3-time-format";
   import { DataGraphic } from "../../../datagraphic";
-  import { Line, Band } from "../..";
+  import { Line, Band, MetricMouseover, Window1D } from "../..";
   import { Axis, AxisContainer, AxisTick, AxisLabel } from "../../../guides";
-  import Window1D from "./Window1D.svelte";
-  import MetricMouseover from "./MetricMouseover.svelte";
 
   const legendData = Array.from({ length: 20 }).map((_, i) => {
     let y = 0.5 + (Math.random() - 0.5) * 0.05;
