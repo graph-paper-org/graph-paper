@@ -1,8 +1,9 @@
 <script>
   // eslint-disable-next-line import/no-extraneous-dependencies
   import { getContext } from "svelte";
-  import Springable from "./Springable.svelte";
+
   import Point from "./Point.svelte";
+  import Springable from "./Springable.svelte";
 
   export let point = [];
 
@@ -11,7 +12,6 @@
   export let fontSize = 14;
   export let xBuffer = 8;
   export let yBuffer = 3;
-  export let outlineColor = "white";
   export let alignLabels = true;
   export let showPoints = true;
   export let showLabels = true;
@@ -23,9 +23,13 @@
   const leftPlot = getContext("leftPlot");
   const rightPlot = getContext("rightPlot");
   const topPlot = getContext("topPlot");
+  const graphicWidth = getContext("graphicWidth");
   const bottomPlot = getContext("bottomPlot");
 
-  function toLocations(pt, xs, ys, left, right, top, bottom) {
+  export let direction = "right";
+  export let flipAtEdge = "graphic"; // "body", "graphic", or undefined
+
+  function toLocations(pt, xs, ys, left, right, top, bottom, elementHeight) {
     // this is where the boundary condition lives.
     let locations = [
       ...pt.map((p) => ({
@@ -56,8 +60,8 @@
     while (i >= 0) {
       if (i !== middle) {
         const diff = locations[i + 1].yRange - locations[i].yRange;
-        if (diff <= fontSize + yBuffer) {
-          locations[i].yRange -= fontSize + yBuffer - diff;
+        if (diff <= elementHeight + yBuffer) {
+          locations[i].yRange -= elementHeight + yBuffer - diff;
         }
       }
       i -= 1;
@@ -69,8 +73,8 @@
       i = 0;
       while (i < middle) {
         const diff = locations[i + 1].yRange - locations[i].yRange;
-        if (diff <= fontSize + yBuffer) {
-          locations[i + 1].yRange += fontSize + yBuffer - diff;
+        if (diff <= elementHeight + yBuffer) {
+          locations[i + 1].yRange += elementHeight + yBuffer - diff;
         }
         i += 1;
       }
@@ -81,8 +85,8 @@
     while (i < locations.length) {
       if (i !== middle) {
         const diff = locations[i].yRange - locations[i - 1].yRange;
-        if (diff < fontSize + yBuffer) {
-          locations[i].yRange += fontSize + yBuffer - diff;
+        if (diff < elementHeight + yBuffer) {
+          locations[i].yRange += elementHeight + yBuffer - diff;
         }
       }
       i += 1;
@@ -93,7 +97,7 @@
       while (i > 0) {
         const diff = locations[i].yRange - locations[i - 1].yRange;
         if (diff <= fontSize + yBuffer) {
-          locations[i - 1].yRange -= fontSize + yBuffer - diff;
+          locations[i - 1].yRange -= elementHeight + yBuffer - diff;
         }
         i -= 1;
       }
@@ -108,8 +112,14 @@
     $leftPlot,
     $rightPlot,
     $topPlot,
-    $bottomPlot
+    $bottomPlot,
+    fontSize
   );
+  let container;
+  let containerWidths = [];
+  let labelWidth = 0;
+
+  // update locations.
   $: locations = toLocations(
     point,
     $xScale,
@@ -117,10 +127,44 @@
     $leftPlot,
     $rightPlot,
     $topPlot,
-    $bottomPlot
+    $bottomPlot,
+    fontSize
   );
-  let container;
-  let labelWidth = 0;
+  // update containerWidths. We keep track of the last three points.
+  $: if (container && locations) {
+    containerWidths = [
+      ...containerWidths.slice(-2),
+      container.getBoundingClientRect().width,
+    ];
+  }
+
+  // directions: 'left', 'left-plot', 'right-graphic', 'left-graphic'
+
+  // If all the containerWidth histories + the x location are greatre than right plot, then flip.
+  // this prevents jitter at the border region of the flip.
+
+  let fcn = () => true;
+  let internalDirection = direction;
+  $: if (direction === "left") {
+    let flip = flipAtEdge !== undefined;
+    fcn = (c) =>
+      flip &&
+      locations[0].xRange - c <= (flipAtEdge === "body" ? $leftPlot : 0);
+  } else {
+    let flip = flipAtEdge !== undefined;
+
+    fcn = (c) =>
+      flip &&
+      c + locations[0].xRange >=
+        (flipAtEdge === "body" ? $rightPlot : $graphicWidth);
+  }
+  $: if (direction === "right" && containerWidths.every(fcn)) {
+    internalDirection = "left";
+  } else if (direction === "left" && containerWidths.every(fcn)) {
+    internalDirection = "right";
+  } else {
+    internalDirection = direction;
+  }
 
   $: if (container && locations && $xScale && $yScale) {
     labelWidth = Math.max(
@@ -151,47 +195,87 @@
         value={{
           y: location.yRange || 0,
           x:
-            location.xRange +
-            xBuffer +
-            xOffset +
-            (alignLabels ? labelWidth : 0),
+            internalDirection === "right"
+              ? location.xRange +
+                (xBuffer + xOffset + (alignLabels ? labelWidth : 0))
+              : location.xRange - xBuffer - xOffset,
         }}
         let:springValue={v}
         params={{ damping: 0.9, stiffness: 0.4 }}
       >
         <text
           filter="url(#outliner)"
-          fill={outlineColor}
+          fill="white"
           data-location={location.yRange}
           font-size={fontSize}
         >
-          <tspan
-            dy=".35em"
-            class="widths"
-            y={v.y}
-            style="font-weight: bold;"
-            text-anchor="end"
-            x={v.x}
-          >
-            {formatValue(location.y)}
-          </tspan>
-          <tspan dy=".35em" y={v.y} x={v.x}>{location.label}</tspan>
+          {#if internalDirection === "right"}
+            <tspan
+              dy=".35em"
+              style="font-weight: bold;"
+              text-anchor="end"
+              class="widths"
+              y={v.y}
+              x={v.x}
+            >
+              {formatValue(location.y)}
+            </tspan>
+            <tspan dy=".35em" y={v.y} x={v.x}>{location.label}</tspan>
+          {:else}
+            <tspan dy=".35em" y={v.y} x={v.x - labelWidth} text-anchor="end">
+              {location.label}
+            </tspan>
+            <tspan
+              dy=".35em"
+              style="font-weight: bold;"
+              class="widths"
+              text-anchor="end"
+              y={v.y}
+              x={v.x}
+            >
+              {formatValue(location.y)}
+            </tspan>
+          {/if}
         </text>
+
         <text font-size={fontSize}>
-          <tspan
-            fill={location.color}
-            dy=".35em"
-            style="font-weight: bold;"
-            class="widths"
-            y={v.y}
-            text-anchor="end"
-            x={v.x}
-          >
-            {formatValue(location.y)}
-          </tspan>
-          <tspan dy=".35em" y={v.y} x={v.x} class="mc-mouseover-label">
-            {location.label}
-          </tspan>
+          {#if internalDirection === "right"}
+            <tspan
+              fill={location.color}
+              dy=".35em"
+              style="font-weight: bold;"
+              class="widths"
+              y={v.y}
+              text-anchor="end"
+              x={v.x}
+            >
+              {formatValue(location.y)}
+            </tspan>
+            <tspan dy=".35em" y={v.y} x={v.x} class="mc-mouseover-label">
+              {location.label}
+            </tspan>
+          {:else}
+            <tspan
+              dy=".35em"
+              y={v.y}
+              x={v.x - labelWidth}
+              class="mc-mouseover-label"
+              text-anchor="end"
+            >
+              {location.label}
+            </tspan>
+            <tspan
+              fill={location.color}
+              dy=".35em"
+              style="font-weight: bold;"
+              class="widths"
+              text-anchor="end"
+              y={v.y}
+              x={v.x}
+            >
+              {formatValue(location.y)}
+            </tspan>
+          {/if}
         </text>
       </Springable>
     {/each}
