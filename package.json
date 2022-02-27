@@ -45,7 +45,7 @@
     "d3-shape": "^3.1.0",
     "d3-time": "^3.0.0",
     "d3-time-format": "^4.1.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.10.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-import": "^0.13.0",
     "eslint-config-prettier": "^8.3.0",
