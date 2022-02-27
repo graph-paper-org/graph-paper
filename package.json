@@ -1,6 +1,6 @@
 {
   "name": "@graph-paper/graph-paper",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Reusable Svelte components for building data visualizations & data products",
   "type": "module",
   "scripts": {
