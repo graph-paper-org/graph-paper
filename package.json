@@ -50,7 +50,7 @@
     "eslint-config-import": "^0.13.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^26.1.1",
+    "eslint-plugin-jest": "^27.1.6",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "jest": "^27.0.0",
